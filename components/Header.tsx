@@ -3,13 +3,7 @@
 import { useState } from 'react'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { MobileMenu } from '@/components/MobileMenu'
-
-const NAV_LINKS = [
-  { href: '#servicos', label: 'Serviços' },
-  { href: '#projetos', label: 'Projetos' },
-  { href: '#sobre', label: 'Sobre' },
-  { href: '#contato', label: 'Contato' },
-]
+import { NAV_LINKS } from '@/lib/nav-links'
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -52,7 +46,7 @@ export function Header() {
 
           {/* Hamburger — mobile only */}
           <button
-            className="flex md:hidden flex-col justify-center gap-[5px] w-6 h-6"
+            className="flex md:hidden flex-col justify-center gap-1.25 w-6 h-6"
             onClick={() => setMenuOpen(true)}
             aria-label="Abrir menu"
             aria-expanded={menuOpen}
