@@ -47,7 +47,7 @@ export function Hero() {
             borderRadius: 'var(--radius-md)',
           }}
         >
-          Falar pelo WhatsApp
+          Entrar em contato
         </a>
       </div>
     </section>

@@ -1,13 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-
-const NAV_LINKS = [
-  { href: '#servicos', label: 'Serviços' },
-  { href: '#projetos', label: 'Projetos' },
-  { href: '#sobre', label: 'Sobre' },
-  { href: '#contato', label: 'Contato' },
-]
+import { NAV_LINKS } from '@/lib/nav-links'
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -24,6 +18,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     <div
       role="dialog"
       aria-modal="true"
+      aria-hidden={!isOpen}
       aria-label="Menu de navegação"
       className="fixed inset-0 z-50 flex flex-col items-center justify-center transition-opacity duration-300 md:hidden"
       style={{
