@@ -33,7 +33,7 @@ function ProjectCard({
     <div
       className="p-8 flex flex-col gap-6"
       style={{
-        backgroundColor: 'var(--color-surface)',
+        backgroundColor: 'var(--color-bg)',
         border: '1px solid var(--color-border)',
         borderRadius: 'var(--radius-lg)',
       }}
@@ -76,23 +76,32 @@ export function Projects() {
     <section
       id="projetos"
       ref={ref}
-      className="py-24 px-6 md:px-12 lg:px-24 transition-all duration-700"
+      className="py-24 transition-all duration-700"
       style={{
+        backgroundColor: 'var(--color-surface)',
         opacity: isInView ? 1 : 0,
         transform: isInView ? 'translateY(0)' : 'translateY(24px)',
       }}
     >
-      <h2
-        className="font-syne text-3xl md:text-4xl font-bold mb-12"
-        style={{ color: 'var(--color-text-primary)' }}
-      >
-        Projetos
-      </h2>
+      <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
+        <p
+          className="text-xs font-bold tracking-widest uppercase mb-4"
+          style={{ color: 'var(--color-accent)' }}
+        >
+          Cases reais
+        </p>
+        <h2
+          className="font-syne text-3xl md:text-4xl font-bold mb-12"
+          style={{ color: 'var(--color-text-primary)' }}
+        >
+          Projetos
+        </h2>
 
-      <div className="grid md:grid-cols-3 gap-6">
-        {PROJECTS.map((project) => (
-          <ProjectCard key={project.segment} {...project} />
-        ))}
+        <div className="grid md:grid-cols-3 gap-6">
+          {PROJECTS.map((project) => (
+            <ProjectCard key={project.segment} {...project} />
+          ))}
+        </div>
       </div>
     </section>
   )
