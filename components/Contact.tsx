@@ -9,21 +9,30 @@ export function Contact() {
     <section
       id="contato"
       ref={ref}
-      className="py-24 px-6 md:px-12 lg:px-24 transition-all duration-700"
+      className="py-32 transition-all duration-700"
       style={{
+        backgroundColor: 'var(--color-surface)',
         opacity: isInView ? 1 : 0,
         transform: isInView ? 'translateY(0)' : 'translateY(24px)',
       }}
     >
-      <div className="max-w-2xl">
+      <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
+        <p
+          className="text-xs font-bold tracking-widest uppercase mb-6"
+          style={{ color: 'var(--color-accent)' }}
+        >
+          Vamos conversar
+        </p>
+
         <h2
-          className="font-syne text-3xl md:text-4xl font-bold mb-4"
+          className="font-syne text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 max-w-xl"
           style={{ color: 'var(--color-text-primary)' }}
         >
           Tem um projeto em mente?
         </h2>
+
         <p
-          className="text-lg mb-10"
+          className="text-xl mb-12 max-w-md"
           style={{ color: 'var(--color-text-muted)' }}
         >
           Conta o que você precisa.

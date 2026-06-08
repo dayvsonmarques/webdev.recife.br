@@ -17,10 +17,18 @@ const SERVICES = [
   },
 ]
 
-function ServiceCard({ title, description }: { title: string; description: string }) {
+function ServiceCard({
+  title,
+  description,
+  index,
+}: {
+  title: string
+  description: string
+  index: number
+}) {
   return (
     <div
-      className="p-8 transition-all duration-200 hover:-translate-y-1 cursor-default"
+      className="p-8 flex flex-col gap-6 transition-all duration-200 hover:-translate-y-1 cursor-default"
       style={{
         backgroundColor: 'var(--color-surface)',
         border: '1px solid var(--color-border)',
@@ -33,13 +41,23 @@ function ServiceCard({ title, description }: { title: string; description: strin
         e.currentTarget.style.borderColor = 'var(--color-border)'
       }}
     >
-      <h3
-        className="font-syne text-xl font-bold mb-3"
-        style={{ color: 'var(--color-text-primary)' }}
+      <span
+        className="font-syne text-xs tracking-widest"
+        style={{ color: 'var(--color-text-muted)' }}
       >
-        {title}
-      </h3>
-      <p style={{ color: 'var(--color-text-muted)' }}>{description}</p>
+        {String(index + 1).padStart(2, '0')}
+      </span>
+      <div>
+        <h3
+          className="font-syne text-xl font-bold mb-3"
+          style={{ color: 'var(--color-text-primary)' }}
+        >
+          {title}
+        </h3>
+        <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>
+          {description}
+        </p>
+      </div>
     </div>
   )
 }
@@ -51,23 +69,31 @@ export function Services() {
     <section
       id="servicos"
       ref={ref}
-      className="py-24 px-6 md:px-12 lg:px-24 transition-all duration-700"
+      className="py-24 transition-all duration-700"
       style={{
         opacity: isInView ? 1 : 0,
         transform: isInView ? 'translateY(0)' : 'translateY(24px)',
       }}
     >
-      <h2
-        className="font-syne text-3xl md:text-4xl font-bold mb-12"
-        style={{ color: 'var(--color-text-primary)' }}
-      >
-        Serviços
-      </h2>
+      <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
+        <p
+          className="text-xs font-bold tracking-widest uppercase mb-4"
+          style={{ color: 'var(--color-accent)' }}
+        >
+          O que fazemos
+        </p>
+        <h2
+          className="font-syne text-3xl md:text-4xl font-bold mb-12"
+          style={{ color: 'var(--color-text-primary)' }}
+        >
+          Serviços
+        </h2>
 
-      <div className="grid md:grid-cols-3 gap-6">
-        {SERVICES.map((service) => (
-          <ServiceCard key={service.title} {...service} />
-        ))}
+        <div className="grid md:grid-cols-3 gap-6">
+          {SERVICES.map((service, index) => (
+            <ServiceCard key={service.title} index={index} {...service} />
+          ))}
+        </div>
       </div>
     </section>
   )
