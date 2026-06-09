@@ -11,7 +11,7 @@ export function About() {
     <section
       id="sobre"
       ref={ref}
-      className="py-24 transition-all duration-700"
+      className="py-28 transition-all duration-700"
       style={{
         opacity: isInView ? 1 : 0,
         transform: isInView ? 'translateY(0)' : 'translateY(24px)',
@@ -19,7 +19,7 @@ export function About() {
     >
       <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
         <p
-          className="text-xs font-bold tracking-widest uppercase mb-4"
+          className="text-sm font-bold tracking-widest uppercase mb-4"
           style={{ color: 'var(--color-accent)' }}
         >
           O estúdio
@@ -27,14 +27,14 @@ export function About() {
 
         <div className="max-w-2xl">
           <h2
-            className="font-syne text-3xl md:text-4xl font-bold mb-8"
+            className="font-syne text-4xl md:text-5xl font-bold mb-8"
             style={{ color: 'var(--color-text-primary)' }}
           >
             Sobre
           </h2>
 
           <p
-            className="text-lg leading-relaxed mb-10"
+            className="text-xl leading-relaxed mb-10"
             style={{ color: 'var(--color-text-muted)' }}
           >
             Web Dev Recife é um estúdio independente de desenvolvimento web com foco em comércio
@@ -46,7 +46,7 @@ export function About() {
             {INDICATORS.map((indicator) => (
               <span
                 key={indicator}
-                className="px-4 py-2 text-sm"
+                className="px-4 py-2 text-base"
                 style={{
                   backgroundColor: 'var(--color-surface)',
                   color: 'var(--color-text-muted)',
