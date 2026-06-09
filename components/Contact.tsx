@@ -18,7 +18,7 @@ export function Contact() {
     >
       <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
         <p
-          className="text-xs font-bold tracking-widest uppercase mb-6"
+          className="text-sm font-bold tracking-widest uppercase mb-6"
           style={{ color: 'var(--color-accent)' }}
         >
           Vamos conversar
@@ -32,7 +32,7 @@ export function Contact() {
         </h2>
 
         <p
-          className="text-xl mb-12 max-w-md"
+          className="text-2xl mb-12 max-w-md"
           style={{ color: 'var(--color-text-muted)' }}
         >
           Conta o que você precisa.
@@ -42,7 +42,7 @@ export function Contact() {
           href="https://wa.me/55"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block px-8 py-4 font-syne font-bold text-sm tracking-wide transition-opacity hover:opacity-90"
+          className="inline-block px-8 py-4 font-syne font-bold text-base tracking-wide transition-opacity hover:opacity-90"
           style={{
             backgroundColor: 'var(--color-accent)',
             color: '#0A0A0A',
