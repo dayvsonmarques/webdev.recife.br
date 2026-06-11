@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Syne, DM_Sans } from 'next/font/google'
 import { Providers } from '@/components/Providers'
-import './globals.css'
+import './globals.scss'
 
 const syne = Syne({
   subsets: ['latin'],

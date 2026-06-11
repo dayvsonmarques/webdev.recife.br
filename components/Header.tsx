@@ -18,31 +18,35 @@ export function Header() {
           transition: 'background-color 0.2s ease',
         }}
       >
-        <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 flex items-center justify-between py-4">
+        <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 flex items-center py-4">
           <a
             href="#"
-            className="font-syne text-xl font-bold"
+            className="font-mono text-xl font-bold tracking-tight"
             style={{ color: 'var(--color-text-primary)' }}
             aria-label="Web Dev Recife — início"
           >
-            WDR
+            <span style={{ color: 'var(--color-accent)' }}>&lt;</span>
+            webdev
+            <span style={{ color: 'var(--color-accent)' }}> /&gt;</span>
           </a>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8" aria-label="Navegação principal">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium transition-opacity hover:opacity-100"
-                style={{ color: 'var(--color-text-muted)' }}
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
+          <div className="ml-auto flex items-center gap-8">
+            {/* Desktop nav */}
+            <nav className="hidden md:flex items-center gap-8" aria-label="Navegação principal">
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="text-base font-bold uppercase tracking-widest transition-colors"
+                  style={{ color: 'var(--color-text-primary)' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-accent)')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-text-primary)')}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
 
-          <div className="flex items-center gap-3">
             <ThemeToggle />
 
             {/* Hamburger — mobile only */}

@@ -1,0 +1,47 @@
+// ═══════════════════════════════════════════════════════════
+//  🎨 DESIGN TOKENS — edite aqui para customizar as cores
+//
+//  Fluxo: $variavel → :root / html.light → componentes
+//  Altere os valores abaixo e o site inteiro se atualiza.
+// ═══════════════════════════════════════════════════════════
+
+
+// ── Paleta base ──────────────────────────────────────────
+//    Valores "crus" da identidade visual.
+
+$palette-off-black : #0F0F11;
+$palette-slate     : #1E1E24;
+$palette-acid      : #D4FF57;
+$palette-violeta   : #7C3AED;
+$palette-osso      : #F4F4F0;
+
+
+// ── Tokens — Dark Mode (padrão) ──────────────────────────
+
+$dark-bg          : $palette-off-black;
+$dark-surface     : $palette-slate;
+$dark-border      : #2E2E3A;
+$dark-text        : $palette-osso;
+$dark-text-muted  : #8A8A9A;
+$dark-accent      : $palette-violeta;
+$dark-accent-fg   : #FFFFFF;           // texto sobre --color-accent dark
+$dark-accent-2    : $palette-acid;
+
+
+// ── Tokens — Light Mode ───────────────────────────────────
+
+$light-bg         : $palette-osso;
+$light-surface    : #FFFFFF;
+$light-border     : #E2E2EA;
+$light-text       : $palette-off-black;
+$light-text-muted : #6B6B7A;
+$light-accent     : $palette-violeta;
+$light-accent-fg  : #FFFFFF;
+$light-accent-2   : #4A7200;   // Acid escurecido para uso secundário no light
+
+
+// ── Border radius ─────────────────────────────────────────
+
+$radius-sm : 6px;
+$radius-md : 12px;
+$radius-lg : 20px;

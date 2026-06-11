@@ -1,0 +1,51 @@
+@use '../styles/tokens' as *;
+
+@import "tailwindcss";
+
+@theme {
+  --font-syne : var(--font-syne-var), sans-serif;
+  --font-dm   : var(--font-dm-var), sans-serif;
+}
+
+// ── Dark Mode (padrão) ────────────────────────────────────
+
+:root {
+  --color-bg           : #{$dark-bg};
+  --color-surface      : #{$dark-surface};
+  --color-border       : #{$dark-border};
+  --color-text-primary : #{$dark-text};
+  --color-text-muted   : #{$dark-text-muted};
+  --color-accent       : #{$dark-accent};
+  --color-accent-fg    : #{$dark-accent-fg};
+  --color-accent-2     : #{$dark-accent-2};
+
+  --radius-sm : #{$radius-sm};
+  --radius-md : #{$radius-md};
+  --radius-lg : #{$radius-lg};
+}
+
+// ── Light Mode ────────────────────────────────────────────
+
+html.light {
+  --color-bg           : #{$light-bg};
+  --color-surface      : #{$light-surface};
+  --color-border       : #{$light-border};
+  --color-text-primary : #{$light-text};
+  --color-text-muted   : #{$light-text-muted};
+  --color-accent       : #{$light-accent};
+  --color-accent-fg    : #{$light-accent-fg};
+  --color-accent-2     : #{$light-accent-2};
+}
+
+// ── Base ──────────────────────────────────────────────────
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  transition: background-color 0.2s ease, color 0.2s ease;
+  -webkit-font-smoothing: antialiased;
+}
