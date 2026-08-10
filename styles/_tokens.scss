@@ -9,11 +9,11 @@
 // ── Paleta base ──────────────────────────────────────────
 //    Valores "crus" da identidade visual.
 
-$palette-off-black : #0F0F11;
-$palette-slate     : #1E1E24;
+$palette-off-black : #0A0A0A;
+$palette-slate     : #1A1A1A;
 $palette-acid      : #D4FF57;
 $palette-violeta   : #7C3AED;
-$palette-osso      : #F4F4F0;
+$palette-osso      : #E8E8E8;
 
 
 // ── Tokens — Dark Mode (padrão) ──────────────────────────
@@ -31,7 +31,7 @@ $dark-accent-2    : $palette-acid;
 // ── Tokens — Light Mode ───────────────────────────────────
 
 $light-bg         : $palette-osso;
-$light-surface    : #FFFFFF;
+$light-surface    : #F4F4F4;
 $light-border     : #E2E2EA;
 $light-text       : $palette-off-black;
 $light-text-muted : #6B6B7A;

@@ -105,7 +105,7 @@ function ServiceCard({
 
       <div>
         <h3
-          className="font-syne text-2xl font-bold mb-3"
+          className="font-syne text-3xl font-bold mb-3"
           style={{ color: 'var(--color-text-primary)' }}
         >
           {title}
@@ -139,11 +139,17 @@ export function Services() {
           O que fazemos
         </p>
         <h2
-          className="font-syne text-4xl md:text-5xl font-bold mb-14"
+          className="font-syne text-5xl md:text-6xl font-bold mb-6"
           style={{ color: 'var(--color-text-primary)' }}
         >
           Serviços
         </h2>
+        <p
+          className="text-xl md:text-2xl leading-relaxed mb-14 max-w-xl"
+          style={{ color: 'var(--color-text-muted)' }}
+        >
+          Lojas online, cardápios digitais e apps de agendamento para negócios locais. Rápido de entregar, fácil de usar.
+        </p>
 
         <div className="grid md:grid-cols-3 gap-6">
           {SERVICES.map((service, index) => (

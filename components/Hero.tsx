@@ -132,20 +132,13 @@ export function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <h1
-              className="font-syne text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.05] mb-8"
+              className="font-syne text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.05] mb-10"
               style={{ color: 'var(--color-text-primary)' }}
             >
               <span className="whitespace-nowrap">Seu negócio</span><br />no digital{' '}
               <br className="hidden md:block" />—{' '}
               <span style={{ color: 'var(--color-accent)' }}>sem complicação.</span>
             </h1>
-
-            <p
-              className="text-xl md:text-2xl leading-relaxed mb-10"
-              style={{ color: 'var(--color-text-muted)' }}
-            >
-              Lojas online, cardápios digitais e apps de agendamento para negócios locais. Rápido de entregar, fácil de usar.
-            </p>
 
             <a
               href="#contato"
