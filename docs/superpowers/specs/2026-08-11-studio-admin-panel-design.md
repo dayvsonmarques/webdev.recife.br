@@ -1,7 +1,7 @@
 # Design: Painel Administrativo do Estúdio (Web Dev Recife)
 
-**Data:** 2026-08-11
-**Status:** Em andamento — pausado antes da Parte 2 (modelo de dados)
+**Data:** 2026-08-11 (atualizado 2026-08-12)
+**Status:** Em andamento — Parte 2 (modelo de dados) iniciada, Projeto parcialmente definido
 **Repositório:** este documento vive em `webdev.recife.br` por conveniência, mas o painel será um **repositório novo e separado** (ver decisão #1). Mover este arquivo para lá quando o repo for criado.
 
 ---
@@ -39,6 +39,31 @@ O estúdio precisa de um painel para:
 
 ---
 
+## Parte 2 — Modelo de dados (🔶 em andamento)
+
+### Projeto — campos de classificação (✅ confirmado pelo usuário)
+
+```
+Projeto
+├── cliente_id         → vínculo com Cliente
+├── tipo                → produtos | serviços | ambos
+├── segmento_id         → FK para tabela Segmento (não enum fixo — ver abaixo)
+├── modalidade[]         → mostruário | retirada na loja | delivery   (múltipla escolha)
+└── (status, prazo, valor, serviços incluídos → ainda em aberto)
+```
+
+- **`modalidade` é multi-select**, não uma escolha única — um projeto pode ter retirada **e** delivery ao mesmo tempo (ex: cardápio de restaurante).
+- **`segmento` é uma tabela própria (`Segmento`), não um enum hardcoded no schema** — decisão explícita para escalabilidade: cadastrar um novo segmento no futuro não deve exigir migração de schema/deploy de código. Seed inicial com os 3 segmentos já definidos pelo usuário:
+  - **Cardápio** (exemplos de negócio, livres — não são um cadastro obrigatório à parte: fruteira, mercado, comida congelada e pronta)
+  - **Moda & Varejo** (exemplos: roupas, loja, comércio geral, relojoaria, joalheria, ourives)
+  - **Agendamentos** (exemplos: barbearia, clínica odontológica, tatuador/estúdio de tatuagem)
+- Os "exemplos de negócio" dentro de cada segmento (fruteira, barbearia, etc.) ficam como **referência/etiqueta livre**, não como um nível de cadastro formal separado — confirmado com o usuário que essa granularidade não é necessária por ora.
+
+### Ainda não definido em Projeto
+Status/workflow, prazo, valor, e como os Serviços prestados se conectam ao Projeto (ver item 2 e 3 da lista "Em aberto" abaixo).
+
+---
+
 ## Escopo — entidades identificadas (não modeladas em detalhe ainda)
 
 | Entidade | Natureza | Origem/equivalente atual |
@@ -54,7 +79,7 @@ O estúdio precisa de um painel para:
 
 ## Em aberto — retomar a partir daqui (Parte 2 em diante)
 
-1. Modelo de dados completo: campos e relacionamentos de Cliente, Projeto, Serviço, Plano, Case, Lead — **nenhum schema Prisma foi definido ainda**.
+1. ~~Classificação do Projeto (tipo/segmento/modalidade)~~ ✅ definido acima. Falta: campos de Cliente, Serviço, Plano, Case, Lead — **nenhum schema Prisma foi definido ainda**.
 2. Workflow de status do Projeto interno (ex: Orçamento → Em andamento → Concluído → Cancelado?) — não definido.
 3. Confirmar se Serviço é uma entidade única compartilhada entre catálogo público e registro interno de entrega, ou duas entidades separadas.
 4. Confirmar provedor de banco (Neon vs alternativa).
