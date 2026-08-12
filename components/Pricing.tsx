@@ -184,7 +184,7 @@ export function Pricing() {
           className="text-xl mb-14 max-w-md"
           style={{ color: 'var(--color-text-muted)' }}
         >
-          Sem contrato de fidelidade. Cancele quando quiser.
+          15 dias grátis para testar. Sem contrato de fidelidade, cancele quando quiser.
         </p>
 
         <div className="grid md:grid-cols-3 gap-6 items-start">
