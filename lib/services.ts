@@ -1,6 +1,5 @@
 import type { ServiceIconId } from '@/components/service-icons'
-
-export type PlanId = 'basico' | 'avancado' | 'expert'
+import type { PlanId } from '@/lib/plans'
 
 export interface Service {
   slug: string
