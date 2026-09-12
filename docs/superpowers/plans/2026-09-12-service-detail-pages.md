@@ -375,7 +375,7 @@ git commit -m "refactor(services): link service cards to detail pages"
 
 Extracts the `PLANS` array currently defined inside `components/Pricing.tsx`, unchanged in content, with an added `id` field so `Service.recommendedPlan` (Task 2) can reference a specific plan.
 
-**Amendment from Task 2's code review:** `PlanId` was defined directly in `lib/services.ts` as a hand-written union (`'basico' | 'avancado' | 'expert'`) because `lib/plans.ts` didn't exist yet. That's backwards ownership — a plan's own id type should live with the plan data, and deriving it from `PLANS` (instead of hand-writing the union a second time) means adding a 4th plan later can't silently drift out of sync with `Service.recommendedPlan`. This task fixes that: `PlanId` now lives in `lib/plans.ts`, derived from `PLANS` itself, and `lib/services.ts` imports it from there instead of declaring it.
+**Amendment from Task 2's code review:** `PlanId` was defined directly in `lib/services.ts` as a hand-written union (`'basico' | 'avancado' | 'expert'`) because `lib/plans.ts` didn't exist yet. That's backwards ownership — a plan's own id type should live with the plan data. This task fixes that: `PlanId` now lives in `lib/plans.ts` as `Plan['id']` (a re-export of the interface's own field type, not a second hand-written copy of the union), and `lib/services.ts` imports it from there instead of declaring it. This still solves the original drift problem — adding a plan to `PLANS` requires widening `Plan['id']` first, which immediately propagates to `Service.recommendedPlan` — it just does it by having one union instead of two, not by "deriving" the type from the array data (a `(typeof PLANS)[number]['id']` phrasing was tried and rejected here: since `PLANS` is typed as `Plan[]`, that expression resolves back to `Plan['id']` anyway, so it added indirection without adding safety).
 
 - [ ] **Step 1: Create `lib/plans.ts`**
 
@@ -383,8 +383,10 @@ Extracts the `PLANS` array currently defined inside `components/Pricing.tsx`, un
 export interface Plan {
   id: 'basico' | 'avancado' | 'expert'
   name: string
+  /** Monthly price in BRL, shown as "R${price}/mês". */
   price: number
   description: string
+  /** Whether this plan gets the "Mais popular" badge on the homepage Planos section. */
   featured: boolean
   features: string[]
 }
@@ -437,8 +439,13 @@ export const PLANS: Plan[] = [
   },
 ]
 
-/** Every valid plan id, derived from `PLANS` itself so it can't drift out of sync. */
-export type PlanId = (typeof PLANS)[number]['id']
+/**
+ * Every valid plan id. This is a re-export of `Plan['id']`, not a separate
+ * hand-written union — adding a plan to `PLANS` first requires widening this
+ * type, which then immediately propagates to anything typed against it (e.g.
+ * `Service.recommendedPlan` in `lib/services.ts`).
+ */
+export type PlanId = Plan['id']
 ```
 
 - [ ] **Step 2: Update `lib/services.ts` to import `PlanId` from here instead of declaring it**

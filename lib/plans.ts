@@ -1,8 +1,10 @@
 export interface Plan {
   id: 'basico' | 'avancado' | 'expert'
   name: string
+  /** Monthly price in BRL, shown as "R${price}/mês". */
   price: number
   description: string
+  /** Whether this plan gets the "Mais popular" badge on the homepage Planos section. */
   featured: boolean
   features: string[]
 }
@@ -55,5 +57,10 @@ export const PLANS: Plan[] = [
   },
 ]
 
-/** Every valid plan id, derived from `PLANS` itself so it can't drift out of sync. */
-export type PlanId = (typeof PLANS)[number]['id']
+/**
+ * Every valid plan id. This is a re-export of `Plan['id']`, not a separate
+ * hand-written union — adding a plan to `PLANS` first requires widening this
+ * type, which then immediately propagates to anything typed against it (e.g.
+ * `Service.recommendedPlan` in `lib/services.ts`).
+ */
+export type PlanId = Plan['id']
