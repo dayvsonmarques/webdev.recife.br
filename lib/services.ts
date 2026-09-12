@@ -15,6 +15,7 @@ export interface Service {
   /** "Who it's for" paragraph for the detail page. */
   forWhom: string
   features: string[]
+  /** Plan highlighted (with a "recomendado" badge) in the detail page's pricing grid. */
   recommendedPlan: PlanId
   /** Pre-filled WhatsApp message for the "test it" CTA. */
   whatsappMessage: string
@@ -39,7 +40,7 @@ export const SERVICES: Service[] = [
       'Domínio próprio (.com.br)',
       'Certificado SSL (HTTPS) incluído',
     ],
-    recommendedPlan: 'avancado',
+    recommendedPlan: 'expert',
     whatsappMessage: 'Olá! Quero testar a Loja Online.',
   },
   {
@@ -60,7 +61,7 @@ export const SERVICES: Service[] = [
       'Aviso de item em falta sem precisar reimprimir nada',
       'Funciona bem mesmo com internet fraca',
     ],
-    recommendedPlan: 'basico',
+    recommendedPlan: 'avancado',
     whatsappMessage: 'Olá! Quero testar o Cardápio Digital.',
   },
   {
@@ -82,6 +83,6 @@ export const SERVICES: Service[] = [
       'Histórico de agendamentos',
     ],
     recommendedPlan: 'avancado',
-    whatsappMessage: 'Olá! Quero testar o Agenda Fácil.',
+    whatsappMessage: 'Olá! Quero testar a Agenda Fácil.',
   },
 ]
