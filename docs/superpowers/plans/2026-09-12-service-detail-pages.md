@@ -741,52 +741,201 @@ git commit -m "fix(nav): make anchor links absolute for cross-page use"
 
 ---
 
-### Task 7: Point the header logo at the homepage
+### Task 7: Point the header logo at the homepage and fix nav link lint errors
 
 **Files:**
 - Modify: `components/Header.tsx`
+- Modify: `components/MobileMenu.tsx`
 
-**Context:** the logo link is currently `href="#"`, which only makes sense on the homepage. Find this block near the top of the file (inside the `<header>`, before the `<nav>`):
+**Context:** the logo link is currently `href="#"`, which only makes sense on the homepage.
 
-```tsx
-          <a
-            href="#"
-            className="font-mono text-xl font-bold tracking-tight"
-            style={{ color: 'var(--color-text-primary)' }}
-            aria-label="Web Dev Recife — início"
-          >
-```
+**Amendment from Task 5's implementation:** Task 6 makes every `NAV_LINKS` entry an absolute path (`/#servicos`, etc.), and this task was going to make the logo `href="/"`. Both `components/Header.tsx` (desktop nav + logo) and `components/MobileMenu.tsx` (mobile nav) render these as plain `<a>` tags — once their hrefs are absolute, Next's `@next/next/no-html-link-for-pages` lint rule flags all of them (same issue Task 5 hit and fixed for `PlanCard`'s CTA — see that task's amendment note for why `next/link` is the correct fix, not just a lint workaround). So this task now converts every internal `<a>` in both files to `next/link`'s `<Link>`, not just the logo's `href`.
 
-- [ ] **Step 1: Change `href="#"` to `href="/"`**
+- [ ] **Step 1: Replace `components/Header.tsx` entirely**
 
 ```tsx
-          <a
+'use client'
+
+import { useState } from 'react'
+import Link from 'next/link'
+import { ThemeToggle } from '@/components/ThemeToggle'
+import { MobileMenu } from '@/components/MobileMenu'
+import { NAV_LINKS } from '@/lib/nav-links'
+
+export function Header() {
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  return (
+    <>
+      <header
+        className="fixed top-0 left-0 right-0 z-40"
+        style={{
+          backgroundColor: 'var(--color-bg)',
+          borderBottom: '1px solid var(--color-border)',
+          transition: 'background-color 0.2s ease',
+        }}
+      >
+        <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 flex items-center py-4">
+          <Link
             href="/"
             className="font-mono text-xl font-bold tracking-tight"
             style={{ color: 'var(--color-text-primary)' }}
             aria-label="Web Dev Recife — início"
           >
+            <span style={{ color: 'var(--color-accent)' }}>&lt;</span>
+            webdev
+            <span style={{ color: 'var(--color-accent)' }}> /&gt;</span>
+          </Link>
+
+          <div className="ml-auto flex items-center gap-8">
+            {/* Desktop nav */}
+            <nav className="hidden md:flex items-center gap-8" aria-label="Navegação principal">
+              {NAV_LINKS.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-base font-bold uppercase tracking-widest transition-colors"
+                  style={{ color: 'var(--color-text-primary)' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-accent)')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-text-primary)')}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+
+            <ThemeToggle />
+
+            {/* Hamburger — mobile only */}
+            <button
+              className="flex md:hidden flex-col justify-center gap-1.5 w-6 h-6"
+              onClick={() => setMenuOpen(true)}
+              aria-label="Abrir menu"
+              aria-expanded={menuOpen}
+            >
+              <span className="block h-px w-full" style={{ backgroundColor: 'var(--color-text-primary)' }} />
+              <span className="block h-px w-full" style={{ backgroundColor: 'var(--color-text-primary)' }} />
+              <span className="block h-px w-4" style={{ backgroundColor: 'var(--color-text-primary)' }} />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <MobileMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+    </>
+  )
+}
 ```
 
-- [ ] **Step 2: Type-check**
+The only changes from the current file: the new `import Link from 'next/link'` line, the logo `<a href="#" ...>` becoming `<Link href="/" ...>` (and its matching closing tag), and the desktop nav's `<a key={link.href} href={link.href} ...>` becoming `<Link key={link.href} href={link.href} ...>` (and its matching closing tag). Everything else — including the `onMouseEnter`/`onMouseLeave` inline handlers on the nav links — stays exactly as it is; that pre-existing hover pattern is not part of this task's scope.
+
+- [ ] **Step 2: Replace `components/MobileMenu.tsx` entirely**
+
+```tsx
+'use client'
+
+import { useEffect } from 'react'
+import Link from 'next/link'
+import { NAV_LINKS } from '@/lib/nav-links'
+
+interface MobileMenuProps {
+  isOpen: boolean
+  onClose: () => void
+}
+
+export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [isOpen])
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-hidden={!isOpen}
+      aria-label="Menu de navegação"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center transition-opacity duration-300 md:hidden"
+      style={{
+        backgroundColor: 'var(--color-bg)',
+        opacity: isOpen ? 1 : 0,
+        pointerEvents: isOpen ? 'auto' : 'none',
+      }}
+    >
+      <button
+        onClick={onClose}
+        className="absolute top-6 right-6 w-8 h-8 flex items-center justify-center"
+        style={{ color: 'var(--color-text-muted)' }}
+        aria-label="Fechar menu"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+
+      <nav className="flex flex-col items-center gap-8">
+        {NAV_LINKS.map((link, i) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            onClick={onClose}
+            className="font-syne text-4xl font-bold uppercase tracking-widest transition-all duration-300"
+            style={{
+              color: 'var(--color-text-primary)',
+              transform: isOpen ? 'translateY(0)' : 'translateY(16px)',
+              opacity: isOpen ? 1 : 0,
+              transitionDelay: isOpen ? `${i * 60}ms` : '0ms',
+            }}
+          >
+            {link.label}
+          </Link>
+        ))}
+      </nav>
+    </div>
+  )
+}
+```
+
+The only changes from the current file: the new `import Link from 'next/link'` line, and `<a key={link.href} href={link.href} onClick={onClose} ...>` becoming `<Link key={link.href} href={link.href} onClick={onClose} ...>` (and its matching closing tag). `Link` forwards `onClick` to the underlying `<a>` exactly like a plain anchor, so tapping a link still closes the mobile menu.
+
+- [ ] **Step 3: Type-check and lint**
 
 Run: `npx tsc --noEmit`
 Expected: no errors.
 
-- [ ] **Step 3: Verify against the running dev server**
+Run: `npm run lint`
+Expected: no errors from either file. (The known, pre-existing, unrelated `components/Hero.tsx` `react-hooks/set-state-in-effect` error may still appear — that's not yours to fix.)
+
+- [ ] **Step 4: Verify against the running dev server**
 
 ```bash
-curl -s http://localhost:3210/ | grep -o 'aria-label="Web Dev Recife — início"[^>]*' 
-curl -s http://localhost:3210/ | grep -o '<a href="/" [^>]*aria-label="Web Dev Recife'
+curl -s http://localhost:3210/ | grep -o 'aria-label="Web Dev Recife — início"[^>]*'
+curl -s http://localhost:3210/ | grep -o '<a href="/"[^>]*aria-label="Web Dev Recife'
 ```
 
-Expected: the second command returns a match (the logo anchor now has `href="/"`).
-
-- [ ] **Step 4: Commit**
+Expected: the second command returns a match (the logo anchor renders as `<a href="/" ...>` in the final HTML — `next/link`'s `<Link>` still renders to a real `<a>` tag, this is just now generated by Next instead of written by hand).
 
 ```bash
-git add components/Header.tsx
-git commit -m "fix(header): point logo link to homepage root"
+curl -s http://localhost:3210/ | grep -o 'href="/#[a-z]*"' | sort -u
+```
+
+Expected output (5 lines, same as Task 6's check — confirms the desktop nav links still carry the right hrefs after becoming `<Link>`):
+```
+href="/#contato"
+href="/#planos"
+href="/#projetos"
+href="/#servicos"
+href="/#sobre"
+```
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add components/Header.tsx components/MobileMenu.tsx
+git commit -m "fix(nav): use next/link for internal header and menu links
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 ```
 
 ---
@@ -1086,11 +1235,11 @@ Expected: both commands return nothing (confirms the old inline icons and the ol
 - [ ] **Step 4: Review full diff one more time**
 
 ```bash
-git log --oneline -9
+git log --oneline ee73ca8..HEAD
 git diff ee73ca8..HEAD --stat
 ```
 
-Expected: 8 commits since the plan started (Tasks 1, 2, 3, 4, 5, 6, 7, 8), touching exactly the files listed in this plan's task list — no stray changes.
+`ee73ca8` is the commit right before this plan's work started (it may include a few extra fix-up commits beyond one-per-task, if a code review during execution caught something worth correcting immediately — that's expected, each should have an obviously-related message). Expected: every file in the `--stat` output is one this plan intended to touch — `components/service-icons.tsx`, `lib/services.ts`, `components/Services.tsx`, `lib/plans.ts`, `components/Pricing.tsx`, `lib/nav-links.ts`, `components/Header.tsx`, `components/MobileMenu.tsx`, `app/servicos/[slug]/page.tsx`, plus this plan's own doc file for any amendments made along the way. No unrelated file should appear.
 
 No commit needed for this task — it's verification only.
 
