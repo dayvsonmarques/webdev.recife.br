@@ -19,17 +19,10 @@ function ServiceCard({
   return (
     <Link
       href={`/servicos/${slug}`}
-      className="p-14 flex flex-col items-center text-center gap-6 transition-all duration-200 hover:-translate-y-1"
+      className="p-14 flex flex-col items-center text-center gap-6 border border-[var(--color-border)] transition-all duration-200 hover:-translate-y-1 hover:border-[var(--color-accent)] focus-visible:border-[var(--color-accent)]"
       style={{
         backgroundColor: 'var(--color-surface)',
-        border: '1px solid var(--color-border)',
         borderRadius: 'var(--radius-lg)',
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = 'var(--color-accent)'
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = 'var(--color-border)'
       }}
     >
       <div style={{ color: 'var(--color-accent)' }}>{SERVICE_ICONS[icon]}</div>

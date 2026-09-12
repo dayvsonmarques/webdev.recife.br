@@ -225,6 +225,8 @@ git commit -m "feat(services): add shared service data module"
 **Files:**
 - Modify: `components/Services.tsx`
 
+**Amendment from this task's code review:** turning the card from a plain `<div>` into a `<Link>` puts it in the tab order for the first time, but the original hover border-color effect was bound only to `onMouseEnter`/`onMouseLeave` — a keyboard user tabbing to a card would never see it. The fix moves the border color to Tailwind's `hover:` and `focus-visible:` variants (matching the convention already used elsewhere in this codebase, e.g. `Contact.tsx`, `Hero.tsx`, `Pricing.tsx`) instead of imperative DOM mutation, so both input methods get the same affordance. The code block below already reflects this fix.
+
 **Full replacement content for `components/Services.tsx`:**
 
 - [ ] **Step 1: Replace the entire file**
@@ -251,17 +253,10 @@ function ServiceCard({
   return (
     <Link
       href={`/servicos/${slug}`}
-      className="p-14 flex flex-col items-center text-center gap-6 transition-all duration-200 hover:-translate-y-1"
+      className="p-14 flex flex-col items-center text-center gap-6 border border-[var(--color-border)] transition-all duration-200 hover:-translate-y-1 hover:border-[var(--color-accent)] focus-visible:border-[var(--color-accent)]"
       style={{
         backgroundColor: 'var(--color-surface)',
-        border: '1px solid var(--color-border)',
         borderRadius: 'var(--radius-lg)',
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = 'var(--color-accent)'
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = 'var(--color-border)'
       }}
     >
       <div style={{ color: 'var(--color-accent)' }}>{SERVICE_ICONS[icon]}</div>
