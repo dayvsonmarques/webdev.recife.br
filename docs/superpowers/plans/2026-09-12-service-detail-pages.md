@@ -483,11 +483,14 @@ git commit -m "feat(pricing): add shared plans data module"
 
 `PlanCard` and `IconCheck` need to be exported so the detail pages (Task 8) can reuse them. `PlanCard`'s highlight styling is driven by the plan's own `featured` flag today — that's renamed to a `highlighted` prop the caller controls, plus an optional `badgeLabel` (defaults to `"Mais popular"`), so a detail page can highlight a *different* plan (the service's recommended one) with different badge text. The CTA link changes from `#contato` to `/#contato` so it still works when `PlanCard` is rendered on a page other than the homepage.
 
+**Amendment from this task's implementation:** an `<a href="/#contato">` trips Next's `@next/next/no-html-link-for-pages` lint rule (`recommended: true`) — any plain `<a>` whose href resolves to a real app route, including a hash on the root route, is flagged in favor of `next/link`. This isn't just a lint appeasement: per `node_modules/next/dist/docs/01-app/03-api-reference/02-components/link.md` § "Scrolling to an `id`", `<Link href="/#hashid">` scrolls to the hash on navigation same as a plain `<a>`, and it additionally accounts for this site's `fixed` header when computing scroll position (the docs call this out explicitly under "Scroll offset with sticky headers") — which a plain `<a>` does not. The code below already uses `<Link>`. The same fix is needed anywhere else in this plan that turns a same-app hash link into an absolute path — see the amendment note on Task 7.
+
 - [ ] **Step 1: Replace the entire file**
 
 ```tsx
 'use client'
 
+import Link from 'next/link'
 import { useInView } from '@/hooks/useInView'
 import { PLANS } from '@/lib/plans'
 
@@ -591,7 +594,7 @@ export function PlanCard({
         ))}
       </ul>
 
-      <a
+      <Link
         href="/#contato"
         className="mt-auto block text-center px-6 py-3 font-syne font-bold text-sm uppercase tracking-widest transition-opacity hover:opacity-80"
         style={
@@ -601,7 +604,7 @@ export function PlanCard({
         }
       >
         Começar agora
-      </a>
+      </Link>
     </div>
   )
 }
@@ -683,7 +686,9 @@ Expected: `Mais popular` (still shows on the homepage's featured plan — confir
 
 ```bash
 git add components/Pricing.tsx
-git commit -m "refactor(pricing): decouple plan card highlight from data"
+git commit -m "refactor(pricing): decouple plan card highlight from data
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 ```
 
 ---

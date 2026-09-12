@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useInView } from '@/hooks/useInView'
 import { PLANS } from '@/lib/plans'
 
@@ -103,7 +104,7 @@ export function PlanCard({
         ))}
       </ul>
 
-      <a
+      <Link
         href="/#contato"
         className="mt-auto block text-center px-6 py-3 font-syne font-bold text-sm uppercase tracking-widest transition-opacity hover:opacity-80"
         style={
@@ -113,7 +114,7 @@ export function PlanCard({
         }
       >
         Começar agora
-      </a>
+      </Link>
     </div>
   )
 }
