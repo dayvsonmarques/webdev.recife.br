@@ -39,7 +39,7 @@ export default async function ServicePage({
       <Header />
 
       <section className="min-h-screen flex flex-col justify-center pt-28 pb-20">
-        <div className="max-w-4xl mx-auto w-full px-6 md:px-8 lg:px-12">
+        <div className="max-w-6xl mx-auto w-full px-6 md:px-8 lg:px-12">
           <Link
             href="/#servicos"
             className="inline-block text-sm font-bold tracking-widest uppercase mb-8"
@@ -83,7 +83,7 @@ export default async function ServicePage({
       </section>
 
       <section className="py-28">
-        <div className="max-w-4xl mx-auto px-6 md:px-8 lg:px-12">
+        <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
           <p
             className="text-sm font-bold tracking-widest uppercase mb-4"
             style={{ color: 'var(--color-accent)' }}
@@ -112,7 +112,7 @@ export default async function ServicePage({
       </section>
 
       <section className="py-28" style={{ backgroundColor: 'var(--color-surface)' }}>
-        <div className="max-w-4xl mx-auto px-6 md:px-8 lg:px-12">
+        <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
           <h2
             className="font-syne text-4xl md:text-5xl font-bold mb-10"
             style={{ color: 'var(--color-text-primary)' }}
@@ -157,7 +157,7 @@ export default async function ServicePage({
                 description={plan.description}
                 features={plan.features}
                 highlighted={plan.id === service.recommendedPlan}
-                badgeLabel="Recomendado pra esse serviço"
+                badgeLabel="Recomendado"
               />
             ))}
           </div>

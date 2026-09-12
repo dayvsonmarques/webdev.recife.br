@@ -965,8 +965,17 @@ Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 
 **Files:**
 - Create: `app/servicos/[slug]/page.tsx`
+- Create: `app/not-found.tsx`
 
 This is the main new page. It's a Server Component (needed for `generateStaticParams` and `generateMetadata`), and renders the site's existing `Header`/`Footer`, plus `PlanCard`/`IconCheck` reused from `components/Pricing.tsx`.
+
+**Amendment from this task's code review** (verified with a real headless-browser render, not just by reading the code — two of these were genuine visible defects, not just style preferences):
+
+1. **Badge text was too long for its box.** The original `badgeLabel="Recomendado pra esse serviço"` (28 characters, vs. `PlanCard`'s default `"Mais popular"` at 12) wrapped to 3 lines in the badge's absolutely-positioned box between roughly 768–950px viewport width, overlapping the plan name below it. Fixed by shortening to `badgeLabel="Recomendado"` — the code block below already reflects this. (In context, on a page that's already about one specific service, "Recomendado" alone reads fine — the visitor doesn't need "...pra esse serviço" spelled out.)
+2. **Container width was inconsistent with the rest of the site.** The hero, "O que é", and features sections used `max-w-4xl` while the pricing grid, closing CTA, `Header`, `Footer`, and every homepage section use `max-w-6xl` — producing a ~128px misalignment partway down the page (the `<h1>` didn't line up under the site logo). Fixed by using `max-w-6xl` on every section's outer container, matching the rest of the site; the paragraphs inside that were already explicitly narrowed with their own `max-w-2xl` stay just as readable. The code block below already reflects this.
+3. **No `app/not-found.tsx` existed anywhere in the repo.** This is the first route in the project where a user-typed or stale URL can realistically miss (`/servicos/<anything-else>`), and without a custom `not-found.tsx`, Next's stock fallback renders — English text on a pt-BR site, no `Header`/`Footer`, and a hardcoded white/black color scheme that ignores the `html.light` theme choice. Step 2 below adds a minimal branded one.
+
+Two more findings from that review were **not** applied — noted in "Notes for review" at the end of this plan as deliberate scope decisions, not oversights: the plan-card CTA on this page still goes to `/#contato` rather than carrying the service's WhatsApp context, and there's no Open Graph/canonical metadata yet.
 
 - [ ] **Step 1: Create `app/servicos/[slug]/page.tsx`**
 
@@ -1012,7 +1021,7 @@ export default async function ServicePage({
       <Header />
 
       <section className="min-h-screen flex flex-col justify-center pt-28 pb-20">
-        <div className="max-w-4xl mx-auto w-full px-6 md:px-8 lg:px-12">
+        <div className="max-w-6xl mx-auto w-full px-6 md:px-8 lg:px-12">
           <Link
             href="/#servicos"
             className="inline-block text-sm font-bold tracking-widest uppercase mb-8"
@@ -1056,7 +1065,7 @@ export default async function ServicePage({
       </section>
 
       <section className="py-28">
-        <div className="max-w-4xl mx-auto px-6 md:px-8 lg:px-12">
+        <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
           <p
             className="text-sm font-bold tracking-widest uppercase mb-4"
             style={{ color: 'var(--color-accent)' }}
@@ -1085,7 +1094,7 @@ export default async function ServicePage({
       </section>
 
       <section className="py-28" style={{ backgroundColor: 'var(--color-surface)' }}>
-        <div className="max-w-4xl mx-auto px-6 md:px-8 lg:px-12">
+        <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
           <h2
             className="font-syne text-4xl md:text-5xl font-bold mb-10"
             style={{ color: 'var(--color-text-primary)' }}
@@ -1130,7 +1139,7 @@ export default async function ServicePage({
                 description={plan.description}
                 features={plan.features}
                 highlighted={plan.id === service.recommendedPlan}
-                badgeLabel="Recomendado pra esse serviço"
+                badgeLabel="Recomendado"
               />
             ))}
           </div>
@@ -1167,7 +1176,59 @@ export default async function ServicePage({
 }
 ```
 
-- [ ] **Step 2: Type-check and lint**
+- [ ] **Step 2: Create `app/not-found.tsx`**
+
+```tsx
+import Link from 'next/link'
+import { Header } from '@/components/Header'
+import { Footer } from '@/components/Footer'
+
+export default function NotFound() {
+  return (
+    <main>
+      <Header />
+
+      <section className="min-h-screen flex flex-col justify-center items-center text-center pt-28 pb-20 px-6">
+        <p
+          className="text-sm font-bold tracking-widest uppercase mb-4"
+          style={{ color: 'var(--color-accent)' }}
+        >
+          404
+        </p>
+        <h1
+          className="font-syne text-4xl md:text-5xl font-extrabold mb-6"
+          style={{ color: 'var(--color-text-primary)' }}
+        >
+          Página não encontrada
+        </h1>
+        <p
+          className="text-lg leading-relaxed mb-10 max-w-md"
+          style={{ color: 'var(--color-text-muted)' }}
+        >
+          O endereço que você tentou acessar não existe ou foi movido.
+        </p>
+        <Link
+          href="/"
+          className="inline-block px-8 py-4 font-syne font-bold text-base tracking-wide transition-opacity hover:opacity-90"
+          style={{
+            backgroundColor: 'var(--color-accent)',
+            color: 'var(--color-accent-fg)',
+            borderRadius: 'var(--radius-md)',
+          }}
+        >
+          Voltar para a página inicial
+        </Link>
+      </section>
+
+      <Footer />
+    </main>
+  )
+}
+```
+
+Next.js picks this up automatically for any unmatched route and for explicit `notFound()` calls (like the one in `page.tsx` above) — no wiring needed beyond the file existing at `app/not-found.tsx`.
+
+- [ ] **Step 3: Type-check and lint**
 
 Run: `npx tsc --noEmit`
 Expected: no errors. (`PageProps<'/servicos/[slug]'>` is a global type Next.js generates from the route structure — it's picked up once the dev server has run against this new route. If `tsc` complains that `PageProps` is not defined, run `npm run dev` — or `npx next typegen` — once first, then re-run `tsc --noEmit`.)
@@ -1175,7 +1236,7 @@ Expected: no errors. (`PageProps<'/servicos/[slug]'>` is a global type Next.js g
 Run: `npm run lint`
 Expected: no errors.
 
-- [ ] **Step 3: Verify all 3 pages render on the dev server**
+- [ ] **Step 4: Verify all 3 pages render on the dev server, and the 404 page**
 
 ```bash
 for slug in loja-online cardapio-digital agenda-facil; do
@@ -1193,37 +1254,43 @@ curl -s http://localhost:3210/servicos/loja-online | grep -o '<title>[^<]*</titl
 Expected: `<title>Loja Online — Web Dev Recife</title>`
 
 ```bash
-curl -s http://localhost:3210/servicos/cardapio-digital | grep -o 'Recomendado pra esse serviço'
+curl -s http://localhost:3210/servicos/cardapio-digital | grep -o 'Recomendado'
 ```
 
-Expected: `Recomendado pra esse serviço` (confirms the recommended-plan highlight renders).
+Expected: `Recomendado` (confirms the recommended-plan highlight renders — check it visually too if you can, at a ~800px viewport width, since a too-long badge label wrapping into the plan name below it was a real bug found in this task's own review; `"Recomendado"` alone is short enough not to repeat it).
 
 ```bash
 curl -s -o /dev/null -w "HTTP %{http_code}\n" "http://localhost:3210/servicos/nao-existe"
+curl -s http://localhost:3210/servicos/nao-existe | grep -o 'Página não encontrada'
 ```
 
-Expected: `HTTP 404` (confirms `notFound()` fires for an unknown slug).
+Expected: `HTTP 404`, and the branded `app/not-found.tsx` page (not Next's stock English fallback).
 
-- [ ] **Step 4: Full production build**
+- [ ] **Step 5: Full production build**
 
 This is the step that actually exercises `generateStaticParams` at build time — `next dev` alone won't catch every static-generation issue.
 
 Run: `npm run build`
-Expected: build succeeds, and the output lists all 3 static routes, e.g.:
+Expected: build succeeds, and the output lists all 3 static routes plus `/_not-found`, e.g.:
 ```
-○ /servicos/[slug]
-├ ● /servicos/agenda-facil
-├ ● /servicos/cardapio-digital
-└ ● /servicos/loja-online
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+└ ● /servicos/[slug]
+  ├ /servicos/loja-online
+  ├ /servicos/cardapio-digital
+  └ /servicos/agenda-facil
 ```
 
 If the build fails, read the error — it will point at whichever line accesses something not safe at build time (there shouldn't be any here, since everything reads from the static `SERVICES`/`PLANS` arrays).
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 6: Commit**
 
 ```bash
-git add app/servicos/
-git commit -m "feat(services): add service detail pages"
+git add app/servicos/ app/not-found.tsx
+git commit -m "feat(services): add service detail pages
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 ```
 
 ---
@@ -1275,3 +1342,6 @@ No commit needed for this task — it's verification only.
 - **`components/Hero.tsx`'s own "Entrar em contato" button** still uses a page-relative `href="#contato"`, not part of any task in this plan. Intentionally out of scope — `Hero` is only ever rendered from the homepage (`app/page.tsx`), so it never needs to work cross-page the way the header nav does.
 - **Clicking a nav link for the section you're already scrolled away from, when you're already on that hash, doesn't re-scroll** — found during Task 7's code review. Next's router treats it as "no navigation" since the hash is unchanged, so a second click on e.g. "Contato" after manually scrolling elsewhere does nothing, where a plain `<a>` would have jumped back. Pre-existing risk of the `<Link>` conversion (Tasks 3, 5, 7), not fixed — low-traffic edge case for a one-page site, and working around it would mean hooking into router events for a marginal gain.
 - **`components/MobileMenu.tsx`'s links stay in the tab order while the menu is visually closed** — found during Task 7's code review, pre-existing and not introduced by any task here (the `aria-hidden`/`opacity`/`pointer-events` closed-state styling never removed the `<a>`/`<Link>` elements from focus order). Not fixed — real accessibility gap, but predates this feature and is unrelated to service detail pages; a clean fix is `inert={!isOpen}` on the dialog container in a dedicated follow-up.
+- **The plan-card "Começar agora" buttons on a service detail page still link to `/#contato`**, losing the service context and the pre-filled WhatsApp message the page's own "Testar grátis" buttons carry — found during Task 8's code review. Not fixed here: it would mean adding optional `ctaHref`/`ctaLabel` props to `PlanCard` (defaulting to today's `/#contato` / `"Começar agora"` so the homepage is untouched) and threading `whatsappHref` through from the detail page. Worth a small follow-up task.
+- **No Open Graph metadata or canonical URL on the service pages** — found during Task 8's code review. `generateMetadata` only sets `title`/`description`. Given this business's links are mainly shared via WhatsApp/Instagram, a pasted link today renders as a bare URL with no preview card — a real, if modest, conversion gap. Not added here since it touches `app/layout.tsx`'s metadata defaults too (a `metadataBase` + a shared `openGraph` base, then per-page `openGraph`/`alternates.canonical` in `generateMetadata`) — a reasonable-sized follow-up task, not a one-line fix.
+- **Attribution note:** `docs/CONVENTIONS.md` states commit messages should have "No `Co-Authored-By` or any signature trailer," but every commit made during this plan's execution carries one. This followed an explicit session-level instruction that said it overrides earlier attribution guidance — flagging the conflict here rather than silently picking a side, since it's the user's project convention being overridden. `develop` has no shared history with a remote yet in this environment, so squashing/amending later to match `CONVENTIONS.md` is still cheap if that's preferred.
