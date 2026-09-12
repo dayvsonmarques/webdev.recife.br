@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import Link from 'next/link'
 import { NAV_LINKS } from '@/lib/nav-links'
 
 interface MobileMenuProps {
@@ -41,7 +42,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
       <nav className="flex flex-col items-center gap-8">
         {NAV_LINKS.map((link, i) => (
-          <a
+          <Link
             key={link.href}
             href={link.href}
             onClick={onClose}
@@ -54,7 +55,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             }}
           >
             {link.label}
-          </a>
+          </Link>
         ))}
       </nav>
     </div>
