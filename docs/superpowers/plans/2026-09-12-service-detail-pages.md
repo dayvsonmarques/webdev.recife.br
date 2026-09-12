@@ -371,16 +371,17 @@ git commit -m "refactor(services): link service cards to detail pages"
 
 **Files:**
 - Create: `lib/plans.ts`
+- Modify: `lib/services.ts`
 
 Extracts the `PLANS` array currently defined inside `components/Pricing.tsx`, unchanged in content, with an added `id` field so `Service.recommendedPlan` (Task 2) can reference a specific plan.
+
+**Amendment from Task 2's code review:** `PlanId` was defined directly in `lib/services.ts` as a hand-written union (`'basico' | 'avancado' | 'expert'`) because `lib/plans.ts` didn't exist yet. That's backwards ownership — a plan's own id type should live with the plan data, and deriving it from `PLANS` (instead of hand-writing the union a second time) means adding a 4th plan later can't silently drift out of sync with `Service.recommendedPlan`. This task fixes that: `PlanId` now lives in `lib/plans.ts`, derived from `PLANS` itself, and `lib/services.ts` imports it from there instead of declaring it.
 
 - [ ] **Step 1: Create `lib/plans.ts`**
 
 ```ts
-import type { PlanId } from '@/lib/services'
-
 export interface Plan {
-  id: PlanId
+  id: 'basico' | 'avancado' | 'expert'
   name: string
   price: number
   description: string
@@ -435,17 +436,39 @@ export const PLANS: Plan[] = [
     ],
   },
 ]
+
+/** Every valid plan id, derived from `PLANS` itself so it can't drift out of sync. */
+export type PlanId = (typeof PLANS)[number]['id']
 ```
 
-- [ ] **Step 2: Type-check**
+- [ ] **Step 2: Update `lib/services.ts` to import `PlanId` from here instead of declaring it**
+
+In `lib/services.ts`, replace:
+
+```ts
+import type { ServiceIconId } from '@/components/service-icons'
+
+export type PlanId = 'basico' | 'avancado' | 'expert'
+```
+
+with:
+
+```ts
+import type { ServiceIconId } from '@/components/service-icons'
+import type { PlanId } from '@/lib/plans'
+```
+
+Nothing else in `lib/services.ts` changes — `Service.recommendedPlan: PlanId` still works the same way, it just now points at the derived type instead of a hand-written duplicate of it.
+
+- [ ] **Step 3: Type-check**
 
 Run: `npx tsc --noEmit`
-Expected: no new errors from `lib/plans.ts` itself. (`components/Pricing.tsx` still has its own local `PLANS` at this point, so there's no conflict yet — that's resolved in Task 5.)
+Expected: no new errors from `lib/plans.ts` or `lib/services.ts`. (`components/Pricing.tsx` still has its own local `PLANS` at this point, so there's no conflict yet — that's resolved in Task 5.)
 
-- [ ] **Step 3: Commit**
+- [ ] **Step 4: Commit**
 
 ```bash
-git add lib/plans.ts
+git add lib/plans.ts lib/services.ts
 git commit -m "feat(pricing): add shared plans data module"
 ```
 
