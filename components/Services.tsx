@@ -6,7 +6,7 @@ import { useInView } from '@/hooks/useInView'
 function IconBag() {
   return (
     <svg
-      width="28" height="28" viewBox="0 0 24 24"
+      width="100" height="100" viewBox="0 0 24 24"
       fill="none" stroke="currentColor"
       strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
     >
@@ -19,7 +19,7 @@ function IconBag() {
 function IconPhone() {
   return (
     <svg
-      width="28" height="28" viewBox="0 0 24 24"
+      width="100" height="100" viewBox="0 0 24 24"
       fill="none" stroke="currentColor"
       strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
     >
@@ -34,7 +34,7 @@ function IconPhone() {
 function IconCalendar() {
   return (
     <svg
-      width="28" height="28" viewBox="0 0 24 24"
+      width="100" height="100" viewBox="0 0 24 24"
       fill="none" stroke="currentColor"
       strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
     >
@@ -61,7 +61,7 @@ const SERVICES: Array<{ title: string; description: string; icon: ReactNode }> =
     icon: <IconPhone />,
   },
   {
-    title: 'App de Agendamento',
+    title: 'Agenda Fácil',
     description: 'Para salões, clínicas e prestadores de serviço.',
     icon: <IconCalendar />,
   },
@@ -70,17 +70,15 @@ const SERVICES: Array<{ title: string; description: string; icon: ReactNode }> =
 function ServiceCard({
   title,
   description,
-  index,
   icon,
 }: {
   title: string
   description: string
-  index: number
   icon: ReactNode
 }) {
   return (
     <div
-      className="p-8 flex flex-col gap-6 transition-all duration-200 hover:-translate-y-1 cursor-default"
+      className="p-14 flex flex-col items-center text-center gap-6 transition-all duration-200 hover:-translate-y-1 cursor-default"
       style={{
         backgroundColor: 'var(--color-surface)',
         border: '1px solid var(--color-border)',
@@ -93,24 +91,20 @@ function ServiceCard({
         e.currentTarget.style.borderColor = 'var(--color-border)'
       }}
     >
-      <div className="flex items-center justify-between">
-        <div style={{ color: 'var(--color-accent)' }}>{icon}</div>
-        <span
-          className="font-syne text-xs tracking-widest"
-          style={{ color: 'var(--color-text-muted)' }}
-        >
-          {String(index + 1).padStart(2, '0')}
-        </span>
-      </div>
+      <div style={{ color: 'var(--color-accent)' }}>{icon}</div>
 
       <div>
         <h3
-          className="font-syne text-3xl font-bold mb-3"
+          className="font-syne text-5xl font-bold mb-3"
           style={{ color: 'var(--color-text-primary)' }}
         >
-          {title}
+          {title.split(' ').map((word) => (
+            <span key={word} className="block">
+              {word}
+            </span>
+          ))}
         </h3>
-        <p className="text-base leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>
+        <p className="text-xl leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>
           {description}
         </p>
       </div>
@@ -152,8 +146,8 @@ export function Services() {
         </p>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {SERVICES.map((service, index) => (
-            <ServiceCard key={service.title} index={index} {...service} />
+          {SERVICES.map((service) => (
+            <ServiceCard key={service.title} {...service} />
           ))}
         </div>
       </div>
