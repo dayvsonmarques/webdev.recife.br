@@ -41,6 +41,10 @@ html.light {
 
 html {
   scroll-behavior: smooth;
+  // Offsets hash-anchor scroll targets (#servicos, #contato, etc.) so they don't
+  // land underneath the fixed header. Applies to native browser scrollIntoView,
+  // so it fixes both plain <a href="#id"> and next/link hash navigation.
+  scroll-padding-top: 5rem;
 }
 
 body {
