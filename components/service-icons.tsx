@@ -6,6 +6,7 @@ function IconBag() {
       width="100" height="100" viewBox="0 0 24 24"
       fill="none" stroke="currentColor"
       strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+      aria-hidden="true"
     >
       <path d="M16 11V7a4 4 0 00-8 0v4" />
       <path d="M5 9h14l1 12H4L5 9z" />
@@ -19,6 +20,7 @@ function IconPhone() {
       width="100" height="100" viewBox="0 0 24 24"
       fill="none" stroke="currentColor"
       strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+      aria-hidden="true"
     >
       <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
       <line x1="9" y1="8" x2="15" y2="8" />
@@ -34,6 +36,7 @@ function IconCalendar() {
       width="100" height="100" viewBox="0 0 24 24"
       fill="none" stroke="currentColor"
       strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+      aria-hidden="true"
     >
       <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
       <line x1="16" y1="2" x2="16" y2="6" />
