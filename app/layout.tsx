@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Syne, DM_Sans } from 'next/font/google'
 import { Providers } from '@/components/Providers'
+import { TopLoader } from '@/components/TopLoader'
 import './globals.scss'
 
 const syne = Syne({
@@ -31,6 +32,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className={`${syne.variable} ${dmSans.variable} font-dm`}>
+        <TopLoader />
         <Providers>{children}</Providers>
       </body>
     </html>
