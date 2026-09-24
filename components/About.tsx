@@ -19,7 +19,7 @@ export function About() {
     >
       <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
         <p
-          className="text-sm font-bold tracking-widest uppercase mb-4"
+          className="text-eyebrow font-bold tracking-widest uppercase mb-4"
           style={{ color: 'var(--color-accent)' }}
         >
           O estúdio
@@ -27,14 +27,14 @@ export function About() {
 
         <div className="max-w-2xl">
           <h2
-            className="font-syne text-5xl md:text-6xl font-bold mb-8"
+            className="font-syne text-heading font-bold mb-8"
             style={{ color: 'var(--color-text-primary)' }}
           >
             Sobre
           </h2>
 
           <p
-            className="text-xl md:text-2xl leading-relaxed mb-10"
+            className="text-lead mb-10"
             style={{ color: 'var(--color-text-muted)' }}
           >
             Web Dev Recife é um estúdio independente de desenvolvimento web com foco em comércio

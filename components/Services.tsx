@@ -29,7 +29,7 @@ function ServiceCard({
 
       <div>
         <h3
-          className="font-syne text-5xl font-bold mb-3"
+          className="font-syne text-subheading font-bold mb-3"
           style={{ color: 'var(--color-text-primary)' }}
         >
           {title.split(' ').map((word) => (
@@ -38,7 +38,7 @@ function ServiceCard({
             </span>
           ))}
         </h3>
-        <p className="text-xl leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>
+        <p className="text-base leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>
           {summary}
         </p>
       </div>
@@ -61,19 +61,19 @@ export function Services() {
     >
       <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
         <p
-          className="text-sm font-bold tracking-widest uppercase mb-4"
+          className="text-eyebrow font-bold tracking-widest uppercase mb-4"
           style={{ color: 'var(--color-accent)' }}
         >
           O que fazemos
         </p>
         <h2
-          className="font-syne text-5xl md:text-6xl font-bold mb-6"
+          className="font-syne text-heading font-bold mb-6"
           style={{ color: 'var(--color-text-primary)' }}
         >
           Serviços
         </h2>
         <p
-          className="text-xl md:text-2xl leading-relaxed mb-14 max-w-xl"
+          className="text-lead mb-14 max-w-xl"
           style={{ color: 'var(--color-text-muted)' }}
         >
           Lojas online, cardápios digitais e apps de agendamento para negócios locais. Rápido de entregar, fácil de usar.

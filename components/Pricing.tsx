@@ -56,7 +56,7 @@ export function PlanCard({
 
       <div>
         <p
-          className="text-sm font-bold uppercase tracking-widest mb-4"
+          className="text-eyebrow font-bold uppercase tracking-widest mb-4"
           style={{ color: highlighted ? 'var(--color-accent)' : 'var(--color-text-muted)' }}
         >
           {name}
@@ -70,7 +70,7 @@ export function PlanCard({
             R$
           </span>
           <span
-            className="font-syne text-5xl font-extrabold leading-none"
+            className="font-syne text-heading font-extrabold leading-none"
             style={{ color: 'var(--color-text-primary)' }}
           >
             {price}
@@ -134,19 +134,19 @@ export function Pricing() {
     >
       <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
         <p
-          className="text-sm font-bold tracking-widest uppercase mb-4"
+          className="text-eyebrow font-bold tracking-widest uppercase mb-4"
           style={{ color: 'var(--color-accent)' }}
         >
           Investimento
         </p>
         <h2
-          className="font-syne text-5xl md:text-6xl font-bold mb-4"
+          className="font-syne text-heading font-bold mb-4"
           style={{ color: 'var(--color-text-primary)' }}
         >
           Planos
         </h2>
         <p
-          className="text-xl mb-14 max-w-md"
+          className="text-lead mb-14 max-w-md"
           style={{ color: 'var(--color-text-muted)' }}
         >
           7 dias grátis para testar. Sem contrato de fidelidade, cancele quando quiser.

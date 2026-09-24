@@ -38,7 +38,7 @@ export function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-base font-bold uppercase tracking-widest transition-colors"
+                  className="text-sm font-bold uppercase tracking-widest transition-colors"
                   style={{ color: 'var(--color-text-primary)' }}
                   onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-accent)')}
                   onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-text-primary)')}

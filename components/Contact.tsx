@@ -18,21 +18,21 @@ export function Contact() {
     >
       <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
         <p
-          className="text-sm font-bold tracking-widest uppercase mb-6"
+          className="text-eyebrow font-bold tracking-widest uppercase mb-6"
           style={{ color: 'var(--color-accent)' }}
         >
           Vamos conversar
         </p>
 
         <h2
-          className="font-syne text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6 max-w-xl"
+          className="font-syne text-title font-extrabold leading-tight mb-6 max-w-xl"
           style={{ color: 'var(--color-text-primary)' }}
         >
           Tem um projeto em mente?
         </h2>
 
         <p
-          className="text-2xl md:text-3xl mb-12 max-w-md"
+          className="text-lead mb-12 max-w-md"
           style={{ color: 'var(--color-text-muted)' }}
         >
           Conta o que você precisa.

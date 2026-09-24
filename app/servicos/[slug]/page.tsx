@@ -42,7 +42,7 @@ export default async function ServicePage({
         <div className="max-w-6xl mx-auto w-full px-6 md:px-8 lg:px-12">
           <Link
             href="/#servicos"
-            className="inline-block text-sm font-bold tracking-widest uppercase mb-8"
+            className="inline-block text-eyebrow font-bold tracking-widest uppercase mb-8"
             style={{ color: 'var(--color-accent)' }}
           >
             ← Serviços
@@ -53,14 +53,14 @@ export default async function ServicePage({
           </div>
 
           <h1
-            className="font-syne text-5xl md:text-7xl font-extrabold leading-[1.05] mb-6"
+            className="font-syne text-display font-extrabold leading-[1.05] mb-6"
             style={{ color: 'var(--color-text-primary)' }}
           >
             {service.title}
           </h1>
 
           <p
-            className="text-xl md:text-2xl leading-relaxed mb-10 max-w-2xl"
+            className="text-lead mb-10 max-w-2xl"
             style={{ color: 'var(--color-text-muted)' }}
           >
             {service.tagline}
@@ -85,25 +85,25 @@ export default async function ServicePage({
       <section className="py-28">
         <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
           <p
-            className="text-sm font-bold tracking-widest uppercase mb-4"
+            className="text-eyebrow font-bold tracking-widest uppercase mb-4"
             style={{ color: 'var(--color-accent)' }}
           >
             O que é
           </p>
           <p
-            className="text-xl md:text-2xl leading-relaxed mb-10 max-w-2xl"
+            className="text-lead mb-10 max-w-2xl"
             style={{ color: 'var(--color-text-primary)' }}
           >
             {service.description}
           </p>
           <p
-            className="text-sm font-bold tracking-widest uppercase mb-4"
+            className="text-eyebrow font-bold tracking-widest uppercase mb-4"
             style={{ color: 'var(--color-accent)' }}
           >
             Pra quem é
           </p>
           <p
-            className="text-lg leading-relaxed max-w-2xl"
+            className="text-lead max-w-2xl"
             style={{ color: 'var(--color-text-muted)' }}
           >
             {service.forWhom}
@@ -114,7 +114,7 @@ export default async function ServicePage({
       <section className="py-28" style={{ backgroundColor: 'var(--color-surface)' }}>
         <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
           <h2
-            className="font-syne text-4xl md:text-5xl font-bold mb-10"
+            className="font-syne text-heading font-bold mb-10"
             style={{ color: 'var(--color-text-primary)' }}
           >
             O que está incluso
@@ -125,7 +125,7 @@ export default async function ServicePage({
                 <span style={{ color: 'var(--color-accent)', flexShrink: 0 }}>
                   <IconCheck />
                 </span>
-                <span className="text-lg" style={{ color: 'var(--color-text-primary)' }}>
+                <span className="text-base" style={{ color: 'var(--color-text-primary)' }}>
                   {feature}
                 </span>
               </li>
@@ -137,13 +137,13 @@ export default async function ServicePage({
       <section className="py-28">
         <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
           <p
-            className="text-sm font-bold tracking-widest uppercase mb-4"
+            className="text-eyebrow font-bold tracking-widest uppercase mb-4"
             style={{ color: 'var(--color-accent)' }}
           >
             Investimento
           </p>
           <h2
-            className="font-syne text-4xl md:text-5xl font-bold mb-14"
+            className="font-syne text-heading font-bold mb-14"
             style={{ color: 'var(--color-text-primary)' }}
           >
             Planos
@@ -167,7 +167,7 @@ export default async function ServicePage({
       <section className="py-32" style={{ backgroundColor: 'var(--color-surface)' }}>
         <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
           <h2
-            className="font-syne text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 max-w-xl"
+            className="font-syne text-title font-extrabold leading-tight mb-6 max-w-xl"
             style={{ color: 'var(--color-text-primary)' }}
           >
             Pronto pra começar com {service.title}?

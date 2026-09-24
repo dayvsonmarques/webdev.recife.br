@@ -82,7 +82,7 @@ function ProjectCard({
       <BrowserMockup color={mockupColor} accent={accentColor} />
 
       <span
-        className="text-sm font-bold tracking-widest uppercase"
+        className="text-eyebrow font-bold tracking-widest uppercase"
         style={{ color: 'var(--color-accent)' }}
       >
         {segment}
@@ -128,13 +128,13 @@ export function Projects() {
     >
       <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
         <p
-          className="text-sm font-bold tracking-widest uppercase mb-4"
+          className="text-eyebrow font-bold tracking-widest uppercase mb-4"
           style={{ color: 'var(--color-accent)' }}
         >
           Cases reais
         </p>
         <h2
-          className="font-syne text-5xl md:text-6xl font-bold mb-14"
+          className="font-syne text-heading font-bold mb-14"
           style={{ color: 'var(--color-text-primary)' }}
         >
           Projetos
