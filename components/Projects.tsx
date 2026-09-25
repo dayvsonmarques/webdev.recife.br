@@ -83,7 +83,7 @@ function ProjectCard({
 
       <span
         className="text-eyebrow font-bold tracking-widest uppercase"
-        style={{ color: 'var(--color-accent)' }}
+        style={{ color: 'var(--color-accent-text)' }}
       >
         {segment}
       </span>
@@ -102,7 +102,7 @@ function ProjectCard({
           </p>
           <p
             className="text-base leading-relaxed"
-            style={{ color: accent ? 'var(--color-accent)' : 'var(--color-text-primary)' }}
+            style={{ color: accent ? 'var(--color-accent-text)' : 'var(--color-text-primary)' }}
           >
             {value}
           </p>
@@ -129,7 +129,7 @@ export function Projects() {
       <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
         <p
           className="text-eyebrow font-bold tracking-widest uppercase mb-4"
-          style={{ color: 'var(--color-accent)' }}
+          style={{ color: 'var(--color-accent-text)' }}
         >
           Cases reais
         </p>

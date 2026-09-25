@@ -32,6 +32,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className={`${syne.variable} ${dmSans.variable} font-dm`}>
+        <a href="#conteudo" className="skip-link">
+          Pular para o conteúdo
+        </a>
         <TopLoader />
         <Providers>{children}</Providers>
       </body>

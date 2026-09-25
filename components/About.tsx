@@ -20,7 +20,7 @@ export function About() {
       <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
         <p
           className="text-eyebrow font-bold tracking-widest uppercase mb-4"
-          style={{ color: 'var(--color-accent)' }}
+          style={{ color: 'var(--color-accent-text)' }}
         >
           O estúdio
         </p>

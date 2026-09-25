@@ -32,6 +32,7 @@
   --color-accent       : #{$dark-accent};
   --color-accent-fg    : #{$dark-accent-fg};
   --color-accent-2     : #{$dark-accent-2};
+  --color-accent-text  : #{$dark-accent-text};
 
   --radius-sm : #{$radius-sm};
   --radius-md : #{$radius-md};
@@ -49,6 +50,7 @@ html.light {
   --color-accent       : #{$light-accent};
   --color-accent-fg    : #{$light-accent-fg};
   --color-accent-2     : #{$light-accent-2};
+  --color-accent-text  : #{$light-accent-text};
 }
 
 // ── Base ──────────────────────────────────────────────────
@@ -59,6 +61,39 @@ html {
   // land underneath the fixed header. Applies to native browser scrollIntoView,
   // so it fixes both plain <a href="#id"> and next/link hash navigation.
   scroll-padding-top: 5rem;
+}
+
+// Foco visível e consistente para quem navega por teclado.
+:focus-visible {
+  outline: 2px solid var(--color-accent-text);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+// Link "pular para o conteúdo": só aparece ao receber foco.
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-md);
+  background-color: var(--color-accent);
+  color: var(--color-accent-fg);
+  font-weight: 700;
+  transform: translateY(-200%);
+  &:focus-visible { transform: none; }
+}
+
+// Respeita "reduzir movimento" do sistema.
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
 }
 
 body {

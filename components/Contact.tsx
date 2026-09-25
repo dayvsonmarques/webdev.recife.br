@@ -19,7 +19,7 @@ export function Contact() {
       <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
         <p
           className="text-eyebrow font-bold tracking-widest uppercase mb-6"
-          style={{ color: 'var(--color-accent)' }}
+          style={{ color: 'var(--color-accent-text)' }}
         >
           Vamos conversar
         </p>
@@ -45,11 +45,12 @@ export function Contact() {
           className="inline-block px-8 py-4 font-syne font-bold text-base tracking-wide transition-opacity hover:opacity-90"
           style={{
             backgroundColor: 'var(--color-accent)',
-            color: '#0A0A0A',
+            color: 'var(--color-accent-fg)',
             borderRadius: 'var(--radius-md)',
           }}
         >
           Falar pelo WhatsApp
+          <span className="sr-only"> (abre em nova aba)</span>
         </a>
       </div>
     </section>

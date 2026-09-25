@@ -1,15 +1,23 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useInView } from '@/hooks/useInView'
 
 function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [playing, setPlaying] = useState(true)
 
   // Respeita quem prefere menos movimento: mantém só o poster.
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) videoRef.current?.pause()
   }, [])
+
+  const toggle = () => {
+    const video = videoRef.current
+    if (!video) return
+    if (video.paused) void video.play()
+    else video.pause()
+  }
 
   return (
     <div className="relative mx-auto w-full max-w-[18rem] lg:max-w-[20rem]">
@@ -40,12 +48,26 @@ function HeroVideo() {
           preload="metadata"
           poster="/video/hero-poster.jpg"
           aria-label="Pessoa navegando numa loja online pelo celular"
+          onPlay={() => setPlaying(true)}
+          onPause={() => setPlaying(false)}
         >
           <source src="/video/hero.webm" type="video/webm" />
           <source src="/video/hero.mp4" type="video/mp4" />
         </video>
+        <button
+          type="button"
+          onClick={toggle}
+          aria-label={playing ? 'Pausar vídeo' : 'Reproduzir vídeo'}
+          className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full"
+          style={{ backgroundColor: 'rgba(10,10,10,0.6)', color: '#FFFFFF' }}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            {playing ? <path d="M6 4h4v16H6zM14 4h4v16h-4z" /> : <path d="M7 4l13 8-13 8z" />}
+          </svg>
+        </button>
       </div>
       <div
+        aria-hidden="true"
         className="absolute -left-6 bottom-12 flex items-center gap-2 px-4 py-2.5 text-sm font-medium shadow-lg"
         style={{
           backgroundColor: 'var(--color-surface)',

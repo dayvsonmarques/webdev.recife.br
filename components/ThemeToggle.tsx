@@ -36,7 +36,7 @@ export function ThemeToggle() {
   const mounted = useSyncExternalStore(noop, getSnapshot, getServerSnapshot)
 
   if (!mounted) {
-    return <div className="w-8 h-8" aria-hidden="true" />
+    return <div className="w-11 h-11" aria-hidden="true" />
   }
 
   const isDark = theme === 'dark'
@@ -44,7 +44,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      className="w-8 h-8 flex items-center justify-center transition-colors"
+      className="w-11 h-11 flex items-center justify-center transition-colors"
       style={{ color: 'var(--color-text-muted)' }}
       aria-label={isDark ? 'Ativar tema claro' : 'Ativar tema escuro'}
     >

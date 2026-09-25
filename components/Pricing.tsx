@@ -57,7 +57,7 @@ export function PlanCard({
       <div>
         <p
           className="text-eyebrow font-bold uppercase tracking-widest mb-4"
-          style={{ color: highlighted ? 'var(--color-accent)' : 'var(--color-text-muted)' }}
+          style={{ color: highlighted ? 'var(--color-accent-text)' : 'var(--color-text-muted)' }}
         >
           {name}
         </p>
@@ -94,7 +94,7 @@ export function PlanCard({
       <ul className="flex flex-col gap-3">
         {features.map((feature) => (
           <li key={feature} className="flex items-center gap-3">
-            <span style={{ color: 'var(--color-accent)', flexShrink: 0 }}>
+            <span style={{ color: 'var(--color-accent-text)', flexShrink: 0 }}>
               <IconCheck />
             </span>
             <span className="text-sm" style={{ color: 'var(--color-text-primary)' }}>
@@ -135,7 +135,7 @@ export function Pricing() {
       <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
         <p
           className="text-eyebrow font-bold tracking-widest uppercase mb-4"
-          style={{ color: 'var(--color-accent)' }}
+          style={{ color: 'var(--color-accent-text)' }}
         >
           Investimento
         </p>

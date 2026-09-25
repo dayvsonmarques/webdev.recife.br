@@ -11,14 +11,16 @@ const SHOW_PROJECTS = false
 
 export default function Home() {
   return (
-    <main>
+    <>
       <Header />
-      <Hero />
-      <Services />
-      {SHOW_PROJECTS && <Projects />}
-      <About />
-      <Contact />
+      <main id="conteudo" tabIndex={-1} className="outline-none">
+        <Hero />
+        <Services />
+        {SHOW_PROJECTS && <Projects />}
+        <About />
+        <Contact />
+      </main>
       <Footer />
-    </main>
+    </>
   )
 }

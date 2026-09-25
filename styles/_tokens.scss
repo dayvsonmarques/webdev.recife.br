@@ -26,6 +26,7 @@ $dark-text-muted  : #8A8A9A;
 $dark-accent      : $palette-violeta;
 $dark-accent-fg   : #FFFFFF;           // texto sobre --color-accent dark
 $dark-accent-2    : $palette-acid;
+$dark-accent-text : #A78BFA;           // violeta clara: texto pequeno sobre fundo escuro (7:1)
 
 
 // ── Tokens — Light Mode ───────────────────────────────────
@@ -34,10 +35,11 @@ $light-bg         : $palette-osso;
 $light-surface    : #F4F4F4;
 $light-border     : #E2E2EA;
 $light-text       : $palette-off-black;
-$light-text-muted : #6B6B7A;
+$light-text-muted : #595966;   // ≥ 5.6:1 sobre o fundo claro
 $light-accent     : $palette-violeta;
 $light-accent-fg  : #FFFFFF;
 $light-accent-2   : #4A7200;   // Acid escurecido para uso secundário no light
+$light-accent-text: #6D28D9;   // violeta escura: texto pequeno sobre fundo claro (5.8:1)
 
 
 // ── Border radius ─────────────────────────────────────────

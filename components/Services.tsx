@@ -25,7 +25,7 @@ function ServiceCard({
         borderRadius: 'var(--radius-lg)',
       }}
     >
-      <div style={{ color: 'var(--color-accent)' }}>{SERVICE_ICONS[icon]}</div>
+      <div style={{ color: 'var(--color-accent-text)' }}>{SERVICE_ICONS[icon]}</div>
 
       <div>
         <h3
@@ -62,7 +62,7 @@ export function Services() {
       <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
         <p
           className="text-eyebrow font-bold tracking-widest uppercase mb-4"
-          style={{ color: 'var(--color-accent)' }}
+          style={{ color: 'var(--color-accent-text)' }}
         >
           O que fazemos
         </p>
