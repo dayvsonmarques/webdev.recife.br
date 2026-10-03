@@ -1,37 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# webdev.recife.br
 
-## Getting Started
+Site institucional do estúdio Web Dev Recife: serviços (Loja Online, Cardápio Digital, Agenda Fácil), sobre e contato.
 
-First, run the development server:
+## Stack
+
+- Next.js 16 (App Router), React 19, TypeScript
+- Tailwind CSS 4 + SCSS (tokens de design em `styles/_tokens.scss`)
+- `next-themes` para tema claro/escuro
+
+## Desenvolvimento
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+pnpm dev        # http://localhost:3210
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Conteúdo
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| O quê | Onde |
+| --- | --- |
+| Serviços e páginas de detalhe | `lib/services.ts` |
+| Planos e preços | `lib/plans.ts` |
+| Links do menu | `lib/nav-links.ts` |
+| Cores, raios e escala tipográfica | `styles/_tokens.scss`, `app/globals.scss` |
+| Vídeo do banner | `public/video/` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Build e deploy
 
-## Learn More
+```bash
+pnpm build
+pnpm start      # porta 3000 por padrão; use -p para mudar
+```
 
-To learn more about Next.js, take a look at the following resources:
+Roda em qualquer servidor com Node.js 20+ (ex.: uma VPS), atrás de um proxy reverso com HTTPS.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Convenções
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# webdev.recife.br
+Padrão de commits e de código em [`docs/CONVENTIONS.md`](docs/CONVENTIONS.md).

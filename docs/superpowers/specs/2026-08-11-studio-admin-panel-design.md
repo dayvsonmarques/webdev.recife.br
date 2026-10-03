@@ -26,7 +26,7 @@ O estúdio precisa de um painel para:
 
 1. **Repositório novo e separado**, não monorepo. Motivo: este mesmo projeto já teve um incidente de deploy causado por `pnpm-workspace.yaml` (`fix(deploy): resolve pnpm 'packages field missing or empty' error`, commit `af31f50`) — juntar os dois apps num monorepo reintroduziria esse risco.
 2. **Baseado no template NextAdmin** (nextadmin.co) — **Abordagem A escolhida pelo usuário**: clonar o template completo (stack: NextAuth + Prisma + Tailwind + ApexCharts + Jsvectormap + Flatpickr + Dropzone) e remover depois os dashboards não usados (e-commerce, stocks, marketing, mapas), em vez de recriar do zero ou fazer cherry-pick de componentes isolados.
-3. **Banco:** PostgreSQL + Prisma (stack padrão do template). Sugestão de provedor: **Neon** (serverless, tier gratuito, boa integração com Vercel) — **não confirmado com o usuário**, é só recomendação a validar.
+3. **Banco:** PostgreSQL + Prisma (stack padrão do template). Hospedagem do banco: na própria VPS (ver spec do CRM, que substitui esta).
 4. **Autenticação:** NextAuth, usuário único (o admin do estúdio), login por credenciais (email + senha com hash). Sem OAuth, sem múltiplos papéis/RBAC por enquanto — pode evoluir se o estúdio contratar alguém.
 5. **Deploy:** sugerido em subdomínio próprio (ex: `admin.webdev.recife.br`), separado do deploy do site principal.
 6. **Integração site ↔ admin:** o site público **não acessa o banco diretamente**. Ele consome uma API pequena exposta pelo projeto admin:
