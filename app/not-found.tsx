@@ -1,8 +1,11 @@
 import Link from 'next/link'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { getSiteContent } from '@/lib/content'
 
-export default function NotFound() {
+export default async function NotFound() {
+  const { config } = await getSiteContent()
+
   return (
     <>
       <Header />
@@ -42,7 +45,7 @@ export default function NotFound() {
 
       </main>
 
-      <Footer />
+      <Footer text={config.footerText} />
     </>
   )
 }

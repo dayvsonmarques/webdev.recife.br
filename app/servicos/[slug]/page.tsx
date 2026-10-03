@@ -3,20 +3,21 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
-import { PlanCard, IconCheck } from '@/components/Pricing'
+import { PlanCard, IconCheck } from '@/components/PlanCard'
 import { SERVICE_ICONS } from '@/components/service-icons'
-import { SERVICES } from '@/lib/services'
-import { PLANS } from '@/lib/plans'
+import { getSiteContent, whatsappLink } from '@/lib/content'
 
 export async function generateStaticParams() {
-  return SERVICES.map((service) => ({ slug: service.slug }))
+  const { services } = await getSiteContent()
+  return services.map((service) => ({ slug: service.slug }))
 }
 
 export async function generateMetadata({
   params,
 }: PageProps<'/servicos/[slug]'>): Promise<Metadata> {
   const { slug } = await params
-  const service = SERVICES.find((s) => s.slug === slug)
+  const { services } = await getSiteContent()
+  const service = services.find((s) => s.slug === slug)
   if (!service) return {}
 
   return {
@@ -29,10 +30,15 @@ export default async function ServicePage({
   params,
 }: PageProps<'/servicos/[slug]'>) {
   const { slug } = await params
-  const service = SERVICES.find((s) => s.slug === slug)
+  const { config, services, plans } = await getSiteContent()
+  const service = services.find((s) => s.slug === slug)
   if (!service) notFound()
 
-  const whatsappHref = `https://wa.me/55?text=${encodeURIComponent(service.whatsappMessage)}`
+  // Until a WhatsApp number is set in the admin, CTAs point to the contact section.
+  const whatsappHref = whatsappLink(config.whatsappNumber, service.whatsappMessage)
+  const ctaProps = whatsappHref
+    ? { href: whatsappHref, target: '_blank', rel: 'noopener noreferrer' }
+    : { href: '/#contato' }
 
   return (
     <>
@@ -68,9 +74,7 @@ export default async function ServicePage({
             </p>
 
             <a
-              href={whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
+              {...ctaProps}
               className="inline-block px-8 py-4 font-syne font-bold text-base tracking-wide transition-opacity hover:opacity-90"
               style={{
                 backgroundColor: 'var(--color-accent)',
@@ -141,23 +145,26 @@ export default async function ServicePage({
               className="text-eyebrow font-bold tracking-widest uppercase mb-4"
               style={{ color: 'var(--color-accent-text)' }}
             >
-              Investimento
+              {config.pricingEyebrow}
             </p>
             <h2
-              className="font-syne text-heading font-bold mb-14"
+              className="font-syne text-heading font-bold mb-4"
               style={{ color: 'var(--color-text-primary)' }}
             >
-              Planos
+              {config.pricingTitle}
             </h2>
+            <p className="text-lead mb-14 max-w-md" style={{ color: 'var(--color-text-muted)' }}>
+              {config.pricingNote}
+            </p>
             <div className="grid md:grid-cols-3 gap-6 items-start">
-              {PLANS.map((plan) => (
+              {plans.map((plan) => (
                 <PlanCard
-                  key={plan.id}
+                  key={plan.slug}
                   name={plan.name}
                   price={plan.price}
                   description={plan.description}
                   features={plan.features}
-                  highlighted={plan.id === service.recommendedPlan}
+                  highlighted={plan.slug === service.recommendedPlan}
                   badgeLabel="Recomendado"
                 />
               ))}
@@ -174,9 +181,7 @@ export default async function ServicePage({
               Pronto pra começar com {service.title}?
             </h2>
             <a
-              href={whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
+              {...ctaProps}
               className="inline-block px-8 py-4 font-syne font-bold text-base tracking-wide transition-opacity hover:opacity-90"
               style={{
                 backgroundColor: 'var(--color-accent)',
@@ -191,7 +196,7 @@ export default async function ServicePage({
 
       </main>
 
-      <Footer />
+      <Footer text={config.footerText} />
     </>
   )
 }

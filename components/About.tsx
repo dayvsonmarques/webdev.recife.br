@@ -2,9 +2,14 @@
 
 import { useInView } from '@/hooks/useInView'
 
-const INDICATORS = ['Recife, PE', 'MEI', 'Desde 2024']
+interface AboutProps {
+  eyebrow: string
+  title: string
+  text: string
+  indicators: string[]
+}
 
-export function About() {
+export function About({ eyebrow, title, text, indicators }: AboutProps) {
   const { ref, isInView } = useInView()
 
   return (
@@ -22,7 +27,7 @@ export function About() {
           className="text-eyebrow font-bold tracking-widest uppercase mb-4"
           style={{ color: 'var(--color-accent-text)' }}
         >
-          O estúdio
+          {eyebrow}
         </p>
 
         <div className="max-w-2xl">
@@ -30,20 +35,19 @@ export function About() {
             className="font-syne text-heading font-bold mb-8"
             style={{ color: 'var(--color-text-primary)' }}
           >
-            Sobre
+            {title}
           </h2>
 
           <p
             className="text-lead mb-10"
             style={{ color: 'var(--color-text-muted)' }}
           >
-            Web Dev Recife é um estúdio independente de desenvolvimento web com foco em comércio
-            local. Cada projeto é acompanhado de perto — sem enrolação, com entrega ágil e suporte
-            real. O objetivo é simples: uma solução que funciona de verdade pro seu negócio.
+            {text}
           </p>
 
+          {indicators.length > 0 && (
           <div className="flex flex-wrap gap-3">
-            {INDICATORS.map((indicator) => (
+            {indicators.map((indicator) => (
               <span
                 key={indicator}
                 className="px-4 py-2 text-base"
@@ -58,6 +62,7 @@ export function About() {
               </span>
             ))}
           </div>
+          )}
         </div>
       </div>
     </section>

@@ -2,7 +2,16 @@
 
 import { useInView } from '@/hooks/useInView'
 
-export function Contact() {
+interface ContactProps {
+  eyebrow: string
+  title: string
+  text: string
+  cta: string
+  /** wa.me link; the button is hidden until a WhatsApp number is set in the admin. */
+  whatsappHref: string | null
+}
+
+export function Contact({ eyebrow, title, text, cta, whatsappHref }: ContactProps) {
   const { ref, isInView } = useInView()
 
   return (
@@ -21,25 +30,26 @@ export function Contact() {
           className="text-eyebrow font-bold tracking-widest uppercase mb-6"
           style={{ color: 'var(--color-accent-text)' }}
         >
-          Vamos conversar
+          {eyebrow}
         </p>
 
         <h2
           className="font-syne text-title font-extrabold leading-tight mb-6 max-w-xl"
           style={{ color: 'var(--color-text-primary)' }}
         >
-          Tem um projeto em mente?
+          {title}
         </h2>
 
         <p
           className="text-lead mb-12 max-w-md"
           style={{ color: 'var(--color-text-muted)' }}
         >
-          Conta o que você precisa.
+          {text}
         </p>
 
+        {whatsappHref && (
         <a
-          href="https://wa.me/55"
+          href={whatsappHref}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block px-8 py-4 font-syne font-bold text-base tracking-wide transition-opacity hover:opacity-90"
@@ -49,9 +59,10 @@ export function Contact() {
             borderRadius: 'var(--radius-md)',
           }}
         >
-          Falar pelo WhatsApp
+          {cta}
           <span className="sr-only"> (abre em nova aba)</span>
         </a>
+        )}
       </div>
     </section>
   )

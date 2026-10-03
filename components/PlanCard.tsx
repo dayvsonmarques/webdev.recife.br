@@ -1,8 +1,4 @@
-'use client'
-
 import Link from 'next/link'
-import { useInView } from '@/hooks/useInView'
-import { PLANS } from '@/lib/plans'
 
 export function IconCheck() {
   return (
@@ -116,55 +112,5 @@ export function PlanCard({
         Começar agora
       </Link>
     </div>
-  )
-}
-
-export function Pricing() {
-  const { ref, isInView } = useInView()
-
-  return (
-    <section
-      id="planos"
-      ref={ref}
-      className="py-28 transition-all duration-700"
-      style={{
-        opacity: isInView ? 1 : 0,
-        transform: isInView ? 'translateY(0)' : 'translateY(24px)',
-      }}
-    >
-      <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
-        <p
-          className="text-eyebrow font-bold tracking-widest uppercase mb-4"
-          style={{ color: 'var(--color-accent-text)' }}
-        >
-          Investimento
-        </p>
-        <h2
-          className="font-syne text-heading font-bold mb-4"
-          style={{ color: 'var(--color-text-primary)' }}
-        >
-          Planos
-        </h2>
-        <p
-          className="text-lead mb-14 max-w-md"
-          style={{ color: 'var(--color-text-muted)' }}
-        >
-          7 dias grátis para testar. Sem contrato de fidelidade, cancele quando quiser.
-        </p>
-
-        <div className="grid md:grid-cols-3 gap-6 items-start">
-          {PLANS.map((plan) => (
-            <PlanCard
-              key={plan.id}
-              name={plan.name}
-              price={plan.price}
-              description={plan.description}
-              features={plan.features}
-              highlighted={plan.featured}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
   )
 }

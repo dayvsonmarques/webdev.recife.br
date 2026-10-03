@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useInView } from '@/hooks/useInView'
 import { SERVICE_ICONS, type ServiceIconId } from '@/components/service-icons'
-import { SERVICES } from '@/lib/services'
+import type { Service } from '@/lib/content'
 
 function ServiceCard({
   slug,
@@ -46,7 +46,14 @@ function ServiceCard({
   )
 }
 
-export function Services() {
+interface ServicesProps {
+  eyebrow: string
+  title: string
+  intro: string
+  services: Service[]
+}
+
+export function Services({ eyebrow, title, intro, services }: ServicesProps) {
   const { ref, isInView } = useInView()
 
   return (
@@ -64,23 +71,23 @@ export function Services() {
           className="text-eyebrow font-bold tracking-widest uppercase mb-4"
           style={{ color: 'var(--color-accent-text)' }}
         >
-          O que fazemos
+          {eyebrow}
         </p>
         <h2
           className="font-syne text-heading font-bold mb-6"
           style={{ color: 'var(--color-text-primary)' }}
         >
-          Serviços
+          {title}
         </h2>
         <p
           className="text-lead mb-14 max-w-xl"
           style={{ color: 'var(--color-text-muted)' }}
         >
-          Lojas online, cardápios digitais e apps de agendamento para negócios locais. Rápido de entregar, fácil de usar.
+          {intro}
         </p>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {SERVICES.map((service) => (
+          {services.map((service) => (
             <ServiceCard
               key={service.slug}
               slug={service.slug}

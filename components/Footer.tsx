@@ -1,4 +1,4 @@
-export function Footer() {
+export function Footer({ text }: { text: string }) {
   return (
     <footer
       className="py-8"
@@ -6,7 +6,7 @@ export function Footer() {
     >
       <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
         <p className="text-base" style={{ color: 'var(--color-text-muted)' }}>
-          © 2026 Web Dev Recife
+          {text}
         </p>
       </div>
     </footer>

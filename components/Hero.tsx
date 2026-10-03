@@ -83,7 +83,14 @@ function HeroVideo() {
   )
 }
 
-export function Hero() {
+interface HeroProps {
+  title: string
+  highlight: string
+  subtitle: string
+  cta: string
+}
+
+export function Hero({ title, highlight, subtitle, cta }: HeroProps) {
   const { ref, isInView } = useInView()
 
   return (
@@ -110,14 +117,12 @@ export function Hero() {
               className="font-syne text-display font-extrabold mb-6"
               style={{ color: 'var(--color-text-primary)' }}
             >
-              <span className="whitespace-nowrap">Seu negócio</span><br />no digital{' '}
-              <br className="hidden md:block" />—{' '}
-              <span style={{ color: 'var(--color-accent)' }}>sem complicação.</span>
+              {title}{' '}
+              <span style={{ color: 'var(--color-accent)' }}>{highlight}</span>
             </h1>
 
             <p className="text-lead mb-10 max-w-lg" style={{ color: 'var(--color-text-muted)' }}>
-              Do cardápio à loja online: a gente monta, publica e cuida do seu site enquanto você cuida
-              do negócio.
+              {subtitle}
             </p>
 
             <a
@@ -129,7 +134,7 @@ export function Hero() {
                 borderRadius: 'var(--radius-md)',
               }}
             >
-              Entrar em contato
+              {cta}
             </a>
           </div>
 
