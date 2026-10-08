@@ -63,11 +63,19 @@ export async function getSiteContent(): Promise<SiteContent> {
   const base = process.env.ADMIN_API_URL
   if (!base) throw new Error('ADMIN_API_URL is not set — the site reads its content from the admin API.')
 
-  const res = await fetch(`${base.replace(/\/$/, '')}/api/public/site`, {
-    cache: 'force-cache',
-    next: { tags: [CONTENT_TAG] },
-  })
-  if (!res.ok) throw new Error(`Admin content API responded ${res.status}`)
+  const url = `${base.replace(/\/$/, '')}/api/public/site`
+  let res: Response
+  try {
+    res = await fetch(url, { cache: 'force-cache', next: { tags: [CONTENT_TAG] } })
+  } catch (error) {
+    // Most common in local dev: the panel isn't running. Say so instead of a bare "fetch failed".
+    throw new Error(
+      `Não consegui buscar o conteúdo em ${url}. O painel está rodando? ` +
+        'Em desenvolvimento use `pnpm dev:all` (sobe banco, painel e site).',
+      { cause: error },
+    )
+  }
+  if (!res.ok) throw new Error(`O painel respondeu ${res.status} em ${url}.`)
   return res.json()
 }
 

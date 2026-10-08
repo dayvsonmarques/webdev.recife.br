@@ -19,8 +19,10 @@ Com o painel rodando localmente (`http://localhost:3310/paineldosite`):
 ```bash
 cp .env.example .env.local   # ADMIN_API_URL=http://localhost:3310/paineldosite e o mesmo REVALIDATE_SECRET do painel
 pnpm install
-pnpm dev                     # http://localhost:3210
+pnpm dev:all                 # banco + painel (:3310/paineldosite) + site (:3210)
 ```
+
+O site **depende do painel** para buscar o conteúdo: rodar só `pnpm dev` com o painel desligado dá erro 500 ("O painel está rodando?").
 
 ## Conteúdo
 
