@@ -20,5 +20,5 @@ for _ in $(seq 1 60); do
 done
 curl -sf http://localhost:3310/paineldosite/api/health >/dev/null || { echo "✖ o painel não subiu — veja as linhas [painel] acima"; exit 1; }
 
-echo "▶ site: http://localhost:3210 · painel: http://localhost:3310/paineldosite"
+echo "▶ site: http://localhost:3210 · painel: http://localhost:3210/paineldosite"
 cd "$SITE_DIR" && pnpm dev

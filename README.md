@@ -19,8 +19,10 @@ Com o painel rodando localmente (`http://localhost:3310/paineldosite`):
 ```bash
 cp .env.example .env.local   # ADMIN_API_URL=http://localhost:3310/paineldosite e o mesmo REVALIDATE_SECRET do painel
 pnpm install
-pnpm dev:all                 # banco + painel (:3310/paineldosite) + site (:3210)
+pnpm dev:all                 # banco + painel + site
 ```
+
+Acesse o site em `http://localhost:3210` e o painel em `http://localhost:3210/paineldosite` — igual à produção. Em desenvolvimento o site encaminha `/paineldosite` para o painel (porta 3310, `rewrites` em `next.config.ts`); em produção quem faz isso é o Coolify.
 
 O site **depende do painel** para buscar o conteúdo: rodar só `pnpm dev` com o painel desligado dá erro 500 ("O painel está rodando?").
 
