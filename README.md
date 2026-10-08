@@ -8,16 +8,16 @@ Site institucional do estúdio Web Dev Recife: serviços (Loja Online, Cardápio
 - Tailwind CSS 4 + SCSS (tokens de design em `styles/_tokens.scss`)
 - `next-themes` para tema claro/escuro
 
-## Conteúdo vem do admin
+## Conteúdo vem do painel
 
-Textos, serviços e planos são editados no painel (`admin.webdev.recife.br`) e lidos de `GET {ADMIN_API_URL}/api/public/site`. O admin chama `/api/revalidate` ao salvar, e o site atualiza na visita seguinte.
+Textos, serviços e planos são editados no painel (`webdev.recife.br/paineldosite`, outro repositório servido no mesmo domínio) e lidos de `GET {ADMIN_API_URL}/api/public/site`. O painel chama `/api/revalidate` ao salvar, e o site atualiza na visita seguinte.
 
 ## Desenvolvimento
 
-Com o admin rodando localmente (porta 3310):
+Com o painel rodando localmente (`http://localhost:3310/paineldosite`):
 
 ```bash
-cp .env.example .env.local   # ADMIN_API_URL=http://localhost:3310 e o mesmo REVALIDATE_SECRET do admin
+cp .env.example .env.local   # ADMIN_API_URL=http://localhost:3310/paineldosite e o mesmo REVALIDATE_SECRET do painel
 pnpm install
 pnpm dev                     # http://localhost:3210
 ```
@@ -26,7 +26,7 @@ pnpm dev                     # http://localhost:3210
 
 | O quê | Onde |
 | --- | --- |
-| Textos, serviços, planos, WhatsApp | Painel admin → Site |
+| Textos, serviços, planos, WhatsApp | Painel (`/paineldosite`) → Site |
 | Formato dos dados da API | `lib/content.ts` |
 | Links do menu | `lib/nav-links.ts` |
 | Cores, raios e escala tipográfica | `styles/_tokens.scss`, `app/globals.scss` |
@@ -41,7 +41,7 @@ pnpm start      # porta 3000 por padrão; use -p para mudar
 
 Roda em qualquer servidor com Node.js 20+ (ex.: uma VPS), atrás de um proxy reverso com HTTPS.
 
-Variáveis: `ADMIN_API_URL` (necessária **no build** e em execução) e `REVALIDATE_SECRET`. O admin precisa estar no ar antes do build do site. Guia completo no repositório do admin: `docs/DEPLOY.md`.
+Variáveis: `ADMIN_API_URL` (necessária **no build** e em execução) e `REVALIDATE_SECRET`. O painel precisa estar no ar antes do build do site. Guia completo no repositório do painel: `docs/DEPLOY.md`.
 
 ## Convenções
 
