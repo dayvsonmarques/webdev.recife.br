@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# Enforces docs/CONVENTIONS.md on every commit message:
+#   <prefix>(<scope>): <short message>  · scope in English · ≤ 12 words · no signature trailers
+# Enable once per clone:  git config core.hooksPath .githooks
+set -euo pipefail
+
+msg_file="$1"
+subject="$(grep -v '^#' "$msg_file" | sed '/^[[:space:]]*$/d' | head -n1)"
+
+# Git-generated messages (merge/revert/fixup) are allowed as-is.
+if [[ "$subject" =~ ^(Merge|Revert|fixup!|squash!|amend!) ]]; then exit 0; fi
+
+fail() {
+  echo "✖ commit recusado: $1" >&2
+  echo "  formato: <prefix>(<scope>): <mensagem curta>   ex.: feat(clients): add client detail page" >&2
+  echo "  regras em docs/CONVENTIONS.md" >&2
+  exit 1
+}
+
+prefixes='feat|fix|chore|docs|style|refactor|perf|test'
+[[ "$subject" =~ ^($prefixes)\(([a-z0-9][a-z0-9-]*)\):\ (.+)$ ]] \
+  || fail "precisa de prefixo ($prefixes), escopo entre parênteses em minúsculas e ': '"
+scope="${BASH_REMATCH[2]}"
+text="${BASH_REMATCH[3]}"
+
+words=$(wc -w <<<"$text")
+(( words <= 12 )) || fail "mensagem com $words palavras (máximo 12)"
+
+# Common Portuguese scopes from this project → their English names.
+case "$scope" in
+  clientes) fail "escopo em português: use 'clients'" ;;
+  orcamentos|orcamento) fail "escopo em português: use 'budgets'" ;;
+  projetos|projeto) fail "escopo em português: use 'projects'" ;;
+  servicos|servico) fail "escopo em português: use 'services'" ;;
+  financeiro) fail "escopo em português: use 'finance'" ;;
+  assinaturas|assinatura) fail "escopo em português: use 'subscriptions'" ;;
+  planos|plano) fail "escopo em português: use 'plans'" ;;
+  painel) fail "escopo em português: use 'panel'" ;;
+  conteudo) fail "escopo em português: use 'content'" ;;
+esac
+
+if grep -qiE '^(co-authored-by|signed-off-by):|generated with|🤖' "$msg_file"; then
+  fail "sem assinaturas (Co-Authored-By, Signed-off-by, 'Generated with')"
+fi

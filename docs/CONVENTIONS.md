@@ -41,6 +41,14 @@
 
 # Commit Conventions
 
+## Enforcement
+
+Hooks in `.githooks/` check every commit: `commit-msg` validates the message (format, English scope, ≤ 12 words, no trailers) and, in the site repo, `pre-commit` blocks direct commits on `main` (work goes on `develop`). Enable once per clone:
+
+```bash
+git config core.hooksPath .githooks
+```
+
 ## Format
 
 ```
@@ -52,7 +60,8 @@
 - Message must not exceed **12 words**
 - Always include a **prefix** matching the change type
 - No `Co-Authored-By` or any signature trailer
-- Write in **English**
+- Write in **English** — the scope too (`clients`, not `clientes`)
+- One change per commit
 
 ## Prefixes
 

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Work happens on develop; main only receives merges. Blocks direct commits on main.
+# One-off override (e.g. a hotfix agreed with the owner): ALLOW_MAIN_COMMIT=1 git commit ...
+branch="$(git symbolic-ref --short HEAD 2>/dev/null || true)"
+if [[ "$branch" == "main" && "${ALLOW_MAIN_COMMIT:-}" != "1" ]]; then
+  echo "✖ commit direto na main bloqueado. Use a develop: git switch develop" >&2
+  exit 1
+fi
