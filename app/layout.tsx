@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import { Sora, Inter } from 'next/font/google'
 import { Providers } from '@/components/Providers'
 import { TopLoader } from '@/components/TopLoader'
-import { getSiteContent } from '@/lib/content'
+import { WhatsAppFloat } from '@/components/WhatsAppFloat'
+import { getSiteContent, whatsappLink } from '@/lib/content'
 import './globals.scss'
 
 const heading = Sora({
@@ -24,11 +25,16 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: config.seoTitle, description: config.seoDescription }
 }
 
-export default function RootLayout({
+const WHATSAPP_MESSAGE = 'Olá! Vim pelo site da Web Dev Recife e quero saber mais.'
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const { config } = await getSiteContent()
+  const whatsappHref = whatsappLink(config.whatsappNumber, WHATSAPP_MESSAGE)
+
   return (
     // Font variables live on <html>: the theme resolves --font-heading/--font-body at :root.
     <html
@@ -43,6 +49,7 @@ export default function RootLayout({
         </a>
         <TopLoader />
         <Providers>{children}</Providers>
+        {whatsappHref && <WhatsAppFloat href={whatsappHref} />}
       </body>
     </html>
   )
