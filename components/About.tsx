@@ -32,7 +32,7 @@ export function About({ eyebrow, title, text, indicators }: AboutProps) {
 
         <div className="max-w-2xl">
           <h2
-            className="font-syne text-heading font-bold mb-8"
+            className="font-heading text-heading font-bold mb-8"
             style={{ color: 'var(--color-text-primary)' }}
           >
             {title}

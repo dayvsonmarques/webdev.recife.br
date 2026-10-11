@@ -34,7 +34,7 @@ export function Contact({ eyebrow, title, text, cta, whatsappHref }: ContactProp
         </p>
 
         <h2
-          className="font-syne text-title font-extrabold leading-tight mb-6 max-w-xl"
+          className="font-heading text-title font-extrabold leading-tight mb-6 max-w-xl"
           style={{ color: 'var(--color-text-primary)' }}
         >
           {title}
@@ -52,7 +52,7 @@ export function Contact({ eyebrow, title, text, cta, whatsappHref }: ContactProp
           href={whatsappHref}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block px-8 py-4 font-syne font-bold text-base tracking-wide transition-opacity hover:opacity-90"
+          className="inline-block px-8 py-4 font-heading font-bold text-base tracking-wide transition-opacity hover:opacity-90"
           style={{
             backgroundColor: 'var(--color-accent)',
             color: 'var(--color-accent-fg)',

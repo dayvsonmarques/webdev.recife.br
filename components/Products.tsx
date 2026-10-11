@@ -29,7 +29,7 @@ function ProductCard({
 
       <div>
         <h3
-          className="font-syne text-subheading font-bold mb-3"
+          className="font-heading text-subheading font-bold mb-3"
           style={{ color: 'var(--color-text-primary)' }}
         >
           {title.split(' ').map((word) => (
@@ -75,7 +75,7 @@ export function Products({ eyebrow, title, intro, services }: ProductsProps) {
           {eyebrow}
         </p>
         <h2
-          className="font-syne text-heading font-bold mb-6"
+          className="font-heading text-heading font-bold mb-6"
           style={{ color: 'var(--color-text-primary)' }}
         >
           {title}

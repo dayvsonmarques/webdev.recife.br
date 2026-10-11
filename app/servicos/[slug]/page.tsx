@@ -60,7 +60,7 @@ export default async function ServicePage({
             </div>
 
             <h1
-              className="font-syne text-display font-extrabold leading-[1.05] mb-6"
+              className="font-heading text-display font-extrabold leading-[1.05] mb-6"
               style={{ color: 'var(--color-text-primary)' }}
             >
               {service.title}
@@ -75,7 +75,7 @@ export default async function ServicePage({
 
             <a
               {...ctaProps}
-              className="inline-block px-8 py-4 font-syne font-bold text-base tracking-wide transition-opacity hover:opacity-90"
+              className="inline-block px-8 py-4 font-heading font-bold text-base tracking-wide transition-opacity hover:opacity-90"
               style={{
                 backgroundColor: 'var(--color-accent)',
                 color: 'var(--color-accent-fg)',
@@ -119,7 +119,7 @@ export default async function ServicePage({
         <section className="py-28" style={{ backgroundColor: 'var(--color-surface)' }}>
           <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
             <h2
-              className="font-syne text-heading font-bold mb-10"
+              className="font-heading text-heading font-bold mb-10"
               style={{ color: 'var(--color-text-primary)' }}
             >
               O que está incluso
@@ -148,7 +148,7 @@ export default async function ServicePage({
               {config.pricingEyebrow}
             </p>
             <h2
-              className="font-syne text-heading font-bold mb-4"
+              className="font-heading text-heading font-bold mb-4"
               style={{ color: 'var(--color-text-primary)' }}
             >
               {config.pricingTitle}
@@ -175,14 +175,14 @@ export default async function ServicePage({
         <section className="py-32" style={{ backgroundColor: 'var(--color-surface)' }}>
           <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
             <h2
-              className="font-syne text-title font-extrabold leading-tight mb-6 max-w-xl"
+              className="font-heading text-title font-extrabold leading-tight mb-6 max-w-xl"
               style={{ color: 'var(--color-text-primary)' }}
             >
               Pronto pra começar com {service.title}?
             </h2>
             <a
               {...ctaProps}
-              className="inline-block px-8 py-4 font-syne font-bold text-base tracking-wide transition-opacity hover:opacity-90"
+              className="inline-block px-8 py-4 font-heading font-bold text-base tracking-wide transition-opacity hover:opacity-90"
               style={{
                 backgroundColor: 'var(--color-accent)',
                 color: 'var(--color-accent-fg)',

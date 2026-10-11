@@ -66,7 +66,7 @@ export function PlanCard({
             R$
           </span>
           <span
-            className="font-syne text-heading font-extrabold leading-none"
+            className="font-heading text-heading font-extrabold leading-none"
             style={{ color: 'var(--color-text-primary)' }}
           >
             {price}
@@ -102,7 +102,7 @@ export function PlanCard({
 
       <Link
         href="/#contato"
-        className="mt-auto block text-center px-6 py-3 font-syne font-bold text-sm uppercase tracking-widest transition-opacity hover:opacity-80"
+        className="mt-auto block text-center px-6 py-3 font-heading font-bold text-sm uppercase tracking-widest transition-opacity hover:opacity-80"
         style={
           highlighted
             ? { backgroundColor: 'var(--color-accent)', color: 'var(--color-accent-fg)', borderRadius: 'var(--radius-md)' }

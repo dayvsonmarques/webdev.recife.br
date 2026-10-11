@@ -74,7 +74,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             key={link.href}
             href={link.href}
             onClick={onClose}
-            className="font-syne text-heading font-bold uppercase tracking-widest transition-all duration-300"
+            className="font-heading text-heading font-bold uppercase tracking-widest transition-all duration-300"
             style={{
               color: 'var(--color-text-primary)',
               transform: isOpen ? 'translateY(0)' : 'translateY(16px)',

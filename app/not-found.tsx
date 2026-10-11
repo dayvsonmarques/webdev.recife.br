@@ -19,7 +19,7 @@ export default async function NotFound() {
             404
           </p>
           <h1
-            className="font-syne text-heading font-extrabold mb-6"
+            className="font-heading text-heading font-extrabold mb-6"
             style={{ color: 'var(--color-text-primary)' }}
           >
             Página não encontrada
@@ -32,7 +32,7 @@ export default async function NotFound() {
           </p>
           <Link
             href="/"
-            className="inline-block px-8 py-4 font-syne font-bold text-base tracking-wide transition-opacity hover:opacity-90"
+            className="inline-block px-8 py-4 font-heading font-bold text-base tracking-wide transition-opacity hover:opacity-90"
             style={{
               backgroundColor: 'var(--color-accent)',
               color: 'var(--color-accent-fg)',

@@ -114,7 +114,7 @@ export function Hero({ title, highlight, subtitle, cta }: HeroProps) {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <h1
-              className="font-syne text-display font-extrabold mb-6"
+              className="font-heading text-display font-extrabold mb-6"
               style={{ color: 'var(--color-text-primary)' }}
             >
               {title}{' '}
@@ -127,7 +127,7 @@ export function Hero({ title, highlight, subtitle, cta }: HeroProps) {
 
             <a
               href="#contato"
-              className="inline-block px-8 py-4 font-syne font-bold text-base tracking-wide transition-opacity hover:opacity-90"
+              className="inline-block px-8 py-4 font-heading font-bold text-base tracking-wide transition-opacity hover:opacity-90"
               style={{
                 backgroundColor: 'var(--color-accent)',
                 color: 'var(--color-accent-fg)',

@@ -29,7 +29,7 @@ export function Services({ eyebrow, title, intro, catalog }: ServicesProps) {
         <p className="text-eyebrow font-bold tracking-widest uppercase mb-4" style={{ color: 'var(--color-accent-text)' }}>
           {eyebrow}
         </p>
-        <h2 className="font-syne text-heading font-bold mb-6" style={{ color: 'var(--color-text-primary)' }}>
+        <h2 className="font-heading text-heading font-bold mb-6" style={{ color: 'var(--color-text-primary)' }}>
           {title}
         </h2>
         <p className="text-lead mb-14 max-w-xl" style={{ color: 'var(--color-text-muted)' }}>
@@ -44,7 +44,7 @@ export function Services({ eyebrow, title, intro, catalog }: ServicesProps) {
               style={{ backgroundColor: 'var(--color-surface)', borderRadius: 'var(--radius-lg)' }}
             >
               <span aria-hidden="true" className="block h-1 w-10 rounded-full" style={{ backgroundColor: 'var(--color-accent)' }} />
-              <h3 className="font-syne text-subheading font-bold" style={{ color: 'var(--color-text-primary)' }}>
+              <h3 className="font-heading text-subheading font-bold" style={{ color: 'var(--color-text-primary)' }}>
                 {item.name}
               </h3>
               {item.description && (
@@ -58,7 +58,7 @@ export function Services({ eyebrow, title, intro, catalog }: ServicesProps) {
 
         <a
           href="#contato"
-          className="mt-12 inline-block px-8 py-4 font-syne font-bold text-base tracking-wide transition-opacity hover:opacity-90"
+          className="mt-12 inline-block px-8 py-4 font-heading font-bold text-base tracking-wide transition-opacity hover:opacity-90"
           style={{ backgroundColor: 'var(--color-accent)', color: 'var(--color-accent-fg)', borderRadius: 'var(--radius-md)' }}
         >
           Pedir orçamento
