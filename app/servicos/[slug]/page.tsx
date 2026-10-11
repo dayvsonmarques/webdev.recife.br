@@ -5,7 +5,9 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { PlanCard, IconCheck } from '@/components/PlanCard'
 import { SERVICE_ICONS } from '@/components/service-icons'
+import { ProductGallery } from '@/components/ProductGallery'
 import { getSiteContent, whatsappLink } from '@/lib/content'
+import { PRODUCT_GALLERIES } from '@/lib/product-gallery'
 
 export async function generateStaticParams() {
   const { services } = await getSiteContent()
@@ -138,6 +140,8 @@ export default async function ServicePage({
             </ul>
           </div>
         </section>
+
+        {PRODUCT_GALLERIES[service.slug] && <ProductGallery gallery={PRODUCT_GALLERIES[service.slug]} />}
 
         <section className="py-28">
           <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
