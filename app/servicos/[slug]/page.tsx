@@ -48,11 +48,11 @@ export default async function ServicePage({
         <section className="min-h-screen flex flex-col justify-center pt-28 pb-20">
           <div className="max-w-6xl mx-auto w-full px-6 md:px-8 lg:px-12">
             <Link
-              href="/#servicos"
+              href="/#produtos"
               className="inline-block text-eyebrow font-bold tracking-widest uppercase mb-8"
               style={{ color: 'var(--color-accent-text)' }}
             >
-              ← Serviços
+              ← Produtos
             </Link>
 
             <div className="mb-8" style={{ color: 'var(--color-accent-text)' }}>
