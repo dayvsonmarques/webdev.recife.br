@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useInView } from '@/hooks/useInView'
 
 interface AboutProps {
@@ -7,9 +8,11 @@ interface AboutProps {
   title: string
   text: string
   indicators: string[]
+  /** Optional link under the text (the home links to the full /sobre page). */
+  cta?: { href: string; label: string }
 }
 
-export function About({ eyebrow, title, text, indicators }: AboutProps) {
+export function About({ eyebrow, title, text, indicators, cta }: AboutProps) {
   const { ref, isInView } = useInView()
 
   return (
@@ -62,6 +65,15 @@ export function About({ eyebrow, title, text, indicators }: AboutProps) {
               </span>
             ))}
           </div>
+          )}
+          {cta && (
+            <Link
+              href={cta.href}
+              className="mt-10 inline-block px-8 py-4 font-heading font-bold text-base tracking-wide border transition-colors hover:border-[var(--color-accent-2)]"
+              style={{ borderColor: 'var(--color-border)', color: 'var(--color-text-primary)', borderRadius: 'var(--radius-md)' }}
+            >
+              {cta.label}
+            </Link>
           )}
         </div>
       </div>
