@@ -88,7 +88,9 @@ export async function getSiteContent(): Promise<SiteContent> {
     )
   }
   if (!res.ok) throw new Error(`O painel respondeu ${res.status} em ${url}.`)
-  return res.json()
+  const data = (await res.json()) as SiteContent
+  // Tolerate a panel deployed before a field existed (and stale cached payloads).
+  return { ...data, catalog: data.catalog ?? [] }
 }
 
 /** wa.me link, or null while no WhatsApp number is configured in the admin. */
