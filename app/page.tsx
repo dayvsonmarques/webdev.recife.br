@@ -1,6 +1,7 @@
 import { Header } from '@/components/Header'
 import { Hero } from '@/components/Hero'
 import { Services } from '@/components/Services'
+import { Products } from '@/components/Products'
 import { Projects } from '@/components/Projects'
 import { About } from '@/components/About'
 import { Contact } from '@/components/Contact'
@@ -11,14 +12,15 @@ import { getSiteContent, whatsappLink } from '@/lib/content'
 const SHOW_PROJECTS = false
 
 export default async function Home() {
-  const { config: c, services } = await getSiteContent()
+  const { config: c, services, catalog } = await getSiteContent()
 
   return (
     <>
       <Header />
       <main id="conteudo" tabIndex={-1} className="outline-none">
         <Hero title={c.heroTitle} highlight={c.heroHighlight} subtitle={c.heroSubtitle} cta={c.heroCta} />
-        <Services eyebrow={c.servicesEyebrow} title={c.servicesTitle} intro={c.servicesIntro} services={services} />
+        <Services eyebrow={c.servicesEyebrow} title={c.servicesTitle} intro={c.servicesIntro} catalog={catalog} />
+        <Products eyebrow={c.productsEyebrow} title={c.productsTitle} intro={c.productsIntro} services={services} />
         {SHOW_PROJECTS && <Projects />}
         <About eyebrow={c.aboutEyebrow} title={c.aboutTitle} text={c.aboutText} indicators={c.aboutIndicators} />
         <Contact

@@ -13,6 +13,9 @@ export interface SiteContent {
     servicesEyebrow: string
     servicesTitle: string
     servicesIntro: string
+    productsEyebrow: string
+    productsTitle: string
+    productsIntro: string
     pricingEyebrow: string
     pricingTitle: string
     pricingNote: string
@@ -27,8 +30,17 @@ export interface SiteContent {
     whatsappNumber: string | null
     footerText: string
   }
+  /** Custom-work catalog (admin → Serviços), active items only. */
+  catalog: CatalogItem[]
   plans: Plan[]
+  /** Ready-made subscription products (admin → Produtos SaaS). */
   services: Service[]
+}
+
+export interface CatalogItem {
+  id: number
+  name: string
+  description: string | null
 }
 
 export interface Plan {
