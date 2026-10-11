@@ -25,7 +25,7 @@ function HeroVideo() {
         aria-hidden="true"
         className="absolute -inset-10 rounded-full pointer-events-none"
         style={{
-          background: 'radial-gradient(circle, rgba(124,58,237,0.35) 0%, rgba(124,58,237,0.08) 55%, transparent 75%)',
+          background: 'radial-gradient(circle, var(--color-glow) 0%, transparent 72%)',
           filter: 'blur(40px)',
         }}
       />
@@ -118,7 +118,7 @@ export function Hero({ title, highlight, subtitle, cta }: HeroProps) {
               style={{ color: 'var(--color-text-primary)' }}
             >
               {title}{' '}
-              <span style={{ color: 'var(--color-accent)' }}>{highlight}</span>
+              <span style={{ color: 'var(--color-highlight)' }}>{highlight}</span>
             </h1>
 
             <p className="text-lead mb-10 max-w-lg" style={{ color: 'var(--color-text-muted)' }}>

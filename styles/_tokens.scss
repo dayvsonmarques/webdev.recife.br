@@ -7,39 +7,48 @@
 
 
 // ── Paleta base ──────────────────────────────────────────
-//    Valores "crus" da identidade visual.
+//    Preto, vermelho e dourado (escuro) · branco, preto e dourado (claro).
+//    Contraste conferido (WCAG AA) para cada par texto/fundo usado.
 
-$palette-off-black : #0A0A0A;
-$palette-slate     : #1A1A1A;
-$palette-acid      : #D4FF57;
-$palette-violeta   : #7C3AED;
-$palette-osso      : #E8E8E8;
+$palette-black      : #0A0A0A;
+$palette-graphite   : #151515;
+$palette-red        : #DC2626;   // botões no escuro (texto branco 4.8:1)
+$palette-red-light  : #EF4444;   // destaque de título no escuro (5.3:1)
+$palette-gold       : #D4AF37;   // rótulos/links no escuro (9.4:1)
+$palette-gold-deep  : #9A7412;   // destaque de título no claro (texto grande, 4.3:1)
+$palette-gold-dark  : #7A5A0C;   // rótulos/links no claro (6.4:1)
+$palette-white      : #FFFFFF;
+$palette-cream      : #F7F4EC;
 
 
 // ── Tokens — Dark Mode (padrão) ──────────────────────────
 
-$dark-bg          : $palette-off-black;
-$dark-surface     : $palette-slate;
-$dark-border      : #2E2E3A;
-$dark-text        : $palette-osso;
-$dark-text-muted  : #8A8A9A;
-$dark-accent      : $palette-violeta;
-$dark-accent-fg   : #FFFFFF;           // texto sobre --color-accent dark
-$dark-accent-2    : $palette-acid;
-$dark-accent-text : #A78BFA;           // violeta clara: texto pequeno sobre fundo escuro (7:1)
+$dark-bg          : $palette-black;
+$dark-surface     : $palette-graphite;
+$dark-border      : #2A2622;
+$dark-text        : #F5F3EE;
+$dark-text-muted  : #A8A29E;           // 7.8:1 sobre o fundo
+$dark-accent      : $palette-red;      // fundo de botões
+$dark-accent-fg   : $palette-white;    // texto sobre --color-accent
+$dark-accent-2    : $palette-gold;     // detalhes decorativos
+$dark-accent-text : $palette-gold;     // texto pequeno em destaque
+$dark-highlight   : $palette-red-light;
+$dark-glow        : rgba(220, 38, 38, 0.32);
 
 
 // ── Tokens — Light Mode ───────────────────────────────────
 
-$light-bg         : $palette-osso;
-$light-surface    : #F4F4F4;
-$light-border     : #E2E2EA;
-$light-text       : $palette-off-black;
-$light-text-muted : #595966;   // ≥ 5.6:1 sobre o fundo claro
-$light-accent     : $palette-violeta;
-$light-accent-fg  : #FFFFFF;
-$light-accent-2   : #4A7200;   // Acid escurecido para uso secundário no light
-$light-accent-text: #6D28D9;   // violeta escura: texto pequeno sobre fundo claro (5.8:1)
+$light-bg         : $palette-white;
+$light-surface    : $palette-cream;
+$light-border     : #E7E1D3;
+$light-text       : $palette-black;
+$light-text-muted : #57534E;           // 7.6:1 sobre o fundo
+$light-accent     : $palette-black;    // fundo de botões
+$light-accent-fg  : $palette-white;
+$light-accent-2   : #C9A227;           // detalhes decorativos
+$light-accent-text: $palette-gold-dark;
+$light-highlight  : $palette-gold-deep;
+$light-glow       : rgba(201, 162, 39, 0.30);
 
 
 // ── Border radius ─────────────────────────────────────────
