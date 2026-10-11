@@ -27,11 +27,11 @@ export function Header() {
         <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 flex items-center py-4">
           <Link
             href="/"
-            className="font-mono text-xl font-bold tracking-tight"
+            className="font-mono text-2xl font-bold tracking-tight whitespace-pre"
             style={{ color: 'var(--color-text-primary)' }}
             aria-label="Web Dev Recife — início"
           >
-            <span style={{ color: 'var(--color-accent-text)' }}>&lt;</span>
+            <span style={{ color: 'var(--color-accent-text)' }}>&lt; </span>
             webdev
             <span style={{ color: 'var(--color-accent-text)' }}> /&gt;</span>
           </Link>
@@ -61,10 +61,10 @@ export function Header() {
               aria-expanded={menuOpen}
               aria-controls="menu-mobile"
             >
-              <span className="flex flex-col gap-1.5 w-6" aria-hidden="true">
-                <span className="block h-px w-full" style={{ backgroundColor: 'var(--color-text-primary)' }} />
-                <span className="block h-px w-full" style={{ backgroundColor: 'var(--color-text-primary)' }} />
-                <span className="block h-px w-4" style={{ backgroundColor: 'var(--color-text-primary)' }} />
+              <span className="flex flex-col gap-[7px] w-7" aria-hidden="true">
+                <span className="block h-0.5 w-full rounded-full" style={{ backgroundColor: 'var(--color-text-primary)' }} />
+                <span className="block h-0.5 w-full rounded-full" style={{ backgroundColor: 'var(--color-text-primary)' }} />
+                <span className="block h-0.5 w-5 rounded-full" style={{ backgroundColor: 'var(--color-text-primary)' }} />
               </span>
             </button>
           </div>
