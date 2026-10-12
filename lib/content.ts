@@ -6,10 +6,7 @@ export interface SiteContent {
   config: {
     seoTitle: string
     seoDescription: string
-    heroTitle: string
-    heroHighlight: string
-    heroSubtitle: string
-    heroCta: string
+    heroSlides: HeroSlide[]
     servicesEyebrow: string
     servicesTitle: string
     servicesIntro: string
@@ -37,6 +34,13 @@ export interface SiteContent {
   plans: Plan[]
   /** Ready-made subscription products (admin → Produtos SaaS). */
   services: Service[]
+}
+
+/** Banner carousel slide; highlight is shown in the accent color right after the title. */
+export interface HeroSlide {
+  title: string
+  highlight?: string
+  subtitle?: string
 }
 
 export interface CatalogItem {
@@ -92,7 +96,7 @@ export async function getSiteContent(): Promise<SiteContent> {
   if (!res.ok) throw new Error(`O painel respondeu ${res.status} em ${url}.`)
   const data = (await res.json()) as SiteContent
   // Tolerate a panel deployed before a field existed (and stale cached payloads).
-  return { ...data, catalog: data.catalog ?? [], config: { ...data.config, trialDays: data.config.trialDays ?? 0 } }
+  return { ...data, catalog: data.catalog ?? [], config: { ...data.config, trialDays: data.config.trialDays ?? 0, heroSlides: data.config.heroSlides ?? [] } }
 }
 
 /** wa.me link, or null while no WhatsApp number is configured in the admin. */

@@ -1,105 +1,67 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { useInView } from '@/hooks/useInView'
+import type { HeroSlide } from '@/lib/content'
 
-function HeroVideo() {
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const [playing, setPlaying] = useState(true)
+const INTERVAL_MS = 6000
 
-  // Respeita quem prefere menos movimento: mantém só o poster.
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) videoRef.current?.pause()
-  }, [])
-
-  const toggle = () => {
-    const video = videoRef.current
-    if (!video) return
-    if (video.paused) void video.play()
-    else video.pause()
-  }
-
-  return (
-    <div className="relative mx-auto w-full max-w-[18rem] lg:max-w-[20rem]">
-      <div
-        aria-hidden="true"
-        className="absolute -inset-10 rounded-full pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, var(--color-glow) 0%, transparent 72%)',
-          filter: 'blur(40px)',
-        }}
-      />
-      <div
-        className="relative aspect-[9/16] overflow-hidden border-4"
-        style={{
-          borderColor: 'var(--color-border)',
-          borderRadius: '2.25rem',
-          backgroundColor: 'var(--color-surface)',
-          boxShadow: '0 30px 80px -20px rgba(0,0,0,0.6)',
-        }}
-      >
-        <video
-          ref={videoRef}
-          className="h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/video/hero-poster.jpg"
-          aria-label="Pessoa navegando numa loja online pelo celular"
-          onPlay={() => setPlaying(true)}
-          onPause={() => setPlaying(false)}
-        >
-          <source src="/video/hero.webm" type="video/webm" />
-          <source src="/video/hero.mp4" type="video/mp4" />
-        </video>
-        <button
-          type="button"
-          onClick={toggle}
-          aria-label={playing ? 'Pausar vídeo' : 'Reproduzir vídeo'}
-          className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full"
-          style={{ backgroundColor: 'rgba(10,10,10,0.6)', color: '#FFFFFF' }}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            {playing ? <path d="M6 4h4v16H6zM14 4h4v16h-4z" /> : <path d="M7 4l13 8-13 8z" />}
-          </svg>
-        </button>
-      </div>
-      <div
-        aria-hidden="true"
-        className="absolute -left-6 bottom-12 flex items-center gap-2 px-4 py-2.5 text-sm font-medium shadow-lg"
-        style={{
-          backgroundColor: 'var(--color-surface)',
-          color: 'var(--color-text-primary)',
-          border: '1px solid var(--color-border)',
-          borderRadius: 'var(--radius-md)',
-        }}
-      >
-        <span className="h-2 w-2 rounded-full" style={{ backgroundColor: 'var(--color-accent-2)' }} />
-        Novo pedido recebido
-      </div>
-    </div>
-  )
+const reducedMotionQuery = '(prefers-reduced-motion: reduce)'
+function subscribeReducedMotion(onChange: () => void) {
+  const media = window.matchMedia(reducedMotionQuery)
+  media.addEventListener('change', onChange)
+  return () => media.removeEventListener('change', onChange)
 }
+const usePrefersReducedMotion = () =>
+  useSyncExternalStore(subscribeReducedMotion, () => window.matchMedia(reducedMotionQuery).matches, () => false)
 
 interface HeroProps {
-  title: string
-  highlight: string
-  subtitle: string
-  cta: string
+  /** Visually hidden page heading; the slides are the visible message. */
+  heading: string
+  slides: HeroSlide[]
 }
 
-export function Hero({ title, highlight, subtitle, cta }: HeroProps) {
+/** Banner carousel: rotates every few seconds, pauses on hover/focus, stops for reduced motion. */
+export function Hero({ heading, slides }: HeroProps) {
   const { ref, isInView } = useInView()
+  const [active, setActive] = useState(0)
+  const [userPaused, setUserPaused] = useState(false)
+  const [interacting, setInteracting] = useState(false)
+  const reducedMotion = usePrefersReducedMotion()
+  const touchStartX = useRef<number | null>(null)
+
+  const count = slides.length
+  const rotating = count > 1 && !userPaused && !interacting && !reducedMotion
+  const go = useCallback((delta: number) => setActive((i) => (i + delta + count) % count), [count])
+
+  useEffect(() => {
+    if (!rotating) return
+    const timer = window.setInterval(() => go(1), INTERVAL_MS)
+    return () => window.clearInterval(timer)
+  }, [rotating, go])
 
   return (
     <section
       ref={ref}
-      className="min-h-screen flex flex-col justify-center transition-all duration-700 relative overflow-hidden"
+      aria-roledescription="carrossel"
+      aria-label="Destaques"
+      className="min-h-[70svh] md:min-h-[88svh] flex flex-col justify-center transition-all duration-700 relative overflow-hidden"
       style={{
         opacity: isInView ? 1 : 0,
         transform: isInView ? 'translateY(0)' : 'translateY(24px)',
+      }}
+      onMouseEnter={() => setInteracting(true)}
+      onMouseLeave={() => setInteracting(false)}
+      onFocus={() => setInteracting(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) setInteracting(false)
+      }}
+      onTouchStart={(e) => (touchStartX.current = e.touches[0].clientX)}
+      onTouchEnd={(e) => {
+        if (touchStartX.current === null) return
+        const dx = e.changedTouches[0].clientX - touchStartX.current
+        touchStartX.current = null
+        if (count > 1 && Math.abs(dx) > 50) go(dx < 0 ? 1 : -1)
       }}
     >
       <div
@@ -109,37 +71,88 @@ export function Hero({ title, highlight, subtitle, cta }: HeroProps) {
           backgroundSize: '32px 32px',
         }}
       />
+      <div
+        aria-hidden="true"
+        className="absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, var(--color-glow) 0%, transparent 70%)', filter: 'blur(60px)' }}
+      />
 
-      <div className="relative max-w-6xl mx-auto w-full px-6 md:px-8 lg:px-12 pt-28 pb-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h1
-              className="font-heading text-display font-extrabold mb-6"
-              style={{ color: 'var(--color-text-primary)' }}
-            >
-              {title}{' '}
-              <span style={{ color: 'var(--color-highlight)' }}>{highlight}</span>
-            </h1>
+      <div className="relative max-w-5xl mx-auto w-full px-6 md:px-8 lg:px-12 pt-28 pb-16 text-center">
+        <h1 className="sr-only">{heading}</h1>
 
-            <p className="text-lead mb-10 max-w-lg" style={{ color: 'var(--color-text-muted)' }}>
-              {subtitle}
-            </p>
-
-            <a
-              href="#contato"
-              className="inline-block px-8 py-4 font-heading font-bold text-base tracking-wide transition-opacity hover:opacity-90"
-              style={{
-                backgroundColor: 'var(--color-accent)',
-                color: 'var(--color-accent-fg)',
-                borderRadius: 'var(--radius-md)',
-              }}
-            >
-              {cta}
-            </a>
-          </div>
-
-          <HeroVideo />
+        {/* Slides share one grid cell, so the block keeps the height of the tallest one. */}
+        <div className="grid" aria-live={rotating ? 'off' : 'polite'}>
+          {slides.map((slide, i) => {
+            const isActive = i === active
+            return (
+              <div
+                key={i}
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`${i + 1} de ${count}`}
+                aria-hidden={!isActive}
+                inert={!isActive}
+                className="[grid-area:1/1] flex flex-col items-center justify-center motion-safe:transition-all motion-safe:duration-700"
+                style={{
+                  opacity: isActive ? 1 : 0,
+                  transform: isActive ? 'translateY(0)' : 'translateY(16px)',
+                }}
+              >
+                <p
+                  className="font-heading text-display font-extrabold max-w-4xl text-balance"
+                  style={{ color: 'var(--color-text-primary)' }}
+                >
+                  {slide.title}
+                  {slide.highlight && (
+                    <>
+                      {' '}
+                      <span style={{ color: 'var(--color-highlight)' }}>{slide.highlight}</span>
+                    </>
+                  )}
+                </p>
+                {slide.subtitle && (
+                  <p className="text-lead mt-6 max-w-2xl" style={{ color: 'var(--color-text-muted)' }}>
+                    {slide.subtitle}
+                  </p>
+                )}
+              </div>
+            )
+          })}
         </div>
+
+        {count > 1 && (
+          <div className="mt-12 flex items-center justify-center gap-3">
+            <button
+              type="button"
+              onClick={() => setUserPaused((p) => !p)}
+              aria-label={userPaused ? 'Retomar troca automática' : 'Pausar troca automática'}
+              className="flex h-11 w-11 items-center justify-center rounded-full border transition-colors hover:border-[var(--color-accent-text)]"
+              style={{ borderColor: 'var(--color-border)', color: 'var(--color-text-primary)' }}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                {userPaused ? <path d="M7 4l13 8-13 8z" /> : <path d="M6 4h4v16H6zM14 4h4v16h-4z" />}
+              </svg>
+            </button>
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setActive(i)}
+                aria-label={`Ir para o destaque ${i + 1}`}
+                aria-current={i === active}
+                className="flex h-11 items-center px-1"
+              >
+                <span
+                  className="block h-1.5 rounded-full transition-all duration-300"
+                  style={{
+                    width: i === active ? '2.5rem' : '1rem',
+                    backgroundColor: i === active ? 'var(--color-accent-2)' : 'var(--color-border)',
+                  }}
+                />
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   )

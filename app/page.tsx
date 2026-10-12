@@ -17,7 +17,7 @@ export default async function Home() {
     <>
       <Header />
       <main id="conteudo" tabIndex={-1} className="outline-none">
-        <Hero title={c.heroTitle} highlight={c.heroHighlight} subtitle={c.heroSubtitle} cta={c.heroCta} />
+        <Hero heading={c.seoTitle} slides={c.heroSlides} />
         <Products eyebrow={c.productsEyebrow} title={c.productsTitle} intro={c.productsIntro} services={services} />
         {SHOW_PROJECTS && <Projects />}
         <About
