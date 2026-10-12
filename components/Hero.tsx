@@ -175,6 +175,19 @@ export function Hero({ heading, slides }: HeroProps) {
           </button>
         </>
       )}
+
+      <button
+        type="button"
+        onClick={() => document.getElementById('produtos')?.scrollIntoView({ behavior: 'smooth' })}
+        aria-label="Rolar para a próxima seção"
+        className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex items-center justify-center p-2 rounded-full motion-safe:animate-bounce transition-opacity hover:opacity-70 focus-visible:opacity-70"
+        style={{ color: 'var(--color-text-muted)' }}
+      >
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M12 5v8m0 0l-5-5m5 5l5-5" />
+          <path d="M12 13v6m0 0l-5-5m5 5l5-5" />
+        </svg>
+      </button>
     </section>
   )
 }

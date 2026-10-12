@@ -93,10 +93,19 @@ export function Products({ eyebrow, title, intro, services, featured }: Products
             </p>
             {featured && (
               <div
-                className="p-8 border"
+                className="relative p-8 border overflow-hidden shadow-sm"
                 style={{ borderColor: 'var(--color-border)', borderRadius: 'var(--radius-lg)', backgroundColor: 'var(--color-surface)' }}
               >
-                <p className="text-eyebrow font-bold tracking-widest uppercase mb-3" style={{ color: 'var(--color-accent-text)' }}>
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-x-0 top-0 h-1"
+                  style={{ backgroundColor: 'var(--color-accent-2)' }}
+                />
+                <p
+                  className="inline-flex items-center gap-2 text-eyebrow font-bold tracking-widest uppercase mb-3"
+                  style={{ color: 'var(--color-accent-text)' }}
+                >
+                  <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: 'var(--color-accent-2)' }} aria-hidden="true" />
                   Em destaque
                 </p>
                 <h3 className="font-heading text-subheading font-bold mb-3" style={{ color: 'var(--color-text-primary)' }}>
