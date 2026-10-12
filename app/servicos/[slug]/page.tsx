@@ -84,7 +84,7 @@ export default async function ServicePage({
                 borderRadius: 'var(--radius-md)',
               }}
             >
-              Testar grátis
+              Quero contratar
             </a>
           </div>
         </section>
@@ -193,7 +193,7 @@ export default async function ServicePage({
                 borderRadius: 'var(--radius-md)',
               }}
             >
-              Testar grátis
+              Quero contratar
             </a>
           </div>
         </section>
