@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useInView } from '@/hooks/useInView'
 
 interface ContactProps {
@@ -47,6 +48,14 @@ export function Contact({ eyebrow, title, text, cta, whatsappHref }: ContactProp
           {text}
         </p>
 
+        <div className="flex flex-wrap gap-4">
+        <Link
+          href="/orcamento"
+          className="inline-block px-8 py-4 font-heading font-bold text-base tracking-wide border-2 transition-colors hover:border-[var(--color-accent-text)]"
+          style={{ borderColor: 'var(--color-text-primary)', color: 'var(--color-text-primary)', borderRadius: 'var(--radius-md)' }}
+        >
+          Pedir orçamento
+        </Link>
         {whatsappHref && (
         <a
           href={whatsappHref}
@@ -63,6 +72,7 @@ export function Contact({ eyebrow, title, text, cta, whatsappHref }: ContactProp
           <span className="sr-only"> (abre em nova aba)</span>
         </a>
         )}
+        </div>
       </div>
     </section>
   )
