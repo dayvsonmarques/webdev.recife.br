@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { MobileMenu } from '@/components/MobileMenu'
@@ -14,14 +14,23 @@ export function Header() {
     menuButtonRef.current?.focus()
   }, [])
 
+  // Floats transparent over the top of the page; gets a solid background and border once scrolled.
+  const [scrolled, setScrolled] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
     <>
       <header
         className="fixed top-0 left-0 right-0 z-40"
         style={{
-          backgroundColor: 'var(--color-bg)',
-          borderBottom: '1px solid var(--color-border)',
-          transition: 'background-color 0.2s ease',
+          backgroundColor: scrolled ? 'var(--color-bg)' : 'transparent',
+          borderBottom: `1px solid ${scrolled ? 'var(--color-border)' : 'transparent'}`,
+          transition: 'background-color 0.2s ease, border-color 0.2s ease',
         }}
       >
         <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 flex items-center py-4">
