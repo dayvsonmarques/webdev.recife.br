@@ -9,6 +9,8 @@ import { getSiteContent, whatsappLink } from '@/lib/content'
 
 // Seção de projetos oculta até termos cases para mostrar.
 const SHOW_PROJECTS = false
+// Product pitched with the phone video at the top of the Products section.
+const FEATURED_PRODUCT = 'loja-online'
 
 export default async function Home() {
   const { config: c, services } = await getSiteContent()
@@ -18,7 +20,13 @@ export default async function Home() {
       <Header />
       <main id="conteudo" tabIndex={-1} className="outline-none">
         <Hero heading={c.seoTitle} slides={c.heroSlides} />
-        <Products eyebrow={c.productsEyebrow} title={c.productsTitle} intro={c.productsIntro} services={services} />
+        <Products
+          eyebrow={c.productsEyebrow}
+          title={c.productsTitle}
+          intro={c.productsIntro}
+          services={services}
+          featured={services.find((s) => s.slug === FEATURED_PRODUCT)}
+        />
         {SHOW_PROJECTS && <Projects />}
         <About
           eyebrow={c.aboutEyebrow}
