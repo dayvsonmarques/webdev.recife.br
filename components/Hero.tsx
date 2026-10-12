@@ -19,10 +19,12 @@ interface HeroProps {
   /** Visually hidden page heading; the slides are the visible message. */
   heading: string
   slides: HeroSlide[]
+  /** Fixed offer pill above the rotating phrases (price, trial, no lock-in). */
+  offer?: string
 }
 
 /** Banner carousel: rotates every few seconds, pauses on hover/focus, stops after manual navigation or for reduced motion. */
-export function Hero({ heading, slides }: HeroProps) {
+export function Hero({ heading, slides, offer }: HeroProps) {
   const { ref, isInView } = useInView()
   const [active, setActive] = useState(0)
   const [userPaused, setUserPaused] = useState(false)
@@ -84,6 +86,16 @@ export function Hero({ heading, slides }: HeroProps) {
 
       <div className="relative max-w-5xl mx-auto w-full px-6 md:px-24 pt-28 pb-16 text-center">
         <h1 className="sr-only">{heading}</h1>
+
+        {offer && (
+          <p
+            className="inline-flex items-center gap-2 mb-8 px-4 py-2 text-sm font-semibold border"
+            style={{ borderColor: 'var(--color-accent-2)', color: 'var(--color-text-primary)', borderRadius: '999px' }}
+          >
+            <span className="h-2 w-2 rounded-full" style={{ backgroundColor: 'var(--color-accent-2)' }} aria-hidden="true" />
+            {offer}
+          </p>
+        )}
 
         {/* Slides share one grid cell, so the block keeps the height of the tallest one. */}
         <div className="grid" aria-live={rotating ? 'off' : 'polite'}>

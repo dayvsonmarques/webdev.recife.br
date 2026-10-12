@@ -6,7 +6,7 @@ import { Footer } from '@/components/Footer'
 import { PlanCard, IconCheck } from '@/components/PlanCard'
 import { SERVICE_ICONS } from '@/components/service-icons'
 import { ProductGallery } from '@/components/ProductGallery'
-import { getSiteContent, whatsappLink } from '@/lib/content'
+import { getSiteContent, offerLine, whatsappLink } from '@/lib/content'
 import { PRODUCT_GALLERIES } from '@/lib/product-gallery'
 
 export async function generateStaticParams() {
@@ -70,10 +70,14 @@ export default async function ServicePage({
             </h1>
 
             <p
-              className="text-lead mb-10 max-w-2xl"
+              className="text-lead mb-4 max-w-2xl"
               style={{ color: 'var(--color-text-muted)' }}
             >
               {service.tagline}
+            </p>
+
+            <p className="text-base font-semibold mb-8" style={{ color: 'var(--color-accent-text)' }}>
+              {offerLine(plans, config.trialDays)}
             </p>
 
             <a

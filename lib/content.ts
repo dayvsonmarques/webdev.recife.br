@@ -104,3 +104,25 @@ export function whatsappLink(number: string | null, message?: string) {
   if (!number) return null
   return `https://wa.me/${number}${message ? `?text=${encodeURIComponent(message)}` : ''}`
 }
+
+/** Cheapest visible plan, for "a partir de" messages; null when no plan is published. */
+export function startingPrice(plans: Plan[]) {
+  return plans.length ? Math.min(...plans.map((p) => p.price)) : null
+}
+
+/** "R$ 30" or "R$ 30,90" (Brazilian format, cents only when present). */
+export function formatPrice(value: number) {
+  return value.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+    minimumFractionDigits: Number.isInteger(value) ? 0 : 2,
+  })
+}
+
+/** Short offer line, e.g. "7 dias grátis · A partir de R$ 30/mês · Sem fidelidade". */
+export function offerLine(plans: Plan[], trialDays: number) {
+  const from = startingPrice(plans)
+  return [trialDays > 0 && `${trialDays} dias grátis`, from !== null && `A partir de ${formatPrice(from)}/mês`, 'Sem fidelidade']
+    .filter(Boolean)
+    .join(' · ')
+}

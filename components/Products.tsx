@@ -6,16 +6,32 @@ import { PhoneVideo } from '@/components/PhoneVideo'
 import { SERVICE_ICONS, type ServiceIconId } from '@/components/service-icons'
 import type { Service } from '@/lib/content'
 
+const SELLING_POINTS = ['Pronta para vender em poucos dias', 'Sem fidelidade: cancele quando quiser', 'Você cuida do negócio, a gente da tecnologia']
+
+function FromPrice({ price, large = false }: { price: string; large?: boolean }) {
+  return (
+    <p style={{ color: 'var(--color-text-muted)' }} className={large ? 'text-base' : 'text-sm'}>
+      a partir de{' '}
+      <strong className={`font-heading font-extrabold ${large ? 'text-subheading' : 'text-lg'}`} style={{ color: 'var(--color-text-primary)' }}>
+        {price}
+      </strong>
+      /mês
+    </p>
+  )
+}
+
 function ProductCard({
   slug,
   title,
   summary,
   icon,
+  price,
 }: {
   slug: string
   title: string
   summary: string
   icon: ServiceIconId
+  price?: string
 }) {
   return (
     <Link
@@ -43,6 +59,11 @@ function ProductCard({
           {summary}
         </p>
       </div>
+      {price && (
+        <div className="mt-auto">
+          <FromPrice price={price} />
+        </div>
+      )}
     </Link>
   )
 }
@@ -54,10 +75,12 @@ interface ProductsProps {
   services: Service[]
   /** Product pitched next to the phone video (the video shows an online store). */
   featured?: Service
+  /** Cheapest plan, formatted (e.g. "R$ 30"). */
+  startingPrice?: string
 }
 
 /** Ready-made products sold by subscription (admin → Produtos SaaS); each has its own page. */
-export function Products({ eyebrow, title, intro, services, featured }: ProductsProps) {
+export function Products({ eyebrow, title, intro, services, featured, startingPrice }: ProductsProps) {
   const { ref, isInView } = useInView()
 
   return (
@@ -111,9 +134,24 @@ export function Products({ eyebrow, title, intro, services, featured }: Products
                 <h3 className="font-heading text-subheading font-bold mb-3" style={{ color: 'var(--color-text-primary)' }}>
                   {featured.title}
                 </h3>
-                <p className="text-base leading-relaxed mb-6" style={{ color: 'var(--color-text-muted)' }}>
-                  {featured.tagline}
+                <p className="text-lead font-semibold mb-4" style={{ color: 'var(--color-text-primary)' }}>
+                  Comece a vender online rápido e sem burocracia.
                 </p>
+                {startingPrice && (
+                  <div className="mb-5">
+                    <FromPrice price={startingPrice} large />
+                  </div>
+                )}
+                <ul className="flex flex-col gap-2 mb-7">
+                  {SELLING_POINTS.map((point) => (
+                    <li key={point} className="flex items-start gap-2.5 text-base" style={{ color: 'var(--color-text-muted)' }}>
+                      <svg className="mt-1 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-accent-2)' }} aria-hidden="true">
+                        <path d="M5 12l5 5L20 7" />
+                      </svg>
+                      {point}
+                    </li>
+                  ))}
+                </ul>
                 <Link
                   href={`/servicos/${featured.slug}`}
                   className="inline-block px-6 py-3 font-heading font-bold text-base transition-opacity hover:opacity-90"
@@ -135,6 +173,7 @@ export function Products({ eyebrow, title, intro, services, featured }: Products
               title={service.title}
               summary={service.summary}
               icon={service.icon}
+              price={startingPrice}
             />
           ))}
         </div>

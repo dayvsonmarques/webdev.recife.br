@@ -5,7 +5,7 @@ import { Projects } from '@/components/Projects'
 import { About } from '@/components/About'
 import { Contact } from '@/components/Contact'
 import { Footer } from '@/components/Footer'
-import { getSiteContent, whatsappLink } from '@/lib/content'
+import { formatPrice, getSiteContent, offerLine, startingPrice, whatsappLink } from '@/lib/content'
 
 // Seção de projetos oculta até termos cases para mostrar.
 const SHOW_PROJECTS = false
@@ -13,19 +13,21 @@ const SHOW_PROJECTS = false
 const FEATURED_PRODUCT = 'loja-online'
 
 export default async function Home() {
-  const { config: c, services } = await getSiteContent()
+  const { config: c, services, plans } = await getSiteContent()
+  const from = startingPrice(plans)
 
   return (
     <>
       <Header />
       <main id="conteudo" tabIndex={-1} className="outline-none">
-        <Hero heading={c.seoTitle} slides={c.heroSlides} />
+        <Hero heading={c.seoTitle} slides={c.heroSlides} offer={offerLine(plans, c.trialDays)} />
         <Products
           eyebrow={c.productsEyebrow}
           title={c.productsTitle}
           intro={c.productsIntro}
           services={services}
           featured={services.find((s) => s.slug === FEATURED_PRODUCT)}
+          startingPrice={from === null ? undefined : formatPrice(from)}
         />
         {SHOW_PROJECTS && <Projects />}
         <About
