@@ -82,7 +82,7 @@ export function Hero({ heading, slides }: HeroProps) {
         style={{ background: 'radial-gradient(circle, var(--color-glow) 0%, transparent 70%)', filter: 'blur(60px)' }}
       />
 
-      <div className="relative max-w-5xl mx-auto w-full px-12 md:px-24 pt-28 pb-16 text-center">
+      <div className="relative max-w-5xl mx-auto w-full px-6 md:px-24 pt-28 pb-16 text-center">
         <h1 className="sr-only">{heading}</h1>
 
         {/* Slides share one grid cell, so the block keeps the height of the tallest one. */}
@@ -155,10 +155,10 @@ export function Hero({ heading, slides }: HeroProps) {
             type="button"
             onClick={() => takeControl(() => go(-1))}
             aria-label="Destaque anterior"
-            className="absolute left-1 md:left-6 top-1/2 -translate-y-1/2 flex items-center justify-center p-1 opacity-60 transition-opacity hover:opacity-100 focus-visible:opacity-100"
+            className="absolute left-6 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center p-1 opacity-60 transition-opacity hover:opacity-100 focus-visible:opacity-100"
             style={{ color: 'var(--color-text-primary)' }}
           >
-            <svg className="h-10 w-10 md:h-20 md:w-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <svg className="h-20 w-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M15 18l-6-6 6-6" />
             </svg>
           </button>
@@ -166,10 +166,10 @@ export function Hero({ heading, slides }: HeroProps) {
             type="button"
             onClick={() => takeControl(() => go(1))}
             aria-label="Próximo destaque"
-            className="absolute right-1 md:right-6 top-1/2 -translate-y-1/2 flex items-center justify-center p-1 opacity-60 transition-opacity hover:opacity-100 focus-visible:opacity-100"
+            className="absolute right-6 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center p-1 opacity-60 transition-opacity hover:opacity-100 focus-visible:opacity-100"
             style={{ color: 'var(--color-text-primary)' }}
           >
-            <svg className="h-10 w-10 md:h-20 md:w-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <svg className="h-20 w-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M9 18l6-6-6-6" />
             </svg>
           </button>
