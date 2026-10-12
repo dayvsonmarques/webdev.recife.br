@@ -21,7 +21,7 @@ interface HeroProps {
   slides: HeroSlide[]
 }
 
-/** Banner carousel: rotates every few seconds, pauses on hover/focus, stops for reduced motion. */
+/** Banner carousel: rotates every few seconds, pauses on hover/focus, stops after manual navigation or for reduced motion. */
 export function Hero({ heading, slides }: HeroProps) {
   const { ref, isInView } = useInView()
   const [active, setActive] = useState(0)
@@ -33,6 +33,11 @@ export function Hero({ heading, slides }: HeroProps) {
   const count = slides.length
   const rotating = count > 1 && !userPaused && !interacting && !reducedMotion
   const go = useCallback((delta: number) => setActive((i) => (i + delta + count) % count), [count])
+  // Once the visitor navigates by hand, auto-rotation stops for good (WCAG 2.2.2: moving content can be stopped).
+  const takeControl = (navigate: () => void) => {
+    setUserPaused(true)
+    navigate()
+  }
 
   useEffect(() => {
     if (!rotating) return
@@ -124,20 +129,20 @@ export function Hero({ heading, slides }: HeroProps) {
           <div className="mt-12 flex items-center justify-center gap-3">
             <button
               type="button"
-              onClick={() => setUserPaused((p) => !p)}
-              aria-label={userPaused ? 'Retomar troca automática' : 'Pausar troca automática'}
-              className="flex h-11 w-11 items-center justify-center rounded-full border transition-colors hover:border-[var(--color-accent-text)]"
+              onClick={() => takeControl(() => go(-1))}
+              aria-label="Destaque anterior"
+              className="flex h-11 w-11 items-center justify-center rounded-full border transition-colors hover:border-[var(--color-accent-text)] focus-visible:border-[var(--color-accent-text)]"
               style={{ borderColor: 'var(--color-border)', color: 'var(--color-text-primary)' }}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                {userPaused ? <path d="M7 4l13 8-13 8z" /> : <path d="M6 4h4v16H6zM14 4h4v16h-4z" />}
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M15 18l-6-6 6-6" />
               </svg>
             </button>
             {slides.map((_, i) => (
               <button
                 key={i}
                 type="button"
-                onClick={() => setActive(i)}
+                onClick={() => takeControl(() => setActive(i))}
                 aria-label={`Ir para o destaque ${i + 1}`}
                 aria-current={i === active}
                 className="flex h-11 items-center px-1"
@@ -151,6 +156,17 @@ export function Hero({ heading, slides }: HeroProps) {
                 />
               </button>
             ))}
+            <button
+              type="button"
+              onClick={() => takeControl(() => go(1))}
+              aria-label="Próximo destaque"
+              className="flex h-11 w-11 items-center justify-center rounded-full border transition-colors hover:border-[var(--color-accent-text)] focus-visible:border-[var(--color-accent-text)]"
+              style={{ borderColor: 'var(--color-border)', color: 'var(--color-text-primary)' }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </button>
           </div>
         )}
       </div>
