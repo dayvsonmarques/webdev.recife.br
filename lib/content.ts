@@ -19,6 +19,8 @@ export interface SiteContent {
     pricingEyebrow: string
     pricingTitle: string
     pricingNote: string
+    /** Free-trial length in days; 0 = no trial. */
+    trialDays: number
     aboutEyebrow: string
     aboutTitle: string
     aboutText: string
@@ -90,7 +92,7 @@ export async function getSiteContent(): Promise<SiteContent> {
   if (!res.ok) throw new Error(`O painel respondeu ${res.status} em ${url}.`)
   const data = (await res.json()) as SiteContent
   // Tolerate a panel deployed before a field existed (and stale cached payloads).
-  return { ...data, catalog: data.catalog ?? [] }
+  return { ...data, catalog: data.catalog ?? [], config: { ...data.config, trialDays: data.config.trialDays ?? 0 } }
 }
 
 /** wa.me link, or null while no WhatsApp number is configured in the admin. */

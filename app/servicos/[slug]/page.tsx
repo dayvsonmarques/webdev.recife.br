@@ -41,6 +41,7 @@ export default async function ServicePage({
   const ctaProps = whatsappHref
     ? { href: whatsappHref, target: '_blank', rel: 'noopener noreferrer' }
     : { href: '/#contato' }
+  const ctaLabel = config.trialDays > 0 ? `Testar grátis por ${config.trialDays} dias` : 'Quero contratar'
 
   return (
     <>
@@ -84,7 +85,7 @@ export default async function ServicePage({
                 borderRadius: 'var(--radius-md)',
               }}
             >
-              Quero contratar
+              {ctaLabel}
             </a>
           </div>
         </section>
@@ -158,6 +159,7 @@ export default async function ServicePage({
               {config.pricingTitle}
             </h2>
             <p className="text-lead mb-14 max-w-md" style={{ color: 'var(--color-text-muted)' }}>
+              {config.trialDays > 0 && `${config.trialDays} dias grátis para testar. `}
               {config.pricingNote}
             </p>
             <div className="grid md:grid-cols-3 gap-6 items-start">
@@ -193,7 +195,7 @@ export default async function ServicePage({
                 borderRadius: 'var(--radius-md)',
               }}
             >
-              Quero contratar
+              {ctaLabel}
             </a>
           </div>
         </section>
