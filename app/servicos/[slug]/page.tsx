@@ -6,6 +6,12 @@ import { Footer } from '@/components/Footer'
 import { PlanCard, IconCheck } from '@/components/PlanCard'
 import { SERVICE_ICONS } from '@/components/service-icons'
 import { ProductGallery } from '@/components/ProductGallery'
+import { ButtonLink } from '@/components/ui/Button'
+import { cardClass } from '@/components/ui/Card'
+import { Container } from '@/components/ui/Container'
+import { Eyebrow } from '@/components/ui/Eyebrow'
+import { Section } from '@/components/ui/Section'
+import { SectionHeader } from '@/components/ui/SectionHeader'
 import { getSiteContent, offerLine, whatsappLink } from '@/lib/content'
 import { PRODUCT_GALLERIES } from '@/lib/product-gallery'
 
@@ -37,136 +43,79 @@ export default async function ServicePage({
   if (!service) notFound()
 
   // Until a WhatsApp number is set in the admin, CTAs point to the contact section.
-  const whatsappHref = whatsappLink(config.whatsappNumber, service.whatsappMessage)
-  const ctaProps = whatsappHref
-    ? { href: whatsappHref, target: '_blank', rel: 'noopener noreferrer' }
-    : { href: '/#contato' }
+  const ctaHref = whatsappLink(config.whatsappNumber, service.whatsappMessage) ?? '/#contato'
   const ctaLabel = config.trialDays > 0 ? `Testar grátis por ${config.trialDays} dias` : 'Quero contratar'
 
   return (
     <>
       <Header />
       <main id="conteudo" tabIndex={-1} className="outline-none">
-
-        <section className="min-h-screen flex flex-col justify-center pt-28 pb-20">
-          <div className="max-w-6xl mx-auto w-full px-6 md:px-8 lg:px-12">
-            <Link
-              href="/#produtos"
-              className="inline-block text-eyebrow font-bold tracking-widest uppercase mb-8"
-              style={{ color: 'var(--color-accent-text)' }}
-            >
+        <section className="relative flex min-h-[80svh] flex-col justify-center overflow-hidden pb-20 pt-36">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-32 top-10 h-[34rem] w-[34rem] rounded-full blur-[90px]"
+            style={{ background: 'radial-gradient(circle, var(--c-glow) 0%, transparent 70%)' }}
+          />
+          <Container className="relative flex flex-col items-start gap-8">
+            <Link href="/#produtos" className="text-eyebrow font-semibold uppercase tracking-[0.18em] text-gold-ink hover:underline">
               ← Produtos
             </Link>
-
-            <div className="mb-8" style={{ color: 'var(--color-accent-text)' }}>
+            <span className="flex h-20 w-20 items-center justify-center rounded-lg border border-line bg-surface text-gold-ink [&_svg]:h-11 [&_svg]:w-11">
               {SERVICE_ICONS[service.icon]}
+            </span>
+            <h1 className="font-heading text-display font-extrabold tracking-[-0.03em] text-ink">{service.title}</h1>
+            <p className="max-w-2xl text-lead text-muted">{service.tagline}</p>
+            <p className="rounded-pill border border-gold/50 px-4 py-2 text-base font-semibold text-ink">{offerLine(plans, config.trialDays)}</p>
+            <div className="flex flex-wrap gap-4 pt-2">
+              <ButtonLink href={ctaHref} arrow>
+                {ctaLabel}
+              </ButtonLink>
+              <ButtonLink href="#planos" variant="secondary">
+                Ver planos
+              </ButtonLink>
             </div>
-
-            <h1
-              className="font-heading text-display font-extrabold leading-[1.05] mb-6"
-              style={{ color: 'var(--color-text-primary)' }}
-            >
-              {service.title}
-            </h1>
-
-            <p
-              className="text-lead mb-4 max-w-2xl"
-              style={{ color: 'var(--color-text-muted)' }}
-            >
-              {service.tagline}
-            </p>
-
-            <p className="text-base font-semibold mb-8" style={{ color: 'var(--color-accent-text)' }}>
-              {offerLine(plans, config.trialDays)}
-            </p>
-
-            <a
-              {...ctaProps}
-              className="inline-block px-8 py-4 font-heading font-bold text-base tracking-wide transition-opacity hover:opacity-90"
-              style={{
-                backgroundColor: 'var(--color-accent)',
-                color: 'var(--color-accent-fg)',
-                borderRadius: 'var(--radius-md)',
-              }}
-            >
-              {ctaLabel}
-            </a>
-          </div>
+          </Container>
         </section>
 
-        <section className="py-28">
-          <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
-            <p
-              className="text-eyebrow font-bold tracking-widest uppercase mb-4"
-              style={{ color: 'var(--color-accent-text)' }}
-            >
-              O que é
-            </p>
-            <p
-              className="text-lead mb-10 max-w-2xl"
-              style={{ color: 'var(--color-text-primary)' }}
-            >
-              {service.description}
-            </p>
-            <p
-              className="text-eyebrow font-bold tracking-widest uppercase mb-4"
-              style={{ color: 'var(--color-accent-text)' }}
-            >
-              Pra quem é
-            </p>
-            <p
-              className="text-lead max-w-2xl"
-              style={{ color: 'var(--color-text-muted)' }}
-            >
-              {service.forWhom}
-            </p>
-          </div>
-        </section>
+        <Section>
+          <Container className="grid gap-6 md:grid-cols-2">
+            <div className={cardClass({ className: 'flex flex-col gap-5 p-8 md:p-12' })}>
+              <Eyebrow>O que é</Eyebrow>
+              <p className="text-lead text-ink">{service.description}</p>
+            </div>
+            <div className={cardClass({ className: 'flex flex-col gap-5 p-8 md:p-12' })}>
+              <Eyebrow>Pra quem é</Eyebrow>
+              <p className="text-lead text-muted">{service.forWhom}</p>
+            </div>
+          </Container>
+        </Section>
 
-        <section className="py-28" style={{ backgroundColor: 'var(--color-surface)' }}>
-          <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
-            <h2
-              className="font-heading text-heading font-bold mb-10"
-              style={{ color: 'var(--color-text-primary)' }}
-            >
-              O que está incluso
-            </h2>
-            <ul className="grid md:grid-cols-2 gap-5">
+        <Section tone="surface">
+          <Container className="flex flex-col gap-14">
+            <SectionHeader title="O que está incluso" />
+            <ul className="grid gap-x-10 gap-y-5 md:grid-cols-2">
               {service.features.map((feature) => (
-                <li key={feature} className="flex items-center gap-3">
-                  <span style={{ color: 'var(--color-accent-text)', flexShrink: 0 }}>
+                <li key={feature} className="flex items-start gap-4 border-b border-line pb-5 text-base text-ink">
+                  <span className="mt-1 shrink-0 text-gold-ink">
                     <IconCheck />
                   </span>
-                  <span className="text-base" style={{ color: 'var(--color-text-primary)' }}>
-                    {feature}
-                  </span>
+                  {feature}
                 </li>
               ))}
             </ul>
-          </div>
-        </section>
+          </Container>
+        </Section>
 
         {PRODUCT_GALLERIES[service.slug] && <ProductGallery gallery={PRODUCT_GALLERIES[service.slug]} />}
 
-        <section className="py-28">
-          <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
-            <p
-              className="text-eyebrow font-bold tracking-widest uppercase mb-4"
-              style={{ color: 'var(--color-accent-text)' }}
-            >
-              {config.pricingEyebrow}
-            </p>
-            <h2
-              className="font-heading text-heading font-bold mb-4"
-              style={{ color: 'var(--color-text-primary)' }}
-            >
-              {config.pricingTitle}
-            </h2>
-            <p className="text-lead mb-14 max-w-md" style={{ color: 'var(--color-text-muted)' }}>
-              {config.trialDays > 0 && `${config.trialDays} dias grátis para testar. `}
-              {config.pricingNote}
-            </p>
-            <div className="grid md:grid-cols-3 gap-6 items-start">
+        <Section id="planos">
+          <Container className="flex flex-col gap-16">
+            <SectionHeader
+              eyebrow={config.pricingEyebrow}
+              title={config.pricingTitle}
+              intro={`${config.trialDays > 0 ? `${config.trialDays} dias grátis para testar. ` : ''}${config.pricingNote}`}
+            />
+            <div className="grid items-start gap-6 md:grid-cols-3">
               {plans.map((plan) => (
                 <PlanCard
                   key={plan.slug}
@@ -179,31 +128,17 @@ export default async function ServicePage({
                 />
               ))}
             </div>
-          </div>
-        </section>
+          </Container>
+        </Section>
 
-        <section className="py-32" style={{ backgroundColor: 'var(--color-surface)' }}>
-          <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
-            <h2
-              className="font-heading text-title font-extrabold leading-tight mb-6 max-w-xl"
-              style={{ color: 'var(--color-text-primary)' }}
-            >
-              Pronto pra começar com {service.title}?
-            </h2>
-            <a
-              {...ctaProps}
-              className="inline-block px-8 py-4 font-heading font-bold text-base tracking-wide transition-opacity hover:opacity-90"
-              style={{
-                backgroundColor: 'var(--color-accent)',
-                color: 'var(--color-accent-fg)',
-                borderRadius: 'var(--radius-md)',
-              }}
-            >
+        <Section tone="surface">
+          <Container className="flex flex-col items-start gap-10">
+            <h2 className="max-w-3xl font-heading text-title font-extrabold text-ink">Pronto pra começar com {service.title}?</h2>
+            <ButtonLink href={ctaHref} arrow>
               {ctaLabel}
-            </a>
-          </div>
-        </section>
-
+            </ButtonLink>
+          </Container>
+        </Section>
       </main>
 
       <Footer text={config.footerText} />

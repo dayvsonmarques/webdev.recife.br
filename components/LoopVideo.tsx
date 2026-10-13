@@ -33,8 +33,7 @@ export function LoopVideo({ mp4, webm, poster, label }: { mp4: string; webm: str
         type="button"
         onClick={() => (ref.current?.paused ? ref.current.play() : ref.current?.pause())}
         aria-label={playing ? 'Pausar animação' : 'Reproduzir animação'}
-        className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full"
-        style={{ backgroundColor: 'rgba(10,10,10,0.6)', color: '#FFFFFF' }}
+        className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white"
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           {playing ? <path d="M6 4h4v16H6zM14 4h4v16h-4z" /> : <path d="M7 4l13 8-13 8z" />}

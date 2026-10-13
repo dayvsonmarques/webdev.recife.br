@@ -1,13 +1,9 @@
-import Link from 'next/link'
+import { ButtonLink } from '@/components/ui/Button'
+import { cn } from '@/components/ui/cn'
 
 export function IconCheck() {
   return (
-    <svg
-      width="16" height="16" viewBox="0 0 16 16"
-      fill="none" stroke="currentColor"
-      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-      aria-hidden="true"
-    >
+    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <polyline points="2 8 6 12 14 4" />
     </svg>
   )
@@ -30,87 +26,39 @@ export function PlanCard({
 }) {
   return (
     <div
-      className="relative p-8 flex flex-col gap-8 transition-all duration-200 hover:-translate-y-1"
-      style={{
-        backgroundColor: highlighted ? 'var(--color-surface)' : 'var(--color-bg)',
-        border: `1px solid ${highlighted ? 'var(--color-accent)' : 'var(--color-border)'}`,
-        borderRadius: 'var(--radius-lg)',
-      }}
+      className={cn(
+        'relative flex flex-col gap-8 rounded-lg border p-8 transition-transform duration-300 hover:-translate-y-1 md:p-10',
+        highlighted ? 'border-gold bg-surface shadow-lift' : 'border-line bg-bg shadow-card',
+      )}
     >
       {highlighted && (
-        <div
-          className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 text-xs font-bold uppercase tracking-widest text-center"
-          style={{
-            backgroundColor: 'var(--color-accent)',
-            color: 'var(--color-accent-fg)',
-            borderRadius: '999px',
-          }}
-        >
-          {badgeLabel}
-        </div>
+        <span className="absolute -top-3.5 left-8 rounded-pill bg-gold px-4 py-1 text-sm font-bold text-[#0A0A0A]">{badgeLabel}</span>
       )}
 
-      <div>
-        <p
-          className="text-eyebrow font-bold uppercase tracking-widest mb-4"
-          style={{ color: highlighted ? 'var(--color-accent-text)' : 'var(--color-text-muted)' }}
-        >
-          {name}
+      <div className="flex flex-col gap-4">
+        <p className={cn('text-eyebrow font-semibold uppercase tracking-[0.18em]', highlighted ? 'text-gold-ink' : 'text-muted')}>{name}</p>
+        <p className="flex items-baseline gap-1.5 text-muted">
+          <span className="text-base font-medium">R$</span>
+          <span className="font-heading text-heading font-extrabold leading-none tracking-tight text-ink">{price.toLocaleString('pt-BR')}</span>
+          <span className="text-base">/mês</span>
         </p>
-
-        <div className="flex items-end gap-1 mb-3">
-          <span
-            className="text-sm font-medium"
-            style={{ color: 'var(--color-text-muted)' }}
-          >
-            R$
-          </span>
-          <span
-            className="font-heading text-heading font-extrabold leading-none"
-            style={{ color: 'var(--color-text-primary)' }}
-          >
-            {price}
-          </span>
-          <span
-            className="text-sm mb-1"
-            style={{ color: 'var(--color-text-muted)' }}
-          >
-            /mês
-          </span>
-        </div>
-
-        <p
-          className="text-sm leading-relaxed"
-          style={{ color: 'var(--color-text-muted)' }}
-        >
-          {description}
-        </p>
+        <p className="text-base text-muted">{description}</p>
       </div>
 
-      <ul className="flex flex-col gap-3">
+      <ul className="flex flex-col gap-3.5 border-t border-line pt-8">
         {features.map((feature) => (
-          <li key={feature} className="flex items-center gap-3">
-            <span style={{ color: 'var(--color-accent-text)', flexShrink: 0 }}>
+          <li key={feature} className="flex items-start gap-3 text-base text-ink">
+            <span className="mt-1 shrink-0 text-gold-ink">
               <IconCheck />
             </span>
-            <span className="text-sm" style={{ color: 'var(--color-text-primary)' }}>
-              {feature}
-            </span>
+            {feature}
           </li>
         ))}
       </ul>
 
-      <Link
-        href="/#contato"
-        className="mt-auto block text-center px-6 py-3 font-heading font-bold text-sm uppercase tracking-widest transition-opacity hover:opacity-80"
-        style={
-          highlighted
-            ? { backgroundColor: 'var(--color-accent)', color: 'var(--color-accent-fg)', borderRadius: 'var(--radius-md)' }
-            : { border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', borderRadius: 'var(--radius-md)' }
-        }
-      >
+      <ButtonLink href="/orcamento" variant={highlighted ? 'primary' : 'secondary'} arrow className="mt-auto w-full">
         Começar agora
-      </Link>
+      </ButtonLink>
     </div>
   )
 }
