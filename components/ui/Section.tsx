@@ -1,7 +1,4 @@
-'use client'
-
 import type { ReactNode } from 'react'
-import { useInView } from '@/hooks/useInView'
 import { cn } from './cn'
 
 interface SectionProps {
@@ -13,21 +10,13 @@ interface SectionProps {
   'aria-label'?: string
 }
 
-/** Vertical rhythm for every page section, with a gentle reveal when it scrolls into view. */
+/**
+ * Vertical rhythm for every page section. Always visible at rest (no scroll-triggered fade),
+ * so anchors, fast scrolling and link previews never land on an empty band.
+ */
 export function Section({ id, children, tone = 'default', className, ...rest }: SectionProps) {
-  const { ref, isInView } = useInView()
   return (
-    <section
-      id={id}
-      ref={ref}
-      aria-label={rest['aria-label']}
-      className={cn(
-        'py-section transition-[opacity,transform] duration-700 ease-out',
-        tone === 'surface' && 'bg-surface',
-        isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6',
-        className,
-      )}
-    >
+    <section id={id} aria-label={rest['aria-label']} className={cn('py-section', tone === 'surface' && 'bg-surface', className)}>
       {children}
     </section>
   )
