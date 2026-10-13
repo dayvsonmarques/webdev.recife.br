@@ -1,7 +1,7 @@
-'use client'
-
-import Link from 'next/link'
-import { useInView } from '@/hooks/useInView'
+import { ButtonLink } from '@/components/ui/Button'
+import { Container } from '@/components/ui/Container'
+import { Section } from '@/components/ui/Section'
+import { SectionHeader } from '@/components/ui/SectionHeader'
 
 interface ContactProps {
   eyebrow: string
@@ -13,67 +13,26 @@ interface ContactProps {
 }
 
 export function Contact({ eyebrow, title, text, cta, whatsappHref }: ContactProps) {
-  const { ref, isInView } = useInView()
-
   return (
-    <section
-      id="contato"
-      ref={ref}
-      className="py-32 transition-all duration-700"
-      style={{
-        backgroundColor: 'var(--color-surface)',
-        opacity: isInView ? 1 : 0,
-        transform: isInView ? 'translateY(0)' : 'translateY(24px)',
-      }}
-    >
-      <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12">
-        <p
-          className="text-eyebrow font-bold tracking-widest uppercase mb-6"
-          style={{ color: 'var(--color-accent-text)' }}
-        >
-          {eyebrow}
-        </p>
-
-        <h2
-          className="font-heading text-title font-extrabold leading-tight mb-6 max-w-xl"
-          style={{ color: 'var(--color-text-primary)' }}
-        >
-          {title}
-        </h2>
-
-        <p
-          className="text-lead mb-12 max-w-md"
-          style={{ color: 'var(--color-text-muted)' }}
-        >
-          {text}
-        </p>
-
+    <Section id="contato" tone="surface" className="relative overflow-hidden">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-40 -top-40 h-[30rem] w-[30rem] rounded-full blur-[90px]"
+        style={{ background: 'radial-gradient(circle, var(--c-glow) 0%, transparent 70%)' }}
+      />
+      <Container className="relative flex flex-col gap-12">
+        <SectionHeader eyebrow={eyebrow} title={title} intro={text} size="title" />
         <div className="flex flex-wrap gap-4">
-        <Link
-          href="/orcamento"
-          className="inline-block px-8 py-4 font-heading font-bold text-base tracking-wide border-2 transition-colors hover:border-[var(--color-accent-text)]"
-          style={{ borderColor: 'var(--color-text-primary)', color: 'var(--color-text-primary)', borderRadius: 'var(--radius-md)' }}
-        >
-          Pedir orçamento
-        </Link>
-        {whatsappHref && (
-        <a
-          href={whatsappHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block px-8 py-4 font-heading font-bold text-base tracking-wide transition-opacity hover:opacity-90"
-          style={{
-            backgroundColor: 'var(--color-accent)',
-            color: 'var(--color-accent-fg)',
-            borderRadius: 'var(--radius-md)',
-          }}
-        >
-          {cta}
-          <span className="sr-only"> (abre em nova aba)</span>
-        </a>
-        )}
+          <ButtonLink href="/orcamento" arrow>
+            Pedir orçamento
+          </ButtonLink>
+          {whatsappHref && (
+            <ButtonLink href={whatsappHref} variant="secondary">
+              {cta}
+            </ButtonLink>
+          )}
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   )
 }
