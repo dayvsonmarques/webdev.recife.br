@@ -44,8 +44,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      className="w-11 h-11 flex items-center justify-center transition-colors"
-      style={{ color: 'var(--color-text-muted)' }}
+      className="flex h-11 w-11 items-center justify-center rounded-pill text-muted transition-colors hover:bg-surface-2 hover:text-ink"
       aria-label={isDark ? 'Ativar tema claro' : 'Ativar tema escuro'}
     >
       {isDark ? <SunIcon /> : <MoonIcon />}

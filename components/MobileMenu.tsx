@@ -3,6 +3,8 @@
 import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { NAV_LINKS } from '@/lib/nav-links'
+import { ButtonLink } from '@/components/ui/Button'
+import { cn } from '@/components/ui/cn'
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -48,18 +50,15 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       aria-modal="true"
       aria-label="Menu de navegação"
       inert={!isOpen}
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center transition-opacity duration-300 md:hidden"
-      style={{
-        backgroundColor: 'var(--color-bg)',
-        opacity: isOpen ? 1 : 0,
-        pointerEvents: isOpen ? 'auto' : 'none',
-      }}
+      className={cn(
+        'fixed inset-0 z-50 flex flex-col items-center justify-center gap-12 bg-bg transition-opacity duration-300 md:hidden',
+        isOpen ? 'opacity-100' : 'pointer-events-none opacity-0',
+      )}
     >
       <button
         ref={closeRef}
         onClick={onClose}
-        className="absolute top-4 right-4 w-11 h-11 flex items-center justify-center"
-        style={{ color: 'var(--color-text-muted)' }}
+        className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center text-muted"
         aria-label="Fechar menu"
       >
         <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
@@ -74,9 +73,8 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             key={link.href}
             href={link.href}
             onClick={onClose}
-            className="font-heading text-heading font-bold uppercase tracking-widest transition-all duration-300"
+            className="font-heading text-heading font-bold text-ink transition-all duration-300"
             style={{
-              color: 'var(--color-text-primary)',
               transform: isOpen ? 'translateY(0)' : 'translateY(16px)',
               opacity: isOpen ? 1 : 0,
               transitionDelay: isOpen ? `${i * 60}ms` : '0ms',
@@ -86,6 +84,9 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           </Link>
         ))}
       </nav>
+      <ButtonLink href="/orcamento" onClick={onClose} arrow>
+        Pedir orçamento
+      </ButtonLink>
     </div>
   )
 }
