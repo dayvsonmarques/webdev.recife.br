@@ -43,7 +43,7 @@ function ProductCard({ slug, title, summary, icon, price }: { slug: string; titl
 
 function FeaturedCard({ product, price }: { product: Service; price?: string }) {
   return (
-    <div className={cardClass({ className: 'relative flex flex-col gap-6 overflow-hidden p-8 md:p-10' })}>
+    <div className={cardClass({ className: 'relative flex flex-col gap-6 overflow-hidden p-6 sm:p-8 md:p-10' })}>
       <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent" />
       <Eyebrow>Em destaque</Eyebrow>
       <div className="flex flex-col gap-3">

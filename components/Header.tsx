@@ -50,9 +50,12 @@ export function Header() {
 
           <div className="ml-auto flex items-center gap-3 md:ml-0">
             <ThemeToggle />
-            <ButtonLink href="/orcamento" size="md" className="hidden lg:inline-flex">
-              Pedir orçamento
-            </ButtonLink>
+            {/* Wrapper carries the breakpoint: the button's own inline-flex would override "hidden". */}
+            <span className="hidden lg:block">
+              <ButtonLink href="/orcamento" size="md">
+                Pedir orçamento
+              </ButtonLink>
+            </span>
             {/* Hamburger — mobile only */}
             <button
               ref={menuButtonRef}

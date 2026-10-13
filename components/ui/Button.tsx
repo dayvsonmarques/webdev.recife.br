@@ -6,15 +6,15 @@ type Variant = 'primary' | 'secondary' | 'ghost'
 type Size = 'md' | 'lg'
 
 const base =
-  'group inline-flex items-center justify-center gap-2.5 rounded-pill font-heading font-bold tracking-tight transition-[background-color,border-color,color,opacity,transform] duration-200 disabled:opacity-60 disabled:pointer-events-none'
+  'group inline-flex items-center justify-center gap-2.5 text-center rounded-pill font-heading font-bold tracking-tight transition-[background-color,border-color,color,opacity,transform] duration-200 disabled:opacity-60 disabled:pointer-events-none'
 const variants: Record<Variant, string> = {
   primary: 'bg-brand text-on-brand hover:opacity-90 active:translate-y-px',
   secondary: 'border border-line text-ink hover:border-gold-ink hover:bg-surface-2',
   ghost: 'text-gold-ink underline-offset-4 hover:underline',
 }
 const sizes: Record<Size, string> = {
-  md: 'h-12 px-6 text-base',
-  lg: 'h-14 px-8 text-base md:text-lg',
+  md: 'min-h-12 px-6 py-2.5 text-base',
+  lg: 'min-h-14 px-8 py-3 text-base md:text-lg',
 }
 
 /** Class string for button-looking elements (links, buttons, menu items). */
