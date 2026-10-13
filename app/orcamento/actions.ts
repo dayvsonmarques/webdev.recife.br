@@ -105,7 +105,7 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
   }
 
   try {
-    const res = await fetch(`${base.replace(/\/$/, '')}/api/public/pedidos`, {
+    const res = await fetch(`${base.replace(/\/$/, '')}/api/public/quotes`, {
       method: 'POST',
       headers: { 'content-type': 'application/json', authorization: `Bearer ${secret}` },
       body: JSON.stringify(payload),
