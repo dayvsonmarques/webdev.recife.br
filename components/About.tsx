@@ -10,13 +10,15 @@ interface AboutProps {
   indicators: string[]
   /** Optional link under the text (the home links to the full /sobre page). */
   cta?: { href: string; label: string }
+  /** h1 when About opens its own page (/sobre). */
+  as?: 'h1' | 'h2'
 }
 
-export function About({ eyebrow, title, text, indicators, cta }: AboutProps) {
+export function About({ eyebrow, title, text, indicators, cta, as = 'h2' }: AboutProps) {
   return (
-    <Section id="sobre" tone="surface">
+    <Section id="sobre" className={as === 'h1' ? 'pt-40' : undefined}>
       <Container className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
-        <SectionHeader eyebrow={eyebrow} title={title} />
+        <SectionHeader eyebrow={eyebrow} title={title} as={as} />
         <div className="flex flex-col gap-10 lg:pt-14">
           <p className="text-lead text-muted">{text}</p>
           {indicators.length > 0 && (

@@ -17,8 +17,8 @@ export default async function SobrePage() {
   return (
     <>
       <Header />
-      <main id="conteudo" tabIndex={-1} className="outline-none pt-16">
-        <About eyebrow={c.aboutEyebrow} title={c.aboutTitle} text={c.aboutText} indicators={c.aboutIndicators} />
+      <main id="conteudo" tabIndex={-1} className="outline-none">
+        <About eyebrow={c.aboutEyebrow} title={c.aboutTitle} text={c.aboutText} indicators={c.aboutIndicators} as="h1" />
         <Services eyebrow={c.servicesEyebrow} title={c.servicesTitle} intro={c.servicesIntro} catalog={catalog} />
         <Contact
           eyebrow={c.contactEyebrow}

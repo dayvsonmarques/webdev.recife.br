@@ -1,6 +1,7 @@
-import Link from 'next/link'
-import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { Header } from '@/components/Header'
+import { ButtonLink } from '@/components/ui/Button'
+import { SectionHeader } from '@/components/ui/SectionHeader'
 import { getSiteContent } from '@/lib/content'
 
 export default async function NotFound() {
@@ -10,41 +11,19 @@ export default async function NotFound() {
     <>
       <Header />
       <main id="conteudo" tabIndex={-1} className="outline-none">
-
-        <section className="min-h-screen flex flex-col justify-center items-center text-center pt-28 pb-20 px-6">
-          <p
-            className="text-eyebrow font-bold tracking-widest uppercase mb-4"
-            style={{ color: 'var(--color-accent-text)' }}
-          >
-            404
-          </p>
-          <h1
-            className="font-heading text-heading font-extrabold mb-6"
-            style={{ color: 'var(--color-text-primary)' }}
-          >
-            Página não encontrada
-          </h1>
-          <p
-            className="text-lead mb-10 max-w-md"
-            style={{ color: 'var(--color-text-muted)' }}
-          >
-            O endereço que você tentou acessar não existe ou foi movido.
-          </p>
-          <Link
-            href="/"
-            className="inline-block px-8 py-4 font-heading font-bold text-base tracking-wide transition-opacity hover:opacity-90"
-            style={{
-              backgroundColor: 'var(--color-accent)',
-              color: 'var(--color-accent-fg)',
-              borderRadius: 'var(--radius-md)',
-            }}
-          >
+        <section className="flex min-h-[80svh] flex-col items-center justify-center gap-10 px-6 pb-20 pt-36 text-center">
+          <SectionHeader
+            as="h1"
+            align="center"
+            eyebrow="Erro 404"
+            title="Página não encontrada"
+            intro="O endereço que você tentou acessar não existe ou foi movido."
+          />
+          <ButtonLink href="/" arrow>
             Voltar para a página inicial
-          </Link>
+          </ButtonLink>
         </section>
-
       </main>
-
       <Footer text={config.footerText} />
     </>
   )

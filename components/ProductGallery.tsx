@@ -17,7 +17,7 @@ function ShotLink({ shot, sizes, phone }: { shot: GalleryShot; sizes: string; ph
       >
         <Image src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} sizes={sizes} className="h-auto w-full" />
       </span>
-      <span className="flex items-center justify-between gap-2 text-base">
+      <span className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-base">
         <span className="font-medium text-ink">{shot.label}</span>
         <span className="text-sm text-gold-ink">
           Abrir loja ↗<span className="sr-only"> (abre em nova aba)</span>

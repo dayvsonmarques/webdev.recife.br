@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
+import { Container } from '@/components/ui/Container'
+import { SectionHeader } from '@/components/ui/SectionHeader'
 import { getSiteContent, whatsappLink } from '@/lib/content'
 import { POLICY_VERSION, RETENTION_MONTHS } from '@/lib/quote-options'
 
@@ -12,11 +14,9 @@ export const metadata: Metadata = {
 
 function Block({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section className="flex flex-col gap-3">
-      <h2 className="font-heading text-subheading font-bold" style={{ color: 'var(--color-text-primary)' }}>
-        {title}
-      </h2>
-      <div className="flex flex-col gap-3 text-base leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>
+    <section className="flex flex-col gap-4 border-t border-line pt-10">
+      <h2 className="font-heading text-subheading font-bold text-ink">{title}</h2>
+      <div className="flex flex-col gap-4 text-base text-muted">
         {children}
       </div>
     </section>
@@ -32,16 +32,9 @@ export default async function PrivacidadePage() {
   return (
     <>
       <Header />
-      <main id="conteudo" tabIndex={-1} className="outline-none pt-32 pb-28">
-        <div className="max-w-3xl mx-auto px-6 md:px-8 flex flex-col gap-10">
-          <div>
-            <h1 className="font-heading text-heading font-bold mb-4" style={{ color: 'var(--color-text-primary)' }}>
-              Política de Privacidade
-            </h1>
-            <p className="text-base" style={{ color: 'var(--color-text-muted)' }}>
-              Atualizada em {updatedAt}.
-            </p>
-          </div>
+      <main id="conteudo" tabIndex={-1} className="outline-none pb-section pt-40">
+        <Container narrow className="flex flex-col gap-10">
+          <SectionHeader as="h1" eyebrow="LGPD" title="Política de Privacidade" intro={`Atualizada em ${updatedAt}.`} />
 
           <Block title="Quem cuida dos seus dados">
             <p>
@@ -84,7 +77,7 @@ export default async function PrivacidadePage() {
                 <>
                   {' '}
                   pelo{' '}
-                  <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="underline font-semibold" style={{ color: 'var(--color-accent-text)' }}>
+                  <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="font-semibold text-gold-ink underline">
                     WhatsApp
                     <span className="sr-only"> (abre em nova aba)</span>
                   </a>
@@ -99,7 +92,7 @@ export default async function PrivacidadePage() {
           <Block title="Cookies">
             <p>Este site não usa cookies de rastreamento nem de publicidade.</p>
           </Block>
-        </div>
+        </Container>
       </main>
       <Footer text={config.footerText} />
     </>
