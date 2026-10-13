@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { useInView } from '@/hooks/useInView'
 import type { HeroSlide } from '@/lib/content'
+import { cn } from '@/components/ui/cn'
 
 const INTERVAL_MS = 6000
 
@@ -52,11 +53,10 @@ export function Hero({ heading, slides, offer }: HeroProps) {
       ref={ref}
       aria-roledescription="carrossel"
       aria-label="Destaques"
-      className="min-h-[70svh] md:min-h-[88svh] flex flex-col justify-center transition-all duration-700 relative overflow-hidden"
-      style={{
-        opacity: isInView ? 1 : 0,
-        transform: isInView ? 'translateY(0)' : 'translateY(24px)',
-      }}
+      className={cn(
+        'relative flex min-h-[72svh] flex-col justify-center overflow-hidden transition-[opacity,transform] duration-700 md:min-h-[92svh]',
+        isInView ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0',
+      )}
       onMouseEnter={() => setInteracting(true)}
       onMouseLeave={() => setInteracting(false)}
       onFocus={() => setInteracting(true)}
@@ -71,22 +71,20 @@ export function Hero({ heading, slides, offer }: HeroProps) {
         if (count > 1 && Math.abs(dx) > 50) go(dx < 0 ? 1 : -1)
       }}
     >
+      {/* Dot grid fading out toward the edges, and a soft glow behind the phrase. */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)',
-          backgroundSize: '32px 32px',
-        }}
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]"
+        style={{ backgroundImage: 'radial-gradient(circle, var(--c-line) 1px, transparent 1px)', backgroundSize: '28px 28px' }}
       />
       <div
         aria-hidden="true"
-        className="absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, var(--color-glow) 0%, transparent 70%)', filter: 'blur(60px)' }}
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[80px]"
+        style={{ background: 'radial-gradient(circle, var(--c-glow) 0%, transparent 70%)' }}
       />
 
-      <div className="relative max-w-5xl mx-auto w-full px-6 md:px-24 pt-28 pb-16 text-center">
+      <div className="relative mx-auto w-full max-w-6xl px-6 pb-20 pt-32 text-center md:px-28">
         <h1 className="sr-only">{heading}</h1>
-
 
         {/* Slides share one grid cell, so the block keeps the height of the tallest one. */}
         <div className="grid" aria-live={rotating ? 'off' : 'polite'}>
@@ -101,36 +99,28 @@ export function Hero({ heading, slides, offer }: HeroProps) {
                 aria-label={`${i + 1} de ${count}`}
                 aria-hidden={!isActive}
                 inert={!isActive}
-                className="[grid-area:1/1] flex flex-col items-center justify-center motion-safe:transition-all motion-safe:duration-700"
-                style={{
-                  opacity: isActive ? 1 : 0,
-                  transform: isActive ? 'translateY(0)' : 'translateY(16px)',
-                }}
+                className={cn(
+                  'flex flex-col items-center justify-center [grid-area:1/1] motion-safe:transition-[opacity,transform] motion-safe:duration-700',
+                  isActive ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0',
+                )}
               >
-                <p
-                  className="font-heading text-display font-extrabold max-w-4xl text-balance"
-                  style={{ color: 'var(--color-text-primary)' }}
-                >
+                <p className="max-w-5xl font-heading text-display font-extrabold tracking-[-0.03em] text-ink text-balance">
                   {slide.title}
                   {slide.highlight && (
                     <>
                       {' '}
-                      <span style={{ color: 'var(--color-highlight)' }}>{slide.highlight}</span>
+                      <span className="text-highlight">{slide.highlight}</span>
                     </>
                   )}
                 </p>
-                {subtitle && (
-                  <p className="text-lead mt-6 max-w-2xl" style={{ color: 'var(--color-text-muted)' }}>
-                    {subtitle}
-                  </p>
-                )}
+                {subtitle && <p className="mt-8 max-w-2xl text-lead text-muted">{subtitle}</p>}
               </div>
             )
           })}
         </div>
 
         {count > 1 && (
-          <div className="mt-12 flex items-center justify-center gap-3">
+          <div className="mt-14 flex items-center justify-center gap-2">
             {slides.map((_, i) => (
               <button
                 key={i}
@@ -140,13 +130,7 @@ export function Hero({ heading, slides, offer }: HeroProps) {
                 aria-current={i === active}
                 className="flex h-11 items-center px-1"
               >
-                <span
-                  className="block h-1.5 rounded-full transition-all duration-300"
-                  style={{
-                    width: i === active ? '2.5rem' : '1rem',
-                    backgroundColor: i === active ? 'var(--color-accent-2)' : 'var(--color-border)',
-                  }}
-                />
+                <span className={cn('block h-1 rounded-pill transition-all duration-300', i === active ? 'w-12 bg-gold' : 'w-5 bg-line')} />
               </button>
             ))}
           </div>
@@ -159,10 +143,9 @@ export function Hero({ heading, slides, offer }: HeroProps) {
             type="button"
             onClick={() => takeControl(() => go(-1))}
             aria-label="Destaque anterior"
-            className="absolute left-6 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center p-1 opacity-60 transition-opacity hover:opacity-100 focus-visible:opacity-100"
-            style={{ color: 'var(--color-text-primary)' }}
+            className="absolute left-6 top-1/2 hidden -translate-y-1/2 items-center justify-center p-1 text-ink opacity-50 transition-opacity hover:opacity-100 focus-visible:opacity-100 md:flex"
           >
-            <svg className="h-20 w-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <svg className="h-20 w-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M15 18l-6-6 6-6" />
             </svg>
           </button>
@@ -170,10 +153,9 @@ export function Hero({ heading, slides, offer }: HeroProps) {
             type="button"
             onClick={() => takeControl(() => go(1))}
             aria-label="Próximo destaque"
-            className="absolute right-6 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center p-1 opacity-60 transition-opacity hover:opacity-100 focus-visible:opacity-100"
-            style={{ color: 'var(--color-text-primary)' }}
+            className="absolute right-6 top-1/2 hidden -translate-y-1/2 items-center justify-center p-1 text-ink opacity-50 transition-opacity hover:opacity-100 focus-visible:opacity-100 md:flex"
           >
-            <svg className="h-20 w-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <svg className="h-20 w-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M9 18l6-6-6-6" />
             </svg>
           </button>
@@ -184,8 +166,7 @@ export function Hero({ heading, slides, offer }: HeroProps) {
         type="button"
         onClick={() => document.getElementById('produtos')?.scrollIntoView({ behavior: 'smooth' })}
         aria-label="Rolar para a próxima seção"
-        className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex items-center justify-center p-2 rounded-full motion-safe:animate-bounce transition-opacity hover:opacity-70 focus-visible:opacity-70"
-        style={{ color: 'var(--color-text-muted)' }}
+        className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center justify-center rounded-pill p-2 text-muted transition-opacity hover:opacity-70 focus-visible:opacity-70 motion-safe:animate-bounce md:bottom-10"
       >
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M12 5v8m0 0l-5-5m5 5l5-5" />
