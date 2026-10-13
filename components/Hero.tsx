@@ -19,7 +19,7 @@ interface HeroProps {
   /** Visually hidden page heading; the slides are the visible message. */
   heading: string
   slides: HeroSlide[]
-  /** Fixed offer pill above the rotating phrases (price, trial, no lock-in). */
+  /** Offer line (price, trial, no lock-in); shown as the first slide's subtitle when it has none. */
   offer?: string
 }
 
@@ -87,20 +87,12 @@ export function Hero({ heading, slides, offer }: HeroProps) {
       <div className="relative max-w-5xl mx-auto w-full px-6 md:px-24 pt-28 pb-16 text-center">
         <h1 className="sr-only">{heading}</h1>
 
-        {offer && (
-          <p
-            className="inline-flex items-center gap-2 mb-8 px-4 py-2 text-sm font-semibold border"
-            style={{ borderColor: 'var(--color-accent-2)', color: 'var(--color-text-primary)', borderRadius: '999px' }}
-          >
-            <span className="h-2 w-2 rounded-full" style={{ backgroundColor: 'var(--color-accent-2)' }} aria-hidden="true" />
-            {offer}
-          </p>
-        )}
 
         {/* Slides share one grid cell, so the block keeps the height of the tallest one. */}
         <div className="grid" aria-live={rotating ? 'off' : 'polite'}>
           {slides.map((slide, i) => {
             const isActive = i === active
+            const subtitle = slide.subtitle || (i === 0 ? offer : undefined)
             return (
               <div
                 key={i}
@@ -127,9 +119,9 @@ export function Hero({ heading, slides, offer }: HeroProps) {
                     </>
                   )}
                 </p>
-                {slide.subtitle && (
+                {subtitle && (
                   <p className="text-lead mt-6 max-w-2xl" style={{ color: 'var(--color-text-muted)' }}>
-                    {slide.subtitle}
+                    {subtitle}
                   </p>
                 )}
               </div>
