@@ -30,7 +30,7 @@ export function Services({ eyebrow, title, intro, catalog }: ServicesProps) {
           ))}
         </ul>
         <ButtonLink href="/orcamento" arrow className="self-start">
-          Pedir orçamento
+          Solicitar orçamento
         </ButtonLink>
       </Container>
     </Section>

@@ -7,7 +7,7 @@ const COLUMNS = [
   {
     title: 'Fale com a gente',
     links: [
-      { href: '/orcamento', label: 'Pedir orçamento' },
+      { href: '/orcamento', label: 'Solicitar orçamento' },
       { href: '/fale-conosco', label: 'Mandar mensagem' },
     ],
   },

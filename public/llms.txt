@@ -11,7 +11,7 @@ Atende negócios locais que precisam vender e se organizar online, com entrega r
 ## Serviços sob medida
 
 - [Sobre](/sobre): quem é o estúdio e os serviços de desenvolvimento sob medida oferecidos.
-- [Pedir orçamento](/orcamento): formulário para solicitar um orçamento personalizado.
+- [Solicitar orçamento](/orcamento): formulário para solicitar um orçamento personalizado.
 
 ## Contato
 

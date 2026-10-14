@@ -85,7 +85,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         ))}
       </nav>
       <ButtonLink href="/orcamento" onClick={onClose} arrow>
-        Pedir orçamento
+        Solicitar orçamento
       </ButtonLink>
     </div>
   )

@@ -24,7 +24,7 @@ export function Contact({ eyebrow, title, text, cta, whatsappHref }: ContactProp
         <SectionHeader eyebrow={eyebrow} title={title} intro={text} size="title" />
         <div className="flex flex-wrap gap-4">
           <ButtonLink href="/orcamento" arrow>
-            Pedir orçamento
+            Solicitar orçamento
           </ButtonLink>
           {whatsappHref && (
             <ButtonLink href={whatsappHref} variant="secondary">

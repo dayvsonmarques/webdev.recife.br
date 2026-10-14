@@ -9,7 +9,7 @@ import { PRECISA_EXTRAS } from '@/lib/quote-options'
 import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Pedir orçamento — Web Dev Recife',
+  title: 'Solicitar orçamento — Web Dev Recife',
   description: 'Conte sobre seu negócio e receba um orçamento para sua loja online, cardápio digital ou site.',
   path: '/orcamento',
 })

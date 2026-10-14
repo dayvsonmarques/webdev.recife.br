@@ -53,7 +53,7 @@ export function Header() {
             {/* Wrapper carries the breakpoint: the button's own inline-flex would override "hidden". */}
             <span className="hidden lg:block">
               <ButtonLink href="/orcamento" size="md">
-                Pedir orçamento
+                Solicitar orçamento
               </ButtonLink>
             </span>
             {/* Hamburger — mobile only */}
