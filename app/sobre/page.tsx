@@ -5,10 +5,11 @@ import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { Services } from '@/components/Services'
 import { getSiteContent, whatsappLink } from '@/lib/content'
+import { pageMetadata } from '@/lib/seo'
 
 export async function generateMetadata(): Promise<Metadata> {
   const { config } = await getSiteContent()
-  return { title: `${config.aboutTitle} — Web Dev Recife`, description: config.aboutText }
+  return pageMetadata({ title: `${config.aboutTitle} — Web Dev Recife`, description: config.aboutText, path: '/sobre' })
 }
 
 export default async function SobrePage() {

@@ -6,11 +6,13 @@ import { SectionHeader } from '@/components/ui/SectionHeader'
 import { QuoteForm } from '@/components/QuoteForm'
 import { getSiteContent } from '@/lib/content'
 import { PRECISA_EXTRAS } from '@/lib/quote-options'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Pedir orçamento — Web Dev Recife',
   description: 'Conte sobre seu negócio e receba um orçamento para sua loja online, cardápio digital ou site.',
-}
+  path: '/orcamento',
+})
 
 export default async function OrcamentoPage() {
   const { config, services } = await getSiteContent()

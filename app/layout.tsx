@@ -4,6 +4,7 @@ import { Providers } from '@/components/Providers'
 import { TopLoader } from '@/components/TopLoader'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import { getSiteContent, whatsappLink } from '@/lib/content'
+import { SITE_URL } from '@/lib/site-url'
 import './globals.scss'
 
 const heading = Sora({
@@ -22,7 +23,24 @@ const body = Inter({
 
 export async function generateMetadata(): Promise<Metadata> {
   const { config } = await getSiteContent()
-  return { title: config.seoTitle, description: config.seoDescription }
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: { default: config.seoTitle, template: `%s` },
+    description: config.seoDescription,
+    openGraph: {
+      title: config.seoTitle,
+      description: config.seoDescription,
+      url: SITE_URL,
+      siteName: 'Web Dev Recife',
+      locale: 'pt_BR',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary',
+      title: config.seoTitle,
+      description: config.seoDescription,
+    },
+  }
 }
 
 const WHATSAPP_MESSAGE = 'Olá! Vim pelo site da Web Dev Recife e quero saber mais.'
@@ -44,6 +62,26 @@ export default async function RootLayout({
       className={`${heading.variable} ${body.variable}`}
     >
       <body className="font-body">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'ProfessionalService',
+              name: 'Web Dev Recife',
+              url: SITE_URL,
+              description: config.seoDescription,
+              areaServed: { '@type': 'City', name: 'Recife' },
+              address: {
+                '@type': 'PostalAddress',
+                addressLocality: 'Recife',
+                addressRegion: 'PE',
+                addressCountry: 'BR',
+              },
+              ...(config.whatsappNumber && { telephone: `+${config.whatsappNumber}` }),
+            }),
+          }}
+        />
         <a href="#conteudo" className="skip-link">
           Pular para o conteúdo
         </a>

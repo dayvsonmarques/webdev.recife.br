@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { Header } from '@/components/Header'
 import { Hero } from '@/components/Hero'
 import { Products } from '@/components/Products'
@@ -7,11 +8,17 @@ import { Contact } from '@/components/Contact'
 import { Footer } from '@/components/Footer'
 import { QuickContact } from '@/components/QuickContact'
 import { formatPrice, getSiteContent, offerLine, startingPrice, whatsappLink } from '@/lib/content'
+import { pageMetadata } from '@/lib/seo'
 
 // Seção de projetos oculta até termos cases para mostrar.
 const SHOW_PROJECTS = false
 // Product pitched with the phone video at the top of the Products section.
 const FEATURED_PRODUCT = 'loja-online'
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { config } = await getSiteContent()
+  return pageMetadata({ title: config.seoTitle, description: config.seoDescription, path: '/' })
+}
 
 export default async function Home() {
   const { config: c, services, plans } = await getSiteContent()

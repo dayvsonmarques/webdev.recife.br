@@ -5,11 +5,13 @@ import { Header } from '@/components/Header'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { getSiteContent } from '@/lib/content'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Fale conosco — Web Dev Recife',
   description: 'Mande uma mensagem rápida e a gente responde em até 2 dias úteis.',
-}
+  path: '/fale-conosco',
+})
 
 export default async function FaleConoscoPage() {
   const { config } = await getSiteContent()

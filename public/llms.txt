@@ -1,0 +1,22 @@
+# Web Dev Recife
+
+> Estúdio de desenvolvimento web independente, focado em comércio local em Recife (PE), Brasil. Produtos prontos por assinatura (loja online, cardápio digital, agendamento) e desenvolvimento sob medida (sites, lojas virtuais, aplicações web).
+
+Atende negócios locais que precisam vender e se organizar online, com entrega rápida e suporte direto — sem intermediários.
+
+## Produtos por assinatura
+
+- [Produtos](/#produtos): catálogo de produtos prontos (loja online, cardápio digital, agendamento), com planos e período de teste grátis.
+
+## Serviços sob medida
+
+- [Sobre](/sobre): quem é o estúdio e os serviços de desenvolvimento sob medida oferecidos.
+- [Pedir orçamento](/orcamento): formulário para solicitar um orçamento personalizado.
+
+## Contato
+
+- [Fale conosco](/fale-conosco): formulário rápido para dúvidas ou mensagens, sem o compromisso do orçamento completo.
+
+## Outros
+
+- [Política de Privacidade](/privacidade): como os dados enviados pelos formulários são tratados, conforme a LGPD.

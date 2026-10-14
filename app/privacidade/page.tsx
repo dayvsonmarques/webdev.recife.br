@@ -6,11 +6,13 @@ import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { getSiteContent, whatsappLink } from '@/lib/content'
 import { POLICY_VERSION, RETENTION_MONTHS } from '@/lib/quote-options'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Política de Privacidade — Web Dev Recife',
   description: 'Como a Web Dev Studio trata os dados pessoais enviados pelo site, conforme a LGPD.',
-}
+  path: '/privacidade',
+})
 
 function Block({ title, children }: { title: string; children: ReactNode }) {
   return (

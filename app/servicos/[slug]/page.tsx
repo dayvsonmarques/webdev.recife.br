@@ -14,6 +14,8 @@ import { Section } from '@/components/ui/Section'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { getSiteContent, offerLine, whatsappLink } from '@/lib/content'
 import { PRODUCT_GALLERIES } from '@/lib/product-gallery'
+import { pageMetadata } from '@/lib/seo'
+import { SITE_URL } from '@/lib/site-url'
 
 export async function generateStaticParams() {
   const { services } = await getSiteContent()
@@ -28,10 +30,11 @@ export async function generateMetadata({
   const service = services.find((s) => s.slug === slug)
   if (!service) return {}
 
-  return {
+  return pageMetadata({
     title: `${service.title} — Web Dev Recife`,
     description: service.tagline,
-  }
+    path: `/servicos/${service.slug}`,
+  })
 }
 
 export default async function ServicePage({
@@ -48,6 +51,30 @@ export default async function ServicePage({
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Service',
+            serviceType: service.title,
+            name: service.title,
+            description: service.description,
+            url: `${SITE_URL}/servicos/${service.slug}`,
+            areaServed: { '@type': 'City', name: 'Recife' },
+            provider: { '@type': 'ProfessionalService', name: 'Web Dev Recife', url: SITE_URL },
+            ...(plans.length > 0 && {
+              offers: plans.map((plan) => ({
+                '@type': 'Offer',
+                name: plan.name,
+                price: plan.price,
+                priceCurrency: 'BRL',
+                url: `${SITE_URL}/servicos/${service.slug}#planos`,
+              })),
+            }),
+          }),
+        }}
+      />
       <Header />
       <main id="conteudo" tabIndex={-1} className="outline-none">
         <section className="relative flex min-h-[80svh] flex-col justify-center overflow-hidden pb-20 pt-36">
