@@ -24,7 +24,6 @@ const MIN_FILL_MS = 3000
 
 const REQUIRED: Record<string, string> = {
   nome: 'Informe seu nome',
-  whatsapp: 'Informe seu WhatsApp com DDD',
   negocio: 'Informe o nome do negócio',
   localidade: 'Informe o bairro e a cidade',
   segmento: 'Informe o segmento',
@@ -35,7 +34,7 @@ const PANEL_FIELD_MESSAGES: Record<string, string> = {
   ...REQUIRED,
   whatsapp: 'WhatsApp inválido: use DDD + número, ex.: (81) 99999-8888',
   email: 'E-mail inválido',
-  precisa: 'Escolha ao menos uma opção',
+  precisa: 'Escolha o que quer contratar',
 }
 
 const str = (formData: FormData, key: string) => {
@@ -43,12 +42,19 @@ const str = (formData: FormData, key: string) => {
   return typeof v === 'string' ? v.trim() : ''
 }
 const optional = (formData: FormData, key: string) => str(formData, key) || undefined
-/** Checked boxes, keeping only known options. */
-const pick = (formData: FormData, key: string, options: readonly string[]) =>
-  formData.getAll(key).filter((v): v is string => typeof v === 'string' && options.includes(v))
 const oneOf = (formData: FormData, key: string, options: readonly string[]) => {
   const v = str(formData, key)
   return options.includes(v) ? v : undefined
+}
+
+const listOf = (value: string | undefined) => (value ? [value] : [])
+
+/** "Já vende online?" → the chosen channel, or the typed one when it is "Outro". */
+function salesChannel(formData: FormData) {
+  if (str(formData, 'jaVendeOnline') !== 'Sim') return []
+  const channel = oneOf(formData, 'vendeOnline', VENDE_ONLINE)
+  if (channel !== 'Outro') return listOf(channel)
+  return listOf(str(formData, 'vendeOnlineOutro').slice(0, 80) || 'Outro')
 }
 
 async function clientIp() {
@@ -64,9 +70,11 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
 
   const fieldErrors: Record<string, string> = {}
   for (const [key, message] of Object.entries(REQUIRED)) if (!str(formData, key)) fieldErrors[key] = message
-  const precisa = formData.getAll('precisa').filter((v): v is string => typeof v === 'string' && v.length <= 80).slice(0, 8)
-  if (precisa.length === 0) fieldErrors.precisa = PANEL_FIELD_MESSAGES.precisa
-  if (formData.get('lojaFisica') !== 'sim' && formData.get('lojaFisica') !== 'nao') fieldErrors.lojaFisica = 'Responda se tem loja física'
+  const precisa = str(formData, 'precisa').slice(0, 80)
+  if (!precisa) fieldErrors.precisa = PANEL_FIELD_MESSAGES.precisa
+  const lojaFisica = str(formData, 'lojaFisica')
+  if (lojaFisica !== 'Sim' && lojaFisica !== 'Não') fieldErrors.lojaFisica = 'Responda se tem loja física'
+  if (!str(formData, 'whatsapp') && !str(formData, 'email')) fieldErrors.whatsapp = 'Informe WhatsApp ou e-mail'
   if (formData.get('consentimento') !== 'on') fieldErrors.consentimento = 'É preciso concordar para enviarmos o orçamento'
   if (Object.keys(fieldErrors).length) return { error: 'Revise os campos destacados.', fieldErrors }
 
@@ -77,18 +85,18 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
 
   const payload = {
     nome: str(formData, 'nome'),
-    whatsapp: str(formData, 'whatsapp'),
+    whatsapp: optional(formData, 'whatsapp'),
     email: optional(formData, 'email'),
     negocio: str(formData, 'negocio'),
     localidade: str(formData, 'localidade'),
     segmento: str(formData, 'segmento'),
-    lojaFisica: formData.get('lojaFisica') === 'sim',
-    vendeOnline: pick(formData, 'vendeOnline', VENDE_ONLINE),
-    precisa,
+    lojaFisica: lojaFisica === 'Sim',
+    vendeOnline: salesChannel(formData),
+    precisa: [precisa],
     qtdItens: oneOf(formData, 'qtdItens', QTD_ITENS),
     pagamentoOnline: oneOf(formData, 'pagamentoOnline', SIM_NAO_NAO_SEI),
-    modalidades: pick(formData, 'modalidades', MODALIDADES),
-    materiais: pick(formData, 'materiais', MATERIAIS),
+    modalidades: listOf(oneOf(formData, 'modalidades', MODALIDADES)),
+    materiais: listOf(oneOf(formData, 'materiais', MATERIAIS)),
     referencias: optional(formData, 'referencias'),
     prazo: oneOf(formData, 'prazo', PRAZOS),
     investimento: oneOf(formData, 'investimento', INVESTIMENTOS),
