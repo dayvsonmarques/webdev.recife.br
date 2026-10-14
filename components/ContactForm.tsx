@@ -5,7 +5,7 @@ import { startTransition, useActionState, useEffect, useRef } from 'react'
 import { type ContactState, submitContact } from '@/app/fale-conosco/actions'
 
 import { Button } from '@/components/ui/Button'
-import { ConsentCheckbox, Field, FormAlert, FormSuccess, Honeypot, RequiredNote, inputClass } from '@/components/ui/form'
+import { ConsentCheckbox, ErrorText, Field, FormAlert, FormSuccess, Honeypot, PhoneInput, RequiredNote, inputClass, requiredMark } from '@/components/ui/form'
 
 const EMPTY: ContactState = {}
 
@@ -53,17 +53,24 @@ export function ContactForm() {
         {(p) => <input {...p} name="nome" autoComplete="name" maxLength={120} className={inputClass} />}
       </Field>
 
-      <div className="grid gap-6 md:grid-cols-2">
-        <Field name="whatsapp" label="WhatsApp" error={e.whatsapp} hint="Com DDD, ex.: (81) 99999-8888">
-          {(p) => <input {...p} name="whatsapp" type="tel" autoComplete="tel" inputMode="tel" maxLength={25} className={inputClass} />}
-        </Field>
-        <Field name="email" label="E-mail" error={e.email}>
-          {(p) => <input {...p} name="email" type="email" autoComplete="email" maxLength={160} className={inputClass} />}
-        </Field>
-      </div>
-      <p className="-mt-4 text-sm text-muted">
-        Preencha pelo menos um dos dois acima.
-      </p>
+      <fieldset className="flex flex-col gap-4" aria-describedby={['contato-hint', e.whatsapp && 'contato-error'].filter(Boolean).join(' ')}>
+        <legend className="text-base font-semibold text-ink">
+          WhatsApp ou e-mail
+          {requiredMark}
+        </legend>
+        <p id="contato-hint" className="-mt-2 text-sm text-muted">
+          Preencha pelo menos um. Respondemos por onde você preferir.
+        </p>
+        <div className="grid gap-6 md:grid-cols-2">
+          <Field name="whatsapp" label="WhatsApp">
+            {(p) => <PhoneInput {...p} aria-invalid={Boolean(e.whatsapp)} name="whatsapp" />}
+          </Field>
+          <Field name="email" label="E-mail" error={e.email}>
+            {(p) => <input {...p} name="email" type="email" autoComplete="email" placeholder="voce@email.com" maxLength={160} className={inputClass} />}
+          </Field>
+        </div>
+        <ErrorText id="contato-error" message={e.whatsapp} />
+      </fieldset>
 
       <Field name="mensagem" label="Mensagem" required error={e.mensagem}>
         {(p) => <textarea {...p} name="mensagem" rows={5} maxLength={2000} className={inputClass} />}
