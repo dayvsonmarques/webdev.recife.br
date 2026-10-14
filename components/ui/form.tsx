@@ -1,4 +1,7 @@
-import type { ReactNode, Ref } from 'react'
+'use client'
+
+import { type ComponentProps, type ReactNode, type Ref, useState } from 'react'
+import { maskBrPhone } from '@/lib/phone-mask'
 import { cn } from './cn'
 
 // Shared building blocks of the public forms (orçamento, fale conosco).
@@ -6,8 +9,8 @@ import { cn } from './cn'
 export const inputClass =
   'w-full rounded-md border border-line bg-bg px-4 py-3.5 text-base text-ink placeholder:text-muted/70 transition-colors hover:border-muted/60 focus:border-gold-ink focus:outline-none aria-[invalid=true]:border-danger'
 
-const optionalMark = <span className="font-normal text-muted"> (opcional)</span>
-const requiredMark = <span aria-hidden="true" className="text-gold-ink"> *</span>
+// Required fields get a red asterisk; optional ones carry no mark at all.
+export const requiredMark = <span aria-hidden="true" className="text-danger"> *</span>
 
 export function ErrorText({ id, message }: { id: string; message?: string }) {
   if (!message) return null
@@ -32,7 +35,7 @@ export function Field({ name, label, error, required, hint, children }: {
     <div className="flex flex-col gap-2">
       <label htmlFor={name} className="text-base font-semibold text-ink">
         {label}
-        {required ? requiredMark : optionalMark}
+        {required && requiredMark}
       </label>
       {hint && (
         <p id={`${name}-hint`} className="text-sm text-muted">
@@ -45,34 +48,43 @@ export function Field({ name, label, error, required, hint, children }: {
   )
 }
 
-/** Group of checkboxes or radios rendered as selectable chips. */
-export function Choices({ name, legend, options, type, error, required }: {
-  name: string
-  legend: string
-  options: readonly { value: string; label: string }[]
-  type: 'checkbox' | 'radio'
-  error?: string
-  required?: boolean
-}) {
+/** Native select with the form's look and a custom chevron. First option is the empty placeholder. */
+export function Select({ options, placeholder = 'Selecione', className, ...props }: {
+  options: readonly string[]
+  placeholder?: string
+} & Omit<ComponentProps<'select'>, 'children'>) {
   return (
-    <fieldset className="flex flex-col gap-3" aria-describedby={error ? `${name}-error` : undefined}>
-      <legend className="mb-1 text-base font-semibold text-ink">
-        {legend}
-        {required ? requiredMark : optionalMark}
-      </legend>
-      <div className="flex flex-wrap gap-2.5">
-        {options.map((o) => (
-          <label
-            key={o.value}
-            className="flex min-h-11 cursor-pointer items-center gap-2.5 rounded-pill border border-line bg-bg px-4 text-base text-ink transition-colors hover:border-muted/60 has-[:checked]:border-gold-ink has-[:checked]:bg-surface-2 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-gold-ink"
-          >
-            <input type={type} name={name} value={o.value} className="h-4.5 w-4.5 accent-[var(--c-gold)]" />
-            {o.label}
-          </label>
+    <div className="relative">
+      <select {...props} className={cn(inputClass, 'cursor-pointer appearance-none pr-12', className)}>
+        <option value="">{placeholder}</option>
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
         ))}
-      </div>
-      <ErrorText id={`${name}-error`} message={error} />
-    </fieldset>
+      </select>
+      <svg aria-hidden="true" className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M6 9l6 6 6-6" />
+      </svg>
+    </div>
+  )
+}
+
+/** Phone field with the Brazilian mask applied while typing. */
+export function PhoneInput({ className, ...props }: Omit<ComponentProps<'input'>, 'type' | 'value' | 'onChange'>) {
+  const [value, setValue] = useState('')
+  return (
+    <input
+      {...props}
+      type="tel"
+      inputMode="tel"
+      autoComplete="tel-national"
+      placeholder="(81) 99999-8888"
+      maxLength={15}
+      value={value}
+      onChange={(e) => setValue(maskBrPhone(e.target.value))}
+      className={cn(inputClass, className)}
+    />
   )
 }
 
@@ -143,7 +155,7 @@ export function ConsentCheckbox({ error, children }: { error?: string; children:
 export function RequiredNote({ className }: { className?: string }) {
   return (
     <p className={cn('text-sm text-muted', className)}>
-      <span aria-hidden="true" className="text-gold-ink">*</span> Campos obrigatórios
+      <span aria-hidden="true" className="text-danger">*</span> Campos obrigatórios
     </p>
   )
 }
