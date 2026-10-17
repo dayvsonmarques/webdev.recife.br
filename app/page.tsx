@@ -6,7 +6,7 @@ import { Projects } from '@/components/Projects'
 import { About } from '@/components/About'
 import { Contact } from '@/components/Contact'
 import { Footer } from '@/components/Footer'
-import { formatPrice, getSiteContent, offerLine, startingPrice, whatsappLink } from '@/lib/content'
+import { formatPrice, getSiteContent, startingPrice, whatsappLink } from '@/lib/content'
 import { pageMetadata } from '@/lib/seo'
 
 // Seção de projetos oculta até termos cases para mostrar.
@@ -27,7 +27,21 @@ export default async function Home() {
     <>
       <Header />
       <main id="conteudo" tabIndex={-1} className="outline-none">
-        <Hero heading={c.seoTitle} slides={c.heroSlides} offer={offerLine(plans, c.trialDays)} />
+        <Hero
+          heading={c.seoTitle}
+          slides={c.heroSlides}
+          offer={
+            <>
+              {c.trialDays > 0 && `${c.trialDays} dias grátis · `}
+              {from !== null && (
+                <>
+                  A partir de <strong className="font-heading text-subheading font-extrabold text-ink">{formatPrice(from)}/mês</strong> ·{' '}
+                </>
+              )}
+              Sem fidelidade
+            </>
+          }
+        />
         <Products
           eyebrow={c.productsEyebrow}
           title={c.productsTitle}

@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react'
+import { type ReactNode, useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { useInView } from '@/hooks/useInView'
 import type { HeroSlide } from '@/lib/content'
 import { cn } from '@/components/ui/cn'
@@ -21,7 +21,7 @@ interface HeroProps {
   heading: string
   slides: HeroSlide[]
   /** Offer line (price, trial, no lock-in); shown as the first slide's subtitle when it has none. */
-  offer?: string
+  offer?: ReactNode
 }
 
 /** Banner carousel: rotates every few seconds, pauses on hover/focus, stops after manual navigation or for reduced motion. */
@@ -54,7 +54,7 @@ export function Hero({ heading, slides, offer }: HeroProps) {
       aria-roledescription="carrossel"
       aria-label="Destaques"
       className={cn(
-        'relative flex min-h-[72svh] flex-col justify-center overflow-hidden transition-[opacity,transform] duration-700 md:min-h-[92svh]',
+        'relative flex min-h-svh w-full flex-col justify-center overflow-hidden transition-[opacity,transform] duration-700',
         isInView ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0',
       )}
       onMouseEnter={() => setInteracting(true)}
