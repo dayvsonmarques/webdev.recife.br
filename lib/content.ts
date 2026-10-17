@@ -1,4 +1,5 @@
 import type { ServiceIconId } from '@/components/service-icons'
+import snapshot from './site-content.json'
 
 /** Content served by the admin at GET /api/public/site (admin: src/lib/site/public-content.ts). */
 export interface SiteContent {
@@ -79,7 +80,8 @@ export const CONTENT_TAG = 'site-content'
  */
 export async function getSiteContent(): Promise<SiteContent> {
   const base = process.env.ADMIN_API_URL
-  if (!base) throw new Error('ADMIN_API_URL is not set — the site reads its content from the admin API.')
+  // No panel deployed yet: serve the snapshot taken from the local panel (pnpm content:snapshot).
+  if (!base) return normalize(snapshot as SiteContent)
 
   const url = `${base.replace(/\/$/, '')}/api/public/site`
   let res: Response
@@ -94,8 +96,11 @@ export async function getSiteContent(): Promise<SiteContent> {
     )
   }
   if (!res.ok) throw new Error(`O painel respondeu ${res.status} em ${url}.`)
-  const data = (await res.json()) as SiteContent
-  // Tolerate a panel deployed before a field existed (and stale cached payloads).
+  return normalize((await res.json()) as SiteContent)
+}
+
+/** Tolerate a panel deployed before a field existed (and stale cached payloads). */
+function normalize(data: SiteContent): SiteContent {
   return { ...data, catalog: data.catalog ?? [], config: { ...data.config, trialDays: data.config.trialDays ?? 0, heroSlides: data.config.heroSlides ?? [] } }
 }
 

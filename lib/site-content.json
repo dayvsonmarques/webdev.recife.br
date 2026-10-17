@@ -1,0 +1,166 @@
+{
+  "updatedAt": "2026-10-17T04:14:50.428Z",
+  "config": {
+    "seoTitle": "Web Dev Recife — Seu negócio no digital",
+    "seoDescription": "Lojas online, cardápios digitais e apps de agendamento para negócios locais. Rápido de entregar, fácil de usar.",
+    "heroSlides": [
+      {
+        "title": "Sua loja online",
+        "highlight": "aberta 24 horas."
+      },
+      {
+        "title": "Você no negócio,",
+        "subtitle": "Domínio, segurança e suporte por nossa conta.",
+        "highlight": "a gente no site."
+      },
+      {
+        "title": "Venda para",
+        "subtitle": "Expanda sua clientela.",
+        "highlight": "toda a cidade."
+      }
+    ],
+    "servicesEyebrow": "O que fazemos",
+    "servicesTitle": "Serviços",
+    "servicesIntro": "Sites, lojas virtuais e aplicações web feitos sob medida para o seu negócio.",
+    "productsEyebrow": "Por assinatura",
+    "productsTitle": "Produtos prontos",
+    "productsIntro": "Loja online, cardápio digital ou agendamento — pronto pra usar em poucos dias, sem contrato de fidelidade nem mensalidade de plataforma genérica. Você assina, a gente cuida da tecnologia.",
+    "pricingEyebrow": "Investimento",
+    "pricingTitle": "Planos",
+    "pricingNote": "Sem contrato de fidelidade, cancele quando quiser.",
+    "trialDays": 0,
+    "aboutEyebrow": "O estúdio",
+    "aboutTitle": "Sobre",
+    "aboutText": "Desenvolvimento web com foco no comércio local.\r\n\r\nSeu projeto acompanhado de perto: sem enrolação, com entrega rápida e suporte real.",
+    "aboutIndicators": [],
+    "contactEyebrow": "Vamos conversar",
+    "contactTitle": "Tem um projeto em mente?",
+    "contactText": "Conta o que você precisa.",
+    "contactCta": "Falar pelo WhatsApp",
+    "whatsappNumber": "5581985140050",
+    "footerText": "Web Dev Studio © 2026"
+  },
+  "catalog": [
+    {
+      "id": 3,
+      "name": "Aplicação web",
+      "description": "Web app sob medida (cardápio digital, agendamento, etc.)."
+    },
+    {
+      "id": 2,
+      "name": "Loja virtual",
+      "description": "E-commerce com catálogo, carrinho e checkout."
+    },
+    {
+      "id": 1,
+      "name": "Site institucional",
+      "description": "Site de apresentação do negócio."
+    }
+  ],
+  "plans": [
+    {
+      "slug": "basico",
+      "name": "Básico",
+      "price": 35,
+      "description": "Para quem quer marcar presença online com o essencial.",
+      "featured": false,
+      "features": [
+        "Site de 1 página",
+        "Design responsivo (mobile)",
+        "Hospedagem incluída",
+        "Certificado SSL (HTTPS)",
+        "Formulário de contato",
+        "Suporte via WhatsApp"
+      ]
+    },
+    {
+      "slug": "avancado",
+      "name": "Avançado",
+      "price": 59,
+      "description": "Para negócios que querem ir além e converter mais clientes.",
+      "featured": true,
+      "features": [
+        "Site de até 5 páginas",
+        "Cardápio digital ou agendamento",
+        "Domínio personalizado (.com.br)",
+        "Google Meu Negócio",
+        "SEO básico",
+        "Suporte prioritário"
+      ]
+    },
+    {
+      "slug": "expert",
+      "name": "Expert",
+      "price": 109,
+      "description": "Para quem quer vender online com estrutura completa.",
+      "featured": false,
+      "features": [
+        "Páginas ilimitadas",
+        "Loja virtual completa",
+        "Integração WhatsApp + Instagram",
+        "Painel de controle próprio",
+        "Relatórios de acesso",
+        "Suporte dedicado"
+      ]
+    }
+  ],
+  "services": [
+    {
+      "slug": "loja-online",
+      "icon": "bag",
+      "title": "Loja Online",
+      "summary": "Para comércio físico que quer vender pela internet.",
+      "tagline": "Sua loja funcionando 24 horas, sem depender de ponto físico.",
+      "description": "Loja Online é o site de vendas do seu comércio: catálogo de produtos, carrinho e checkout, feito sob medida pro seu negócio — sem mensalidade de plataforma genérica nem limite de personalização.",
+      "forWhom": "Pra comércio físico — roupas, calçados, relojoaria, joalheria, ourives, comércio geral — que quer vender pela internet sem virar refém de marketplace.",
+      "features": [
+        "Catálogo de produtos com fotos e ficha técnica",
+        "Carrinho de compras e checkout integrado",
+        "Painel pra você mesmo atualizar preço e estoque",
+        "Design responsivo — funciona bem no celular",
+        "Domínio próprio (.com.br)",
+        "Certificado SSL (HTTPS) incluído"
+      ],
+      "recommendedPlan": "expert",
+      "whatsappMessage": "Olá! Quero contratar a Loja Online."
+    },
+    {
+      "slug": "cardapio-digital",
+      "icon": "phone",
+      "title": "Cardápio Digital",
+      "summary": "Para restaurantes e lanchonetes sem depender de papel.",
+      "tagline": "Cardápio sempre atualizado, sem gastar com reimpressão.",
+      "description": "Cardápio Digital é um site de cardápio pra restaurantes, lanchonetes, fruteiras e mercados: o cliente acessa pelo celular — com QR code na mesa ou no balcão — e vê preço e disponibilidade atualizados na hora, sem esperar o cardápio de papel ficar pronto de novo.",
+      "forWhom": "Pra quem vende comida ou tem preço e estoque que mudam com frequência: restaurantes, lanchonetes, fruteiras, mercados, comida congelada e pronta.",
+      "features": [
+        "QR code pra acesso rápido pelo celular",
+        "Atualização de preço e disponibilidade na hora",
+        "Categorias e fotos dos produtos",
+        "Botão de pedido direto pelo WhatsApp",
+        "Aviso de item em falta sem precisar reimprimir nada",
+        "Funciona bem mesmo com internet fraca"
+      ],
+      "recommendedPlan": "avancado",
+      "whatsappMessage": "Olá! Quero contratar o Cardápio Digital."
+    },
+    {
+      "slug": "agenda-facil",
+      "icon": "calendar",
+      "title": "Agenda Fácil",
+      "summary": "Para salões, clínicas e prestadores de serviço.",
+      "tagline": "Menos falta, mais horário ocupado — sem app complicado.",
+      "description": "Agenda Fácil é o sistema de agendamento pra quem vende horário: o cliente escolhe o serviço e o horário disponível sozinho, pelo celular, e você recebe a confirmação — sem trocar mensagem pra fechar cada agendamento.",
+      "forWhom": "Pra barbearia, salão de beleza, clínica odontológica, tatuador ou estúdio de tatuagem e qualquer prestador de serviço que agenda por horário.",
+      "features": [
+        "Cliente marca o próprio horário, sem precisar ligar",
+        "Confirmação automática via WhatsApp",
+        "Agenda organizada por profissional e serviço",
+        "Lembrete pro cliente, reduz falta",
+        "Bloqueio de horário indisponível",
+        "Histórico de agendamentos"
+      ],
+      "recommendedPlan": "avancado",
+      "whatsappMessage": "Olá! Quero contratar a Agenda Fácil."
+    }
+  ]
+}

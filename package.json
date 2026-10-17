@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "dev:all": "bash scripts/dev-all.sh"
+    "dev:all": "bash scripts/dev-all.sh",
+    "content:snapshot": "bash scripts/content-snapshot.sh"
   },
   "dependencies": {
     "next": "16.2.7",
