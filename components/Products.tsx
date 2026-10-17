@@ -9,7 +9,7 @@ import { Section } from '@/components/ui/Section'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import type { Service } from '@/lib/content'
 
-const SELLING_POINTS = ['Pronta para vender em poucos dias', 'Sem fidelidade: cancele quando quiser', 'Você cuida do negócio, a gente da tecnologia']
+const SELLING_POINTS = ['No ar em poucos dias, com a cara da sua marca', 'Sem fidelidade: cancele quando quiser', 'Preço e estoque atualizados por você, na hora']
 
 function FromPrice({ price, large = false }: { price: string; large?: boolean }) {
   return (
@@ -21,7 +21,7 @@ function FromPrice({ price, large = false }: { price: string; large?: boolean })
   )
 }
 
-function ProductCard({ slug, title, summary, icon, price }: { slug: string; title: string; summary: string; icon: ServiceIconId; price?: string }) {
+function ProductCard({ slug, title, summary, icon }: { slug: string; title: string; summary: string; icon: ServiceIconId }) {
   return (
     <Link href={`/servicos/${slug}`} className={cardClass({ interactive: true, className: 'group flex flex-col gap-8 p-8 md:p-10' })}>
       <span className="flex h-16 w-16 items-center justify-center rounded-md bg-surface-2 text-gold-ink [&_svg]:h-9 [&_svg]:w-9">{SERVICE_ICONS[icon]}</span>
@@ -29,8 +29,8 @@ function ProductCard({ slug, title, summary, icon, price }: { slug: string; titl
         <h3 className="font-heading text-subheading font-bold text-ink">{title}</h3>
         <p className="text-base text-muted">{summary}</p>
       </div>
-      <div className="mt-auto flex items-end justify-between gap-4 border-t border-line pt-6">
-        {price ? <FromPrice price={price} /> : <span />}
+      <div className="mt-auto flex items-center justify-between gap-4 border-t border-line pt-6">
+        <span className="text-sm font-semibold text-ink">Ver detalhes</span>
         <span aria-hidden="true" className="text-gold-ink transition-transform duration-200 group-hover:translate-x-1">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
             <path d="M5 12h14M13 6l6 6-6 6" />
@@ -98,7 +98,7 @@ export function Products({ eyebrow, title, intro, services, featured, startingPr
 
         <div className="grid gap-6 md:grid-cols-3">
           {services.map((service) => (
-            <ProductCard key={service.slug} slug={service.slug} title={service.title} summary={service.summary} icon={service.icon} price={startingPrice} />
+            <ProductCard key={service.slug} slug={service.slug} title={service.title} summary={service.summary} icon={service.icon} />
           ))}
         </div>
       </Container>
