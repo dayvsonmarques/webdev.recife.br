@@ -6,7 +6,6 @@ import { Projects } from '@/components/Projects'
 import { About } from '@/components/About'
 import { Contact } from '@/components/Contact'
 import { Footer } from '@/components/Footer'
-import { QuickContact } from '@/components/QuickContact'
 import { formatPrice, getSiteContent, offerLine, startingPrice, whatsappLink } from '@/lib/content'
 import { pageMetadata } from '@/lib/seo'
 
@@ -52,7 +51,6 @@ export default async function Home() {
           cta={c.contactCta}
           whatsappHref={whatsappLink(c.whatsappNumber)}
         />
-        <QuickContact />
       </main>
       <Footer text={c.footerText} />
     </>
