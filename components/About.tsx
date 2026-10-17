@@ -20,7 +20,7 @@ export function About({ eyebrow, title, text, indicators, cta, as = 'h2' }: Abou
       <Container className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
         <SectionHeader eyebrow={eyebrow} title={title} as={as} />
         <div className="flex flex-col gap-10 lg:pt-14">
-          <p className="text-lead text-muted">{text}</p>
+          <p className="whitespace-pre-line text-lead text-muted">{text}</p>
           {indicators.length > 0 && (
             <ul className="flex flex-wrap gap-3">
               {indicators.map((indicator) => (
