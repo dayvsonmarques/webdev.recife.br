@@ -53,7 +53,8 @@ export interface CatalogItem {
 export interface Plan {
   slug: string
   name: string
-  price: number
+  /** null = "A combinar". */
+  price: number | null
   description: string
   featured: boolean
   features: string[]
@@ -73,6 +74,9 @@ export interface Service {
 }
 
 export const CONTENT_TAG = 'site-content'
+
+/** Pre-filled WhatsApp message for the general contact buttons. */
+export const WHATSAPP_MESSAGE = 'Oi! Vim pelo site da Web Dev Recife. Tenho um negócio e quero saber qual opção serve pra mim.'
 
 /**
  * Cached until the admin calls /api/revalidate after an edit. If the admin is
@@ -112,7 +116,8 @@ export function whatsappLink(number: string | null, message?: string) {
 
 /** Cheapest visible plan, for "a partir de" messages; null when no plan is published. */
 export function startingPrice(plans: Plan[]) {
-  return plans.length ? Math.min(...plans.map((p) => p.price)) : null
+  const prices = plans.flatMap((p) => (p.price === null ? [] : [p.price]))
+  return prices.length ? Math.min(...prices) : null
 }
 
 /** "R$ 30" or "R$ 30,90" (Brazilian format, cents only when present). */

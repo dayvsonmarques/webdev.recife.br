@@ -10,7 +10,7 @@
       },
       {
         "title": "Você no negócio,",
-        "subtitle": "Domínio, segurança e suporte por nossa conta.",
+        "subtitle": "Manutenção, segurança e ajuda por nossa conta.",
         "highlight": "a gente no site."
       },
       {
@@ -37,24 +37,24 @@
     "contactTitle": "Tem um projeto em mente?",
     "contactText": "Conta o que você precisa.",
     "contactCta": "Falar pelo WhatsApp",
-    "whatsappNumber": "5581985140050",
+    "whatsappNumber": "5581999623374",
     "footerText": "Web Dev Studio © 2026"
   },
   "catalog": [
     {
       "id": 3,
       "name": "Aplicação web",
-      "description": "Web app sob medida (cardápio digital, agendamento, etc.)."
+      "description": "Sistema feito pro seu negócio, como cardápio digital ou agenda online."
     },
     {
       "id": 2,
       "name": "Loja virtual",
-      "description": "E-commerce com catálogo, carrinho e checkout."
+      "description": "Loja na internet com vitrine, carrinho e pagamento."
     },
     {
       "id": 1,
       "name": "Site institucional",
-      "description": "Site de apresentação do negócio."
+      "description": "Um site pra apresentar seu negócio e ser encontrado."
     }
   ],
   "plans": [
@@ -62,45 +62,53 @@
       "slug": "basico",
       "name": "Básico",
       "price": 35,
-      "description": "Para quem quer marcar presença online com o essencial.",
+      "description": "Pra começar a vender gastando pouco.",
       "featured": false,
       "features": [
-        "Site de 1 página",
-        "Design responsivo (mobile)",
-        "Hospedagem incluída",
-        "Certificado SSL (HTTPS)",
-        "Formulário de contato",
-        "Suporte via WhatsApp"
+        "Cadastre até 35 itens",
+        "Até R$ 1.000 em vendas por mês",
+        "Loja no ar em poucos dias",
+        "Pedidos chegam no seu WhatsApp",
+        "Entrega, retirada ou os dois",
+        "Funciona no celular e no computador",
+        "Você mesmo troca preços, fotos e estoque",
+        "Link pronto pra divulgar no Instagram",
+        "Ajuda pelo WhatsApp"
       ]
     },
     {
       "slug": "avancado",
       "name": "Avançado",
-      "price": 59,
-      "description": "Para negócios que querem ir além e converter mais clientes.",
+      "price": 75,
+      "description": "Pra quem já vende e quer crescer.",
       "featured": true,
       "features": [
-        "Site de até 5 páginas",
-        "Cardápio digital ou agendamento",
-        "Domínio personalizado (.com.br)",
-        "Google Meu Negócio",
-        "SEO básico",
-        "Suporte prioritário"
+        "Tudo do plano Básico",
+        "Cadastre até 250 itens",
+        "Vendas sem limite",
+        "Receba por Pix e cartão",
+        "Frete calculado na hora",
+        "Cupons de desconto pros seus clientes",
+        "Cadastro dos seus clientes",
+        "Vendas do dia e do mês num painel",
+        "Resposta no mesmo dia pelo WhatsApp"
       ]
     },
     {
       "slug": "expert",
       "name": "Expert",
-      "price": 109,
-      "description": "Para quem quer vender online com estrutura completa.",
+      "price": null,
+      "description": "Pra quem quer tudo do jeito do seu negócio.",
       "featured": false,
       "features": [
-        "Páginas ilimitadas",
-        "Loja virtual completa",
-        "Integração WhatsApp + Instagram",
-        "Painel de controle próprio",
-        "Relatórios de acesso",
-        "Suporte dedicado"
+        "Tudo do plano Avançado",
+        "Itens e vendas sem limite",
+        "Relatórios de vendas e clientes",
+        "Sua equipe com acesso ao painel",
+        "Ligada ao seu Instagram e WhatsApp",
+        "Ajuda pra montar o catálogo",
+        "Ajustes feitos sob medida",
+        "Um especialista cuidando da sua loja"
       ]
     }
   ],
@@ -110,19 +118,19 @@
       "icon": "bag",
       "title": "Loja Online",
       "summary": "Para comércio físico que quer vender pela internet.",
-      "tagline": "Sua loja funcionando 24 horas, sem depender de ponto físico.",
-      "description": "Loja Online é o site de vendas do seu comércio: catálogo de produtos, carrinho e checkout, feito sob medida pro seu negócio — sem mensalidade de plataforma genérica nem limite de personalização.",
-      "forWhom": "Pra comércio físico — roupas, calçados, relojoaria, joalheria, ourives, comércio geral — que quer vender pela internet sem virar refém de marketplace.",
+      "tagline": "Sua loja aberta 24 horas, vendendo até enquanto você dorme.",
+      "description": "Catálogo, carrinho e pagamento num só lugar, com a cara da sua marca.",
+      "forWhom": "Roupas, Calçados, Joias, Relógios, Eletrônicos, Móveis, Bicicletas, Comércio em geral",
       "features": [
-        "Catálogo de produtos com fotos e ficha técnica",
-        "Carrinho de compras e checkout integrado",
-        "Painel pra você mesmo atualizar preço e estoque",
-        "Design responsivo — funciona bem no celular",
-        "Domínio próprio (.com.br)",
-        "Certificado SSL (HTTPS) incluído"
+        "Catálogo com fotos e detalhes",
+        "Carrinho e pagamento na própria loja",
+        "Pedido avisado no seu WhatsApp",
+        "Preço e estoque mudados na hora",
+        "Feita pra comprar pelo celular",
+        "Cupons de desconto e frete calculado"
       ],
-      "recommendedPlan": "expert",
-      "whatsappMessage": "Olá! Quero contratar a Loja Online."
+      "recommendedPlan": "basico",
+      "whatsappMessage": "Oi! Vi a Loja Online no site e quero testar. Pode me contar como começo?"
     },
     {
       "slug": "cardapio-digital",
@@ -140,8 +148,8 @@
         "Aviso de item em falta sem precisar reimprimir nada",
         "Funciona bem mesmo com internet fraca"
       ],
-      "recommendedPlan": "avancado",
-      "whatsappMessage": "Olá! Quero contratar o Cardápio Digital."
+      "recommendedPlan": "basico",
+      "whatsappMessage": "Oi! Vi o Cardápio Digital no site e quero testar. Pode me contar como começo?"
     },
     {
       "slug": "agenda-facil",
@@ -159,8 +167,8 @@
         "Bloqueio de horário indisponível",
         "Histórico de agendamentos"
       ],
-      "recommendedPlan": "avancado",
-      "whatsappMessage": "Olá! Quero contratar a Agenda Fácil."
+      "recommendedPlan": "basico",
+      "whatsappMessage": "Oi! Vi a Agenda Fácil no site e quero testar. Pode me contar como começo?"
     }
   ]
 }
