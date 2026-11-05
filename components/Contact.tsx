@@ -1,3 +1,4 @@
+import { InstagramLink } from '@/components/InstagramLink'
 import { ButtonLink } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { Section } from '@/components/ui/Section'
@@ -22,7 +23,7 @@ export function Contact({ eyebrow, title, text, cta, whatsappHref }: ContactProp
       />
       <Container className="relative flex flex-col gap-12">
         <SectionHeader eyebrow={eyebrow} title={title} intro={text} size="title" />
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-3 sm:gap-4">
           <ButtonLink href="/orcamento" arrow>
             Solicitar orçamento
           </ButtonLink>
@@ -32,6 +33,7 @@ export function Contact({ eyebrow, title, text, cta, whatsappHref }: ContactProp
             </ButtonLink>
           )}
         </div>
+        <InstagramLink className="-mt-6 w-fit" />
       </Container>
     </Section>
   )

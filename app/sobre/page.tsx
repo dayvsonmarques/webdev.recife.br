@@ -4,7 +4,7 @@ import { Contact } from '@/components/Contact'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { Services } from '@/components/Services'
-import { getSiteContent, whatsappLink } from '@/lib/content'
+import { getSiteContent, WHATSAPP_MESSAGE, whatsappLink } from '@/lib/content'
 import { pageMetadata } from '@/lib/seo'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -26,7 +26,7 @@ export default async function SobrePage() {
           title={c.contactTitle}
           text={c.contactText}
           cta={c.contactCta}
-          whatsappHref={whatsappLink(c.whatsappNumber)}
+          whatsappHref={whatsappLink(c.whatsappNumber, WHATSAPP_MESSAGE)}
         />
       </main>
       <Footer text={c.footerText} />

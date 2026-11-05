@@ -3,10 +3,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { ThemeToggle } from '@/components/ThemeToggle'
-import { MobileMenu } from '@/components/MobileMenu'
+import { MenuIcon, MobileMenu } from '@/components/MobileMenu'
 import { ButtonLink } from '@/components/ui/Button'
 import { cn } from '@/components/ui/cn'
 import { NAV_LINKS } from '@/lib/nav-links'
+import { Logo } from '@/components/Logo'
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -34,13 +35,11 @@ export function Header() {
         )}
       >
         <div className="mx-auto flex max-w-container items-center gap-8 px-6 py-4 md:px-10">
-          <Link href="/" className="whitespace-pre font-mono text-2xl font-bold tracking-tight text-ink" aria-label="Web Dev Recife — início">
-            <span className="text-gold-ink">&lt; </span>
-            webdev
-            <span className="text-gold-ink"> /&gt;</span>
+          <Link href="/" className="flex min-h-11 items-center text-[1.75rem]" aria-label="Web Dev Recife — início">
+            <Logo />
           </Link>
 
-          <nav className="ml-auto hidden items-center gap-9 md:flex" aria-label="Navegação principal">
+          <nav className="ml-auto hidden items-center gap-9 lg:flex" aria-label="Navegação principal">
             {NAV_LINKS.map((link) => (
               <Link key={link.href} href={link.href} className="text-base font-medium text-muted transition-colors hover:text-ink focus-visible:text-ink">
                 {link.label}
@@ -48,7 +47,7 @@ export function Header() {
             ))}
           </nav>
 
-          <div className="ml-auto flex items-center gap-3 md:ml-0">
+          <div className="ml-auto flex items-center gap-3 lg:ml-0">
             <ThemeToggle />
             {/* Wrapper carries the breakpoint: the button's own inline-flex would override "hidden". */}
             <span className="hidden lg:block">
@@ -56,20 +55,17 @@ export function Header() {
                 Solicitar orçamento
               </ButtonLink>
             </span>
-            {/* Hamburger — mobile only */}
+            {/* Menu de barras — celular e tablet */}
             <button
               ref={menuButtonRef}
-              className="-mr-2.5 flex h-11 w-11 items-center justify-center md:hidden"
+              type="button"
+              className="-mr-2.5 flex h-11 w-11 items-center justify-center text-ink lg:hidden"
               onClick={() => setMenuOpen(true)}
               aria-label="Abrir menu"
               aria-expanded={menuOpen}
               aria-controls="menu-mobile"
             >
-              <span className="flex w-7 flex-col gap-[7px]" aria-hidden="true">
-                <span className="block h-0.5 w-full rounded-full bg-ink" />
-                <span className="block h-0.5 w-full rounded-full bg-ink" />
-                <span className="block h-0.5 w-5 rounded-full bg-ink" />
-              </span>
+              <MenuIcon open={false} />
             </button>
           </div>
         </div>

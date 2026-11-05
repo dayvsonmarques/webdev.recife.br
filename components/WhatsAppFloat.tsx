@@ -6,7 +6,7 @@ export function WhatsAppFloat({ href }: { href: string }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Falar no WhatsApp (abre em nova aba)"
-      className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-transform hover:scale-105 md:bottom-8 md:right-8 md:h-16 md:w-16"
+      className="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-transform hover:scale-105 md:bottom-8 md:right-8 md:h-16 md:w-16"
       style={{ backgroundColor: '#25D366', color: '#FFFFFF' }}
     >
       <svg viewBox="0 0 32 32" width="30" height="30" fill="currentColor" aria-hidden="true">

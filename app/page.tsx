@@ -6,7 +6,7 @@ import { Projects } from '@/components/Projects'
 import { About } from '@/components/About'
 import { Contact } from '@/components/Contact'
 import { Footer } from '@/components/Footer'
-import { formatPrice, getSiteContent, startingPrice, whatsappLink } from '@/lib/content'
+import { formatPrice, getSiteContent, startingPrice, WHATSAPP_MESSAGE, whatsappLink } from '@/lib/content'
 import { pageMetadata } from '@/lib/seo'
 
 // Seção de projetos oculta até termos cases para mostrar.
@@ -32,13 +32,16 @@ export default async function Home() {
           slides={c.heroSlides}
           offer={
             <>
-              {c.trialDays > 0 && `${c.trialDays} dias grátis · `}
+              {/* Cada trecho não quebra no meio; o espaço entre eles fica fora, para a linha poder quebrar ali. */}
+              {c.trialDays > 0 && <><span className="whitespace-nowrap">{c.trialDays} dias grátis ·</span>{' '}</>}
               {from !== null && (
                 <>
-                  A partir de <strong className="font-heading text-subheading font-extrabold text-ink">{formatPrice(from)}/mês</strong> ·{' '}
+                  <span className="whitespace-nowrap">
+                    A partir de <strong className="font-heading text-subheading font-extrabold text-ink">{formatPrice(from)}/mês</strong>
+                  </span>{' '}
                 </>
               )}
-              Sem fidelidade
+              <span className="whitespace-nowrap">· Sem fidelidade</span>
             </>
           }
         />
@@ -63,7 +66,7 @@ export default async function Home() {
           title={c.contactTitle}
           text={c.contactText}
           cta={c.contactCta}
-          whatsappHref={whatsappLink(c.whatsappNumber)}
+          whatsappHref={whatsappLink(c.whatsappNumber, WHATSAPP_MESSAGE)}
         />
       </main>
       <Footer text={c.footerText} />
