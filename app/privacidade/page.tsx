@@ -47,14 +47,17 @@ export default async function PrivacidadePage() {
 
           <Block title="Quais dados coletamos">
             <p>
-              Só os que você informa no formulário de orçamento: nome, WhatsApp, e-mail (opcional), nome e localização do
-              negócio, e as respostas sobre o que você precisa. Não pedimos documentos, senhas nem dados de pagamento.
+              Só os que você informa nos formulários de orçamento e de loja de teste: nome, WhatsApp, e-mail, nome e
+              localização do negócio, e as respostas sobre o que você precisa. Não pedimos documentos, senhas nem dados de
+              pagamento.
             </p>
           </Block>
 
           <Block title="Para que usamos">
             <p>
-              Para analisar o seu pedido, preparar o orçamento e falar com você sobre ele. A base legal é o seu consentimento,
+              Para analisar o seu pedido, preparar o orçamento ou criar a sua loja de teste, e falar com você sobre ele. No
+              teste, o nome do negócio, o seu nome e o e-mail são usados para criar a loja e o seu acesso a ela. A base legal é o
+              seu consentimento,
               dado ao marcar a caixa no formulário, e os procedimentos preliminares a um contrato que você solicitou.
             </p>
             <p>Não vendemos, não alugamos e não compartilhamos seus dados para publicidade.</p>
@@ -79,7 +82,7 @@ export default async function PrivacidadePage() {
                 <>
                   {' '}
                   pelo{' '}
-                  <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="font-semibold text-gold-ink underline">
+                  <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="font-semibold text-accent-ink underline">
                     WhatsApp
                     <span className="sr-only"> (abre em nova aba)</span>
                   </a>

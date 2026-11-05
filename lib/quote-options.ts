@@ -12,6 +12,6 @@ export const PRAZOS = ['Até 2 semanas', 'Até 1 mês', '1 a 3 meses', 'Sem pres
 export const INVESTIMENTOS = ['Até R$ 500', 'R$ 500 a R$ 1.500', 'R$ 1.500 a R$ 3.000', 'Acima de R$ 3.000', 'Prefiro não dizer'] as const
 
 /** Date of the current privacy policy text (app/privacidade); stored with each consent. Bump when it changes. */
-export const POLICY_VERSION = '2026-10-12'
+export const POLICY_VERSION = '2026-10-31'
 /** Unconverted requests are deleted after this many months (the panel enforces it). */
 export const RETENTION_MONTHS = 12
