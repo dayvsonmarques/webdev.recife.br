@@ -1,51 +1,60 @@
-// Screenshots of live demo stores per product page (static files in public/images/produtos).
-// Captured from the production showcase stores of the cardapio app.
+// Extras of a product page: demo stores (one per business type, phone screenshot in
+// public/images/produtos) and a clip of the store's admin panel.
 
-export interface GalleryShot {
-  src: string
-  alt: string
-  label: string
+export interface DemoStore {
+  category: string
+  name: string
   href: string
-  width: number
-  height: number
+  image: string
+  alt: string
 }
 
 export interface ProductGallery {
   title: string
   intro: string
-  video?: { mp4: string; webm: string; poster: string; label: string }
-  desktop: GalleryShot[]
-  mobile: GalleryShot[]
+  stores: DemoStore[]
+}
+
+export interface PanelVideo {
+  title: string
+  intro: string
+  mp4: string
+  webm: string
+  poster: string
+  label: string
+  highlights: string[]
 }
 
 const DIR = '/images/produtos/loja-online'
-const desktop = (file: string, label: string, alt: string, href: string): GalleryShot => ({
-  src: `${DIR}/${file}`, alt, label, href, width: 960, height: 600,
-})
-const mobile = (file: string, label: string, alt: string, href: string): GalleryShot => ({
-  src: `${DIR}/${file}`, alt, label, href, width: 390, height: 844,
+const store = (slug: string, category: string, name: string): DemoStore => ({
+  category,
+  name,
+  href: `https://${slug}.webdev.recife.br`,
+  image: `${DIR}/${slug}-navegacao.jpg`,
+  alt: `Página inicial da loja de demonstração ${name} no celular`,
 })
 
 export const PRODUCT_GALLERIES: Record<string, ProductGallery> = {
   'loja-online': {
-    title: 'Lojas no ar',
-    intro: 'Lojas-modelo feitas com a Loja Online. Clique em qualquer uma para navegar na loja de verdade.',
-    video: {
-      mp4: `${DIR}/joias-navegacao.mp4`,
-      webm: `${DIR}/joias-navegacao.webm`,
-      poster: `${DIR}/joias-navegacao.jpg`,
-      label: 'Navegando pela loja de joias no celular: vitrine, destaques e página de produto',
-    },
-    desktop: [
-      desktop('joias.webp', 'Joias & Relógios', 'Página inicial da loja Joias & Relógios, com banner e menu de categorias', 'https://joias.webdev.recife.br'),
-      desktop('eletronicos.webp', 'Celulares & Acessórios', 'Página inicial da loja Celulares & Acessórios', 'https://eletronicos.webdev.recife.br'),
-      desktop('moveis.webp', 'Móveis de Madeira', 'Página inicial da loja Móveis de Madeira', 'https://moveis.webdev.recife.br'),
-      desktop('bicicletaria.webp', 'Bicicletaria', 'Página inicial da Bicicletaria', 'https://bicicletaria.webdev.recife.br'),
-      desktop('joias-produto.webp', 'Página de produto', 'Página de produto com fotos, preço, variações de aro e banho e botão de compra', 'https://joias.webdev.recife.br'),
+    title: 'Lojas de demonstração',
+    intro: 'Abra no seu celular e navegue como se fosse cliente.',
+    stores: [
+      store('joias', 'Joias e relógios', 'Joias & Relógios'),
+      store('eletronicos', 'Eletrônicos', 'Celulares & Acessórios'),
+      store('moveis', 'Móveis', 'Móveis de Madeira'),
+      store('bicicletaria', 'Bicicletas', 'Bicicletaria'),
     ],
-    mobile: [
-      mobile('joias-mobile.webp', 'Vitrine no celular', 'Vitrine da loja de joias no celular', 'https://joias.webdev.recife.br'),
-      mobile('joias-produto-mobile.webp', 'Produto no celular', 'Página de produto da loja de joias no celular', 'https://joias.webdev.recife.br'),
-    ],
+  },
+}
+
+export const PANEL_VIDEOS: Record<string, PanelVideo> = {
+  'loja-online': {
+    title: 'Seu painel, simples de usar',
+    intro: 'Tudo da loja num lugar só. Se você usa WhatsApp, consegue usar o painel.',
+    mp4: `${DIR}/painel.mp4`,
+    webm: `${DIR}/painel.webm`,
+    poster: `${DIR}/painel.jpg`,
+    label: 'Navegando pelo painel da loja: resumo de vendas, pedidos, produtos, cupons, clientes e vitrine',
+    highlights: ['Vendas do mês num resumo', 'Pedidos com status', 'Produtos, preços e estoque', 'Cupons de desconto', 'Cadastro de clientes', 'Vitrine da página inicial'],
   },
 }

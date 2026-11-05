@@ -3,19 +3,30 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
-import { PlanCard, IconCheck } from '@/components/PlanCard'
+import { iconFor } from '@/components/feature-icons'
+import { PlanCard } from '@/components/PlanCard'
+import { PlanPricing } from '@/components/PlanPricing'
 import { SERVICE_ICONS } from '@/components/service-icons'
+import { PanelVideo } from '@/components/PanelVideo'
 import { ProductGallery } from '@/components/ProductGallery'
+import { SellOnline } from '@/components/SellOnline'
 import { ButtonLink } from '@/components/ui/Button'
 import { cardClass } from '@/components/ui/Card'
 import { Container } from '@/components/ui/Container'
-import { Eyebrow } from '@/components/ui/Eyebrow'
 import { Section } from '@/components/ui/Section'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { getSiteContent, offerLine, whatsappLink } from '@/lib/content'
-import { PRODUCT_GALLERIES } from '@/lib/product-gallery'
+import { PANEL_VIDEOS, PRODUCT_GALLERIES } from '@/lib/product-gallery'
 import { pageMetadata } from '@/lib/seo'
 import { SITE_URL } from '@/lib/site-url'
+import { STORE_DOMAIN, TRIAL_PRODUCTS, trialHref } from '@/lib/trial'
+
+const STEPS = [
+  { title: 'Peça seu teste', text: 'Conte sobre seu negócio. A gente cria sua loja e manda o acesso por e-mail.' },
+  { title: 'Cadastre seus produtos', text: 'Fotos, preços e estoque, direto do celular.' },
+  { title: 'Divulgue e venda', text: 'Mande o link pros clientes e receba os pedidos.' },
+]
+const WHATSAPP_STEPS = [{ title: 'Chame no WhatsApp', text: 'A gente cria sua loja e te manda o acesso.' }, ...STEPS.slice(1)]
 
 export async function generateStaticParams() {
   const { services } = await getSiteContent()
@@ -45,9 +56,23 @@ export default async function ServicePage({
   const service = services.find((s) => s.slug === slug)
   if (!service) notFound()
 
-  // Until a WhatsApp number is set in the admin, CTAs point to the contact section.
-  const ctaHref = whatsappLink(config.whatsappNumber, service.whatsappMessage) ?? '/#contato'
-  const ctaLabel = config.trialDays > 0 ? `Testar grátis por ${config.trialDays} dias` : 'Quero contratar'
+  // Products on the stores app get a trial request form; the others (and "a combinar" plans) go to
+  // WhatsApp. Until a WhatsApp number is set in the admin, those point to the contact section.
+  const hasTrial = TRIAL_PRODUCTS.has(service.slug)
+  const whatsapp = (message: string) => whatsappLink(config.whatsappNumber, message) ?? '/#contato'
+  const ctaHref = hasTrial ? trialHref(service.slug) : whatsapp(service.whatsappMessage)
+  const ctaLabel = config.trialDays > 0 ? `Testar grátis por ${config.trialDays} dias` : 'Quero testar'
+  const planHref = (plan: { slug: string; name: string; price: number | null }) =>
+    plan.price === null
+      ? whatsapp(`Oi! Vi ${service.title} no site e quero saber mais do plano ${plan.name}.`)
+      : hasTrial
+        ? trialHref(service.slug, plan.slug)
+        : whatsapp(`Oi! Vi ${service.title} no site e quero testar o plano ${plan.name}. Como começo?`)
+  const steps = hasTrial ? STEPS : WHATSAPP_STEPS
+  const panelVideo = PANEL_VIDEOS[service.slug]
+  // Short comma-separated list → icon chips; a longer sentence stays as text.
+  const audience = service.forWhom.split(/\s*,\s*/)
+  const audienceAsChips = audience.length > 1 && audience.every((item) => item.length <= 24)
 
   return (
     <>
@@ -64,7 +89,7 @@ export default async function ServicePage({
             areaServed: { '@type': 'City', name: 'Recife' },
             provider: { '@type': 'ProfessionalService', name: 'Web Dev Recife', url: SITE_URL },
             ...(plans.length > 0 && {
-              offers: plans.map((plan) => ({
+              offers: plans.filter((plan) => plan.price !== null).map((plan) => ({
                 '@type': 'Offer',
                 name: plan.name,
                 price: plan.price,
@@ -84,16 +109,23 @@ export default async function ServicePage({
             style={{ background: 'radial-gradient(circle, var(--c-glow) 0%, transparent 70%)' }}
           />
           <Container className="relative flex flex-col items-start gap-8">
-            <Link href="/#produtos" className="text-eyebrow font-semibold uppercase tracking-[0.18em] text-gold-ink hover:underline">
+            <Link href="/#produtos" className="-my-3 py-3 text-eyebrow font-semibold uppercase tracking-[0.18em] text-accent-ink hover:underline">
               ← Produtos
             </Link>
-            <span className="flex h-20 w-20 items-center justify-center rounded-lg border border-line bg-surface text-gold-ink [&_svg]:h-11 [&_svg]:w-11">
+            <span className="flex h-20 w-20 items-center justify-center rounded-lg border border-line bg-surface text-accent-ink [&_svg]:h-11 [&_svg]:w-11">
               {SERVICE_ICONS[service.icon]}
             </span>
             <h1 className="font-heading text-display font-extrabold tracking-[-0.03em] text-ink">{service.title}</h1>
             <p className="max-w-2xl text-lead text-muted">{service.tagline}</p>
-            <p className="rounded-pill border border-gold/50 px-4 py-2 text-base font-semibold text-ink">{offerLine(plans, config.trialDays)}</p>
-            <div className="flex flex-wrap gap-4 pt-2">
+            <p className="flex flex-wrap gap-x-2 rounded-lg border border-line px-4 py-2 text-sm font-semibold text-ink sm:rounded-pill sm:text-base">
+              {offerLine(plans, config.trialDays).split(' · ').map((part, i) => (
+                <span key={part} className="whitespace-nowrap">
+                  {i > 0 && <span className="mr-2 text-muted" aria-hidden="true">·</span>}
+                  {part}
+                </span>
+              ))}
+            </p>
+            <div className="flex w-full flex-wrap gap-3 pt-2 sm:w-auto sm:gap-4">
               <ButtonLink href={ctaHref} arrow>
                 {ctaLabel}
               </ButtonLink>
@@ -105,33 +137,40 @@ export default async function ServicePage({
         </section>
 
         <Section>
-          <Container className="grid gap-6 md:grid-cols-2">
-            <div className={cardClass({ className: 'flex flex-col gap-5 p-8 md:p-12' })}>
-              <Eyebrow>O que é</Eyebrow>
-              <p className="text-lead text-ink">{service.description}</p>
-            </div>
-            <div className={cardClass({ className: 'flex flex-col gap-5 p-8 md:p-12' })}>
-              <Eyebrow>Pra quem é</Eyebrow>
-              <p className="text-lead text-muted">{service.forWhom}</p>
-            </div>
-          </Container>
-        </Section>
-
-        <Section tone="surface">
           <Container className="flex flex-col gap-14">
-            <SectionHeader title="O que está incluso" />
-            <ul className="grid gap-x-10 gap-y-5 md:grid-cols-2">
+            <SectionHeader eyebrow="Vantagens" title="O que você ganha" intro={service.description} />
+            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {service.features.map((feature) => (
-                <li key={feature} className="flex items-start gap-4 border-b border-line pb-5 text-base text-ink">
-                  <span className="mt-1 shrink-0 text-gold-ink">
-                    <IconCheck />
-                  </span>
-                  {feature}
+                <li key={feature} className={cardClass({ className: 'flex items-center gap-4 p-5 md:p-6' })}>
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-surface-2 text-accent-ink">{iconFor(feature)}</span>
+                  <span className="text-base font-semibold text-ink">{feature}</span>
                 </li>
               ))}
             </ul>
           </Container>
         </Section>
+
+        <Section tone="surface" className="!py-20">
+          <Container className="flex flex-col items-center gap-8 text-center">
+            <h2 className="font-heading text-subheading font-bold text-ink">Feita pra quem vende</h2>
+            {audienceAsChips ? (
+              <ul className="flex flex-wrap justify-center gap-3">
+                {audience.map((item) => (
+                  <li key={item} className="flex items-center gap-2.5 rounded-pill border border-line bg-bg px-5 py-3 text-base font-medium text-ink [&_svg]:h-5 [&_svg]:w-5 [&_svg]:text-accent-ink">
+                    {iconFor(item, 'store')}
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="max-w-2xl text-lead text-muted">{service.forWhom}</p>
+            )}
+          </Container>
+        </Section>
+
+        {service.slug === 'loja-online' && <SellOnline />}
+
+        {panelVideo && <PanelVideo clip={panelVideo} />}
 
         {PRODUCT_GALLERIES[service.slug] && <ProductGallery gallery={PRODUCT_GALLERIES[service.slug]} />}
 
@@ -152,15 +191,38 @@ export default async function ServicePage({
                   features={plan.features}
                   highlighted={plan.slug === service.recommendedPlan}
                   badgeLabel="Recomendado"
+                  ctaHref={planHref(plan)}
+                  ctaLabel={plan.price === null ? 'Falar com a gente' : 'Quero testar'}
                 />
               ))}
             </div>
+            <PlanPricing />
           </Container>
         </Section>
 
         <Section tone="surface">
+          <Container className="flex flex-col gap-14">
+            <SectionHeader title="Como começar" />
+            <ol className="grid gap-6 md:grid-cols-3">
+              {steps.map((step, i) => (
+                <li key={step.title} className="flex flex-col gap-3">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-pill bg-accent font-heading text-xl font-extrabold text-on-accent">{i + 1}</span>
+                  <p className="font-heading text-lg font-bold text-ink">{step.title}</p>
+                  <p className="text-base text-muted">{step.text}</p>
+                </li>
+              ))}
+            </ol>
+          </Container>
+        </Section>
+
+        <Section>
           <Container className="flex flex-col items-start gap-10">
-            <h2 className="max-w-3xl font-heading text-title font-extrabold text-ink">Pronto pra começar com {service.title}?</h2>
+            <h2 className="max-w-3xl font-heading text-title font-extrabold text-ink">Pronto pra testar {service.title}?</h2>
+            {hasTrial && (
+              <p className="-mt-4 max-w-2xl wrap-anywhere text-lead text-muted">
+                Conte sobre seu negócio e a gente libera uma loja de teste em seunegocio.{STORE_DOMAIN}.
+              </p>
+            )}
             <ButtonLink href={ctaHref} arrow>
               {ctaLabel}
             </ButtonLink>

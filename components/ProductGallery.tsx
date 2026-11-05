@@ -1,25 +1,19 @@
 import Image from 'next/image'
-import { cn } from '@/components/ui/cn'
 import { Container } from '@/components/ui/Container'
 import { Section } from '@/components/ui/Section'
 import { SectionHeader } from '@/components/ui/SectionHeader'
-import type { GalleryShot, ProductGallery as Gallery } from '@/lib/product-gallery'
-import { LoopVideo } from './LoopVideo'
+import type { DemoStore, ProductGallery as Gallery } from '@/lib/product-gallery'
 
-function ShotLink({ shot, sizes, phone }: { shot: GalleryShot; sizes: string; phone?: boolean }) {
+function StoreCard({ store }: { store: DemoStore }) {
   return (
-    <a href={shot.href} target="_blank" rel="noopener noreferrer" className="group flex flex-col gap-4">
-      <span
-        className={cn(
-          'block overflow-hidden border-line bg-surface shadow-card transition-[transform,box-shadow] duration-300 group-hover:-translate-y-1 group-hover:shadow-lift',
-          phone ? 'rounded-[1.75rem] border-4' : 'rounded-md border',
-        )}
-      >
-        <Image src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} sizes={sizes} className="h-auto w-full" />
+    <a href={store.href} target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-5">
+      <span className="relative block aspect-[360/780] w-full max-w-[15rem] overflow-hidden rounded-[2rem] border-[6px] border-ink/90 bg-surface shadow-card transition-[transform,box-shadow] duration-300 group-hover:-translate-y-2 group-hover:shadow-lift">
+        <Image src={store.image} alt={store.alt} fill sizes="(min-width: 1024px) 15rem, 45vw" className="object-cover object-top" />
       </span>
-      <span className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-base">
-        <span className="font-medium text-ink">{shot.label}</span>
-        <span className="text-sm text-gold-ink">
+      <span className="flex flex-col items-center gap-1 text-center">
+        <span className="text-eyebrow font-semibold uppercase tracking-[0.18em] text-gold">{store.category}</span>
+        <span className="font-heading text-lg font-bold text-ink">{store.name}</span>
+        <span className="text-sm text-muted group-hover:text-accent-ink">
           Abrir loja ↗<span className="sr-only"> (abre em nova aba)</span>
         </span>
       </span>
@@ -27,36 +21,17 @@ function ShotLink({ shot, sizes, phone }: { shot: GalleryShot; sizes: string; ph
   )
 }
 
-/** "See it live" gallery on a product page: looping phone clip + desktop and mobile screenshots. */
+/** Demo stores on a product page: one per business type, each opens the live store. */
 export function ProductGallery({ gallery }: { gallery: Gallery }) {
   return (
     <Section aria-label={gallery.title}>
       <Container className="flex flex-col gap-16">
         <SectionHeader eyebrow="Veja funcionando" title={gallery.title} intro={gallery.intro} />
-
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,18rem)_1fr] lg:items-start">
-          {gallery.video && (
-            <figure className="mx-auto w-full max-w-[18rem]">
-              <div className="overflow-hidden rounded-[2rem] border-4 border-line bg-surface shadow-lift">
-                <LoopVideo {...gallery.video} />
-              </div>
-              <figcaption className="mt-3 text-sm text-muted">{gallery.video.label}</figcaption>
-            </figure>
-          )}
-          <div className="grid gap-8 sm:grid-cols-2">
-            {gallery.desktop.map((shot) => (
-              <ShotLink key={shot.src} shot={shot} sizes="(min-width: 1024px) 420px, (min-width: 640px) 50vw, 100vw" />
-            ))}
-          </div>
+        <div className="grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-4">
+          {gallery.stores.map((store) => (
+            <StoreCard key={store.href} store={store} />
+          ))}
         </div>
-
-        {gallery.mobile.length > 0 && (
-          <div className="grid grid-cols-2 gap-6 sm:max-w-md">
-            {gallery.mobile.map((shot) => (
-              <ShotLink key={shot.src} shot={shot} sizes="200px" phone />
-            ))}
-          </div>
-        )}
       </Container>
     </Section>
   )
