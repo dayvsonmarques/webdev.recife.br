@@ -7,9 +7,9 @@ import { TrialForm } from '@/components/TrialForm'
 import { iconFor } from '@/components/feature-icons'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
-import { getSiteContent } from '@/lib/content'
+import { formatPrice, getSiteContent } from '@/lib/content'
 import { pageMetadata } from '@/lib/seo'
-import { STORE_DOMAIN, TRIAL_PRODUCTS } from '@/lib/trial'
+import { SALES_TIERS, STORE_DOMAIN, TRIAL_PRODUCTS } from '@/lib/trial'
 
 const PROMISES = ['Loja pronta pra você mexer', 'Sem cartão de crédito', 'Sem compromisso']
 
@@ -34,6 +34,8 @@ export default async function TrialPage({ params, searchParams }: PageProps<'/se
 
   // "A combinar" plans are talked through on WhatsApp, not tested.
   const testable = plans.filter((p) => p.price !== null).map(({ slug, name }) => ({ slug, name }))
+  const tiers = SALES_TIERS[slug]
+  const free = tiers ? ` — grátis até vender ${formatPrice(tiers.free)} por mês` : config.trialDays > 0 ? ` — ${config.trialDays} dias grátis` : ''
   const defaultPlan = testable.find((p) => p.slug === plano)?.slug ?? service.recommendedPlan ?? undefined
 
   return (
@@ -48,7 +50,7 @@ export default async function TrialPage({ params, searchParams }: PageProps<'/se
             as="h1"
             eyebrow={`Testar ${service.title}`}
             title="Peça sua loja de teste"
-            intro={`Conte um pouco do seu negócio. A gente libera uma loja de teste em seunegocio.${STORE_DOMAIN} pra você cadastrar produtos e ver como fica${config.trialDays > 0 ? ` — ${config.trialDays} dias grátis` : ''}.`}
+            intro={`Conte um pouco do seu negócio. A gente libera uma loja de teste em seunegocio.${STORE_DOMAIN} pra você cadastrar produtos e ver como fica${free}.`}
           />
           <ul className="mb-16 mt-8 flex flex-wrap gap-3">
             {PROMISES.map((item) => (

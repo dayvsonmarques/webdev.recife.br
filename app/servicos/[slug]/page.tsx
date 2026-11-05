@@ -15,11 +15,11 @@ import { cardClass } from '@/components/ui/Card'
 import { Container } from '@/components/ui/Container'
 import { Section } from '@/components/ui/Section'
 import { SectionHeader } from '@/components/ui/SectionHeader'
-import { getSiteContent, offerLine, whatsappLink } from '@/lib/content'
+import { formatPrice, getSiteContent, offerLine, whatsappLink } from '@/lib/content'
 import { PANEL_VIDEOS, PRODUCT_GALLERIES } from '@/lib/product-gallery'
 import { pageMetadata } from '@/lib/seo'
 import { SITE_URL } from '@/lib/site-url'
-import { STORE_DOMAIN, TRIAL_PRODUCTS, trialHref } from '@/lib/trial'
+import { SALES_TIERS, STORE_DOMAIN, TRIAL_PRODUCTS, trialHref } from '@/lib/trial'
 
 const STEPS = [
   { title: 'Peça seu teste', text: 'Conte sobre seu negócio. A gente cria sua loja e manda o acesso por e-mail.' },
@@ -61,7 +61,14 @@ export default async function ServicePage({
   const hasTrial = TRIAL_PRODUCTS.has(service.slug)
   const whatsapp = (message: string) => whatsappLink(config.whatsappNumber, message) ?? '/#contato'
   const ctaHref = hasTrial ? trialHref(service.slug) : whatsapp(service.whatsappMessage)
-  const ctaLabel = config.trialDays > 0 ? `Testar grátis por ${config.trialDays} dias` : 'Quero testar'
+  const tiers = SALES_TIERS[service.slug]
+  const ctaLabel = tiers ? 'Testar grátis' : config.trialDays > 0 ? `Testar grátis por ${config.trialDays} dias` : 'Quero testar'
+  const offer = tiers
+    ? `Grátis até vender ${formatPrice(tiers.free)}/mês · Depois, a partir de ${formatPrice(plans.find((p) => p.price !== null)?.price ?? 0)}/mês · Sem fidelidade`
+    : offerLine(plans, config.trialDays)
+  const pricingIntro = tiers
+    ? `Grátis enquanto sua loja vende até ${formatPrice(tiers.free)} por mês. ${config.pricingNote}`
+    : `${config.trialDays > 0 ? `${config.trialDays} dias grátis para testar. ` : ''}${config.pricingNote}`
   const planHref = (plan: { slug: string; name: string; price: number | null }) =>
     plan.price === null
       ? whatsapp(`Oi! Vi ${service.title} no site e quero saber mais do plano ${plan.name}.`)
@@ -118,7 +125,7 @@ export default async function ServicePage({
             <h1 className="font-heading text-display font-extrabold tracking-[-0.03em] text-ink">{service.title}</h1>
             <p className="max-w-2xl text-lead text-muted">{service.tagline}</p>
             <p className="flex flex-wrap gap-x-2 rounded-lg border border-line px-4 py-2 text-sm font-semibold text-ink sm:rounded-pill sm:text-base">
-              {offerLine(plans, config.trialDays).split(' · ').map((part, i) => (
+              {offer.split(' · ').map((part, i) => (
                 <span key={part} className="whitespace-nowrap">
                   {i > 0 && <span className="mr-2 text-muted" aria-hidden="true">·</span>}
                   {part}
@@ -179,7 +186,7 @@ export default async function ServicePage({
             <SectionHeader
               eyebrow={config.pricingEyebrow}
               title={config.pricingTitle}
-              intro={`${config.trialDays > 0 ? `${config.trialDays} dias grátis para testar. ` : ''}${config.pricingNote}`}
+              intro={pricingIntro}
             />
             <div className="grid items-start gap-6 md:grid-cols-3">
               {plans.map((plan) => (
@@ -196,7 +203,7 @@ export default async function ServicePage({
                 />
               ))}
             </div>
-            <PlanPricing />
+            <PlanPricing plans={plans} tiers={tiers} />
           </Container>
         </Section>
 

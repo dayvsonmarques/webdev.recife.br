@@ -1,5 +1,6 @@
 import { type IconId, icon } from '@/components/feature-icons'
 import { cardClass } from '@/components/ui/Card'
+import { formatPrice, type Plan } from '@/lib/content'
 
 // Why the price goes up from one plan to the next, in plain words for the store owner.
 const REASONS: { icon: IconId; title: string; text: string }[] = [
@@ -25,17 +26,39 @@ const REASONS: { icon: IconId; title: string; text: string }[] = [
   },
 ]
 
-/** "Why the price goes up" block under the plan cards. */
-export function PlanPricing() {
+/** "Why the price goes up" block under the plan cards; with sales tiers it opens with the free → Básico → Avançado ladder. */
+export function PlanPricing({ plans, tiers }: { plans: Plan[]; tiers?: { free: number; basic: number } }) {
+  const [basic, advanced] = plans.filter((plan) => plan.price !== null)
+  const ladder =
+    tiers && basic && advanced
+      ? [
+          { price: 'Grátis', when: `vendendo até ${formatPrice(tiers.free)} por mês` },
+          { price: `${formatPrice(basic.price!)}/mês`, when: `vendendo até ${formatPrice(tiers.basic)} por mês`, plan: basic.name },
+          { price: `${formatPrice(advanced.price!)}/mês`, when: `vendendo mais de ${formatPrice(tiers.basic)} por mês`, plan: advanced.name },
+        ]
+      : null
+
   return (
     <div className={cardClass({ className: 'flex flex-col gap-10 p-7 md:p-10' })}>
       <div className="flex max-w-3xl flex-col gap-4">
         <h3 className="font-heading text-subheading font-bold text-ink">Por que o preço sobe de um plano pro outro?</h3>
         <p className="text-base text-muted">
-          Uma loja pequena, com poucos produtos e poucas vendas, usa pouco da nossa estrutura, por isso o Básico custa pouco. Quando a loja
-          cresce, cresce também o que a gente faz por ela:
+          {ladder
+            ? 'Você só paga quando a loja vende, e o preço só sobe quando suas vendas sobem. Junto com elas, cresce também o que a gente faz pela sua loja:'
+            : 'Uma loja pequena, com poucos produtos e poucas vendas, usa pouco da nossa estrutura, por isso o Básico custa pouco. Quando a loja cresce, cresce também o que a gente faz por ela:'}
         </p>
       </div>
+      {ladder && (
+        <ol className="grid gap-4 md:grid-cols-3">
+          {ladder.map((step, i) => (
+            <li key={step.price} className="flex flex-col gap-1 rounded-md border border-line bg-bg p-5">
+              <span className="text-eyebrow font-semibold uppercase tracking-[0.18em] text-gold">{step.plan ?? 'Teste'} · passo {i + 1}</span>
+              <span className="font-heading text-xl font-extrabold text-ink">{step.price}</span>
+              <span className="text-base text-muted">{step.when}</span>
+            </li>
+          ))}
+        </ol>
+      )}
       <ul className="grid gap-8 md:grid-cols-2">
         {REASONS.map((reason) => (
           <li key={reason.title} className="flex items-start gap-4">
