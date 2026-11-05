@@ -128,9 +128,9 @@ export function Hero({ heading, slides, offer }: HeroProps) {
                 onClick={() => takeControl(() => setActive(i))}
                 aria-label={`Ir para o destaque ${i + 1}`}
                 aria-current={i === active}
-                className="flex h-11 items-center px-1"
+                className="flex h-11 w-11 items-center justify-center"
               >
-                <span className={cn('block h-1 rounded-pill transition-all duration-300', i === active ? 'w-12 bg-gold' : 'w-5 bg-line')} />
+                <span className={cn('block h-1 rounded-pill transition-all duration-300', i === active ? 'w-12 bg-accent' : 'w-5 bg-line')} />
               </button>
             ))}
           </div>

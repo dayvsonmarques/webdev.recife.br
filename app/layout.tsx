@@ -1,23 +1,25 @@
 import type { Metadata } from 'next'
-import { Sora, Inter } from 'next/font/google'
+import { Gemunu_Libre, Space_Grotesk } from 'next/font/google'
 import { Providers } from '@/components/Providers'
 import { TopLoader } from '@/components/TopLoader'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
-import { getSiteContent, whatsappLink } from '@/lib/content'
+import { getSiteContent, WHATSAPP_MESSAGE, whatsappLink } from '@/lib/content'
 import { SITE_URL } from '@/lib/site-url'
+import { INSTAGRAM } from '@/lib/social'
 import './globals.scss'
 
-const heading = Sora({
+// Fontes do cartão de visita: Space Grotesk nos textos e títulos, Gemunu Libre só no logo.
+const grotesk = Space_Grotesk({
   subsets: ['latin'],
-  weight: ['600', '700', '800'],
-  variable: '--font-heading-var',
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-body-var',
   display: 'swap',
 })
 
-const body = Inter({
+const logo = Gemunu_Libre({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  variable: '--font-body-var',
+  weight: ['700'],
+  variable: '--font-logo-var',
   display: 'swap',
 })
 
@@ -43,8 +45,6 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-const WHATSAPP_MESSAGE = 'Olá! Vim pelo site da Web Dev Recife e quero saber mais.'
-
 export default async function RootLayout({
   children,
 }: {
@@ -59,7 +59,7 @@ export default async function RootLayout({
       lang="pt-BR"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
-      className={`${heading.variable} ${body.variable}`}
+      className={`${grotesk.variable} ${logo.variable}`}
     >
       <body className="font-body">
         <script
@@ -79,6 +79,7 @@ export default async function RootLayout({
                 addressCountry: 'BR',
               },
               ...(config.whatsappNumber && { telephone: `+${config.whatsappNumber}` }),
+              sameAs: [INSTAGRAM.url],
             }),
           }}
         />

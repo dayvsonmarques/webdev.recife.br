@@ -167,7 +167,7 @@ export function QuoteForm({ products }: { products: string[] }) {
           Usamos estas informações só para analisar sua solicitação e enviar o orçamento. Elas não são vendidas nem
           compartilhadas para publicidade. Se você não virar cliente, apagamos tudo em até {RETENTION_MONTHS} meses — ou antes,
           se pedir. Detalhes na{' '}
-          <Link href="/privacidade" className="font-semibold text-gold-ink underline">
+          <Link href="/privacidade" className="font-semibold text-accent-ink underline">
             Política de Privacidade
           </Link>
           .

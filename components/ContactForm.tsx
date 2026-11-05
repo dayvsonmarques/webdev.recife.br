@@ -78,7 +78,7 @@ export function ContactForm() {
 
       <ConsentCheckbox error={e.consentimento}>
         Li e concordo com o uso dos meus dados para receber uma resposta, conforme a{' '}
-        <Link href="/privacidade" className="font-semibold text-gold-ink underline">
+        <Link href="/privacidade" className="font-semibold text-accent-ink underline">
           Política de Privacidade
         </Link>{' '}
         (LGPD).

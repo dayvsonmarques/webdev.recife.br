@@ -7,7 +7,7 @@ import { cn } from './cn'
 // Shared building blocks of the public forms (orçamento, fale conosco).
 
 export const inputClass =
-  'w-full rounded-md border border-line bg-bg px-4 py-3.5 text-base text-ink placeholder:text-muted/70 transition-colors hover:border-muted/60 focus:border-gold-ink focus:outline-none aria-[invalid=true]:border-danger'
+  'w-full rounded-md border border-line bg-bg px-4 py-3.5 text-base text-ink placeholder:text-muted/70 transition-colors hover:border-muted/60 focus:border-accent-ink focus:outline-none aria-[invalid=true]:border-danger'
 
 // Required fields get a red asterisk; optional ones carry no mark at all.
 export const requiredMark = <span aria-hidden="true" className="text-danger"> *</span>
@@ -123,7 +123,7 @@ export function FormAlert({ message, ref }: { message?: string; ref?: Ref<HTMLDi
 /** Confirmation that replaces the form after a successful submit. */
 export function FormSuccess({ title, children, ref }: { title: string; children: ReactNode; ref?: Ref<HTMLDivElement> }) {
   return (
-    <div ref={ref} tabIndex={-1} role="status" className="rounded-lg border border-gold/60 bg-surface p-10 text-center outline-none md:p-14">
+    <div ref={ref} tabIndex={-1} role="status" className="rounded-lg border border-accent/60 bg-surface p-10 text-center outline-none md:p-14">
       <h2 className="mb-3 font-heading text-subheading font-bold text-ink">{title}</h2>
       <p className="text-lead text-muted">{children}</p>
     </div>
@@ -140,7 +140,7 @@ export function ConsentCheckbox({ error, children }: { error?: string; children:
           name="consentimento"
           aria-invalid={Boolean(error)}
           aria-describedby={error ? 'consentimento-error' : undefined}
-          className="mt-1 h-5 w-5 shrink-0 accent-[var(--c-gold)]"
+          className="mt-1 h-5 w-5 shrink-0 accent-[var(--c-accent)]"
         />
         <span>
           {children}

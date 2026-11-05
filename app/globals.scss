@@ -5,7 +5,7 @@
 // ═══════════════════════════════════════════════════════════
 //  Design system: tema do Tailwind. Gera as classes usadas nos componentes:
 //    cores   → bg-bg, bg-surface, bg-surface-2, border-line, text-ink, text-muted,
-//              bg-brand, text-on-brand, text-gold, text-gold-ink, text-highlight
+//              bg-brand, text-on-brand, bg-accent, text-on-accent, text-accent-ink, text-highlight, text-gold
 //    tipo    → text-display, text-title, text-heading, text-subheading, text-lead,
 //              text-base, text-sm, text-eyebrow
 //    espaço  → py-section, max-w-container
@@ -14,7 +14,8 @@
 // ═══════════════════════════════════════════════════════════
 
 @theme inline {
-  --font-heading : var(--font-heading-var), ui-sans-serif, system-ui, sans-serif;
+  --font-heading : var(--font-body-var), ui-sans-serif, system-ui, sans-serif;  // títulos e texto: Space Grotesk
+  --font-logo    : var(--font-logo-var), ui-sans-serif, system-ui, sans-serif;
   --font-body    : var(--font-body-var), ui-sans-serif, system-ui, sans-serif;
 
   --color-bg        : var(--c-bg);
@@ -25,31 +26,40 @@
   --color-muted     : var(--c-muted);
   --color-brand     : var(--c-brand);
   --color-on-brand  : var(--c-on-brand);
-  --color-gold      : var(--c-gold);
-  --color-gold-ink  : var(--c-gold-ink);
+  --color-accent     : var(--c-accent);
+  --color-on-accent  : var(--c-on-accent);
+  --color-accent-ink : var(--c-accent-ink);
   --color-highlight : var(--c-highlight);
+  --color-gold      : var(--c-gold);
   --color-glow      : var(--c-glow);
   --color-danger    : var(--c-danger);
 }
 
 @theme {
   // Escala tipográfica fluida (mín. no celular → máx. no desktop). Use só estes tamanhos.
-  --text-sm                       : 1.0625rem;                               // 17px: legendas, ajudas
+  --text-sm                       : 1.125rem;                                // 18px: legendas, ajudas
   --text-sm--line-height          : 1.55;
-  --text-base                     : 1.1875rem;                               // 19px: texto corrido
+  --text-base                     : 1.3125rem;                               // 21px: texto corrido
   --text-base--line-height        : 1.7;
-  --text-lead                     : clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem); // 22→28px: introduções
+  --text-lead                     : clamp(1.5rem, 1.3rem + 0.8vw, 1.875rem);  // 24→30px: introduções
   --text-lead--line-height        : 1.55;
-  --text-subheading               : clamp(1.75rem, 1.4rem + 1.2vw, 2.375rem); // 28→38px: títulos de card
+  --text-subheading               : clamp(1.875rem, 1.5rem + 1.3vw, 2.5rem);  // 30→40px: títulos de card
   --text-subheading--line-height  : 1.2;
-  --text-heading                  : clamp(2.5rem, 1.8rem + 2.8vw, 4rem);      // 40→64px: títulos de seção
+  --text-heading                  : clamp(2.625rem, 1.9rem + 3vw, 4.25rem);   // 42→68px: títulos de seção
   --text-heading--line-height     : 1.08;
   --text-title                    : clamp(2.75rem, 1.9rem + 3.6vw, 4.75rem);  // 44→76px: chamadas finais
   --text-title--line-height       : 1.04;
   --text-display                  : clamp(3rem, 1.6rem + 5.6vw, 6.25rem);     // 48→100px: banner
   --text-display--line-height     : 1;
-  --text-eyebrow                  : 1rem;                                    // 16px: rótulos em caixa alta
+  --text-eyebrow                  : 1.0625rem;                               // 17px: rótulos em caixa alta
   --text-eyebrow--line-height     : 1.4;
+  // Escala padrão do Tailwind um passo acima, para acompanhar o texto corrido maior.
+  --text-xs                       : 0.9375rem;                               // 15px
+  --text-xs--line-height          : 1.5;
+  --text-lg                       : 1.4375rem;                               // 23px
+  --text-lg--line-height          : 1.5;
+  --text-xl                       : 1.625rem;                                // 26px
+  --text-xl--line-height          : 1.4;
 
   // Espaço vertical entre seções e largura do conteúdo.
   --spacing-section  : clamp(6rem, 4rem + 6vw, 10rem);
@@ -75,11 +85,14 @@
   --c-muted     : #{$dark-muted};
   --c-brand     : #{$dark-brand};
   --c-on-brand  : #{$dark-on-brand};
-  --c-gold      : #{$dark-gold};
-  --c-gold-ink  : #{$dark-gold-ink};
+  --c-accent     : #{$dark-accent};
+  --c-on-accent  : #{$dark-on-accent};
+  --c-accent-ink : #{$dark-accent-ink};
   --c-highlight : #{$dark-highlight};
+  --c-gold      : #{$dark-gold};
   --c-glow      : #{$dark-glow};
   --c-danger    : #{$dark-danger};
+  --grain-opacity: 0.09;
   color-scheme: dark;
 }
 
@@ -92,11 +105,14 @@ html.light {
   --c-muted     : #{$light-muted};
   --c-brand     : #{$light-brand};
   --c-on-brand  : #{$light-on-brand};
-  --c-gold      : #{$light-gold};
-  --c-gold-ink  : #{$light-gold-ink};
+  --c-accent     : #{$light-accent};
+  --c-on-accent  : #{$light-on-accent};
+  --c-accent-ink : #{$light-accent-ink};
   --c-highlight : #{$light-highlight};
+  --c-gold      : #{$light-gold};
   --c-glow      : #{$light-glow};
   --c-danger    : #{$light-danger};
+  --grain-opacity: 0.14;
   color-scheme: light;
 }
 
@@ -109,10 +125,7 @@ html.light {
   --color-text-primary : var(--c-ink);
   --color-text-muted   : var(--c-muted);
   --color-border       : var(--c-line);
-  --color-accent       : var(--c-brand);
-  --color-accent-fg    : var(--c-on-brand);
-  --color-accent-2     : var(--c-gold);
-  --color-accent-text  : var(--c-gold-ink);
+  --color-accent-text  : var(--c-accent-ink);
 }
 
 // ── Base ──────────────────────────────────────────────────
@@ -124,6 +137,12 @@ html {
   scroll-padding-top: 6rem;
 }
 
+// Brilhos decorativos podem passar da borda em telas estreitas: corta sem criar rolagem lateral
+// (clip, ao contrário de hidden, não quebra position: sticky).
+main {
+  overflow-x: clip;
+}
+
 body {
   background-color: var(--c-bg);
   color: var(--c-ink);
@@ -132,19 +151,31 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+// Textura de papel do cartão de visita: ruído fixo, bem leve, por cima de tudo (não bloqueia cliques).
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
 h1, h2, h3 {
   text-wrap: balance;
   letter-spacing: -0.025em;
 }
 
 ::selection {
-  background-color: var(--c-gold);
-  color: #0A0A0A;
+  background-color: var(--c-accent);
+  color: var(--c-on-accent);
 }
 
 // Foco visível e consistente para quem navega por teclado.
 :focus-visible {
-  outline: 2px solid var(--c-gold-ink);
+  outline: 2px solid var(--c-ink);
   outline-offset: 3px;
   border-radius: 4px;
 }

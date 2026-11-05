@@ -67,8 +67,8 @@ export function TopLoader() {
         className="h-full motion-reduce:transition-none"
         style={{
           width: `${progress}%`,
-          background: 'var(--c-gold)',
-          boxShadow: '0 0 8px var(--c-gold)',
+          background: 'var(--c-accent)',
+          boxShadow: '0 0 8px var(--c-accent)',
           transition: phase === 'idle' ? 'none' : 'width 200ms ease-out',
         }}
       />

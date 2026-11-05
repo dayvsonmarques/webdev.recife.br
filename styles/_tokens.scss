@@ -8,57 +8,66 @@
 
 
 // ── Paleta base ──────────────────────────────────────────
-//    Preto, vermelho e dourado (escuro) · branco, preto e dourado (claro).
+//    Monocromática, tirada do cartão de visita (public/images/business-card/BC-v1.png):
+//    carvão com textura, papel off-white e cinzas. O dourado é o único destaque: logo, rótulos e trechos de título.
 //    Contraste conferido (WCAG AA) para cada par texto/fundo usado.
 
-$palette-black      : #0A0A0A;
-$palette-graphite   : #141414;
-$palette-graphite-2 : #1C1B19;
-$palette-red        : #DC2626;   // botões no escuro (texto branco 4.8:1)
-$palette-red-light  : #EF4444;   // destaque de título no escuro (5.3:1)
-$palette-gold       : #D4AF37;   // rótulos/links no escuro (9.4:1)
-$palette-gold-deep  : #9A7412;   // destaque de título no claro (texto grande, 4.3:1)
-$palette-gold-dark  : #7A5A0C;   // rótulos/links no claro (6.4:1)
-$palette-white      : #FFFFFF;
-$palette-cream      : #F7F4EC;
-$palette-cream-2    : #EFEADC;
+$palette-night      : #131313;   // fundo atrás dos cartões
+$palette-coal       : #1B1B1D;
+$palette-charcoal   : #242426;   // cartão escuro
+$palette-charcoal-2 : #2C2C2F;
+$palette-snow       : #F4F3F0;   // texto no escuro
+$palette-paper      : #EBE9E5;   // cartão claro
+$palette-paper-2    : #E2E0DB;
+$palette-paper-hi   : #F7F6F3;   // fundo claro
+$palette-ink        : #141416;   // texto no claro
+$palette-gray-light : #B5B5B8;   // "DESENVOLVEDOR WEB" no cartão escuro (9.1:1 sobre night)
+$palette-gray       : #8E8E93;   // destaque de título no escuro (5.7:1, texto grande)
+$palette-gray-dark  : #5F5F64;   // texto secundário no claro (5.9:1 sobre paper-hi)
+$palette-gold       : #C9A961;   // dourado do cartão impresso (8.3:1 sobre night)
+$palette-gold-deep  : #8B6B23;   // dourado legível no claro (4.6:1 sobre paper-hi)
 
 
 // ── Tokens — Dark Mode (padrão) ──────────────────────────
 //    bg: fundo da página · surface: cards e faixas · surface-2: elevado (hover, inputs)
 //    line: bordas · ink: texto · muted: texto secundário
-//    brand: botão principal · on-brand: texto do botão · gold: detalhes
-//    gold-ink: texto pequeno dourado · highlight: destaque de título · glow: brilhos
+//    brand: botão principal · on-brand: texto do botão
+//    accent: detalhes sólidos (selo, números, fio do rótulo) · on-accent: texto sobre accent
+//    accent-ink: links e ícones · gold: logo, rótulos e destaque de título · glow: brilhos
 
-$dark-bg        : $palette-black;
-$dark-surface   : $palette-graphite;
-$dark-surface-2 : $palette-graphite-2;
-$dark-line      : #2A2622;
-$dark-ink       : #F5F3EE;
-$dark-muted     : #A8A29E;           // 7.8:1 sobre o fundo
-$dark-brand     : $palette-red;
-$dark-on-brand  : $palette-white;
+$dark-bg        : $palette-night;
+$dark-surface   : $palette-coal;
+$dark-surface-2 : $palette-charcoal;
+$dark-line      : #2E2E31;
+$dark-ink       : $palette-snow;
+$dark-muted     : #A3A3A8;           // 7.4:1 sobre o fundo
+$dark-brand     : $palette-paper;
+$dark-on-brand  : $palette-ink;
+$dark-accent    : $palette-snow;
+$dark-on-accent : $palette-ink;
+$dark-accent-ink: $palette-gray-light;
+$dark-highlight : $palette-gold;
 $dark-gold      : $palette-gold;
-$dark-gold-ink  : $palette-gold;
-$dark-highlight : $palette-red-light;
-$dark-glow      : rgba(220, 38, 38, 0.32);
+$dark-glow      : rgba(235, 233, 229, 0.07);
 $dark-danger    : #F87171;
 
 
 // ── Tokens — Light Mode ───────────────────────────────────
 
-$light-bg        : $palette-white;
-$light-surface   : $palette-cream;
-$light-surface-2 : $palette-cream-2;
-$light-line      : #E7E1D3;
-$light-ink       : $palette-black;
-$light-muted     : #57534E;          // 7.6:1 sobre o fundo
-$light-brand     : $palette-black;
-$light-on-brand  : $palette-white;
-$light-gold      : #C9A227;
-$light-gold-ink  : $palette-gold-dark;
+$light-bg        : $palette-paper-hi;
+$light-surface   : $palette-paper;
+$light-surface-2 : $palette-paper-2;
+$light-line      : #D9D6D0;
+$light-ink       : $palette-ink;
+$light-muted     : $palette-gray-dark;
+$light-brand     : $palette-ink;
+$light-on-brand  : $palette-paper-hi;
+$light-accent    : $palette-ink;
+$light-on-accent : $palette-paper-hi;
+$light-accent-ink: $palette-gray-dark;
 $light-highlight : $palette-gold-deep;
-$light-glow      : rgba(201, 162, 39, 0.30);
+$light-gold      : $palette-gold-deep;
+$light-glow      : rgba(20, 20, 22, 0.06);
 $light-danger    : #B91C1C;
 
 

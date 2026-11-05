@@ -24,14 +24,14 @@ function FromPrice({ price, large = false }: { price: string; large?: boolean })
 function ProductCard({ slug, title, summary, icon }: { slug: string; title: string; summary: string; icon: ServiceIconId }) {
   return (
     <Link href={`/servicos/${slug}`} className={cardClass({ interactive: true, className: 'group flex flex-col gap-8 p-8 md:p-10' })}>
-      <span className="flex h-16 w-16 items-center justify-center rounded-md bg-surface-2 text-gold-ink [&_svg]:h-9 [&_svg]:w-9">{SERVICE_ICONS[icon]}</span>
+      <span className="flex h-16 w-16 items-center justify-center rounded-md bg-surface-2 text-accent-ink [&_svg]:h-9 [&_svg]:w-9">{SERVICE_ICONS[icon]}</span>
       <div className="flex flex-col gap-3">
         <h3 className="font-heading text-subheading font-bold text-ink">{title}</h3>
         <p className="text-base text-muted">{summary}</p>
       </div>
       <div className="mt-auto flex items-center justify-between gap-4 border-t border-line pt-6">
         <span className="text-sm font-semibold text-ink">Ver detalhes</span>
-        <span aria-hidden="true" className="text-gold-ink transition-transform duration-200 group-hover:translate-x-1">
+        <span aria-hidden="true" className="text-accent-ink transition-transform duration-200 group-hover:translate-x-1">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
             <path d="M5 12h14M13 6l6 6-6 6" />
           </svg>
@@ -44,7 +44,7 @@ function ProductCard({ slug, title, summary, icon }: { slug: string; title: stri
 function FeaturedCard({ product, price }: { product: Service; price?: string }) {
   return (
     <div className={cardClass({ className: 'relative flex flex-col gap-6 overflow-hidden p-6 sm:p-8 md:p-10' })}>
-      <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent" />
+      <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent" />
       <Eyebrow>Em destaque</Eyebrow>
       <div className="flex flex-col gap-3">
         <h3 className="font-heading text-subheading font-bold text-ink">{product.title}</h3>
@@ -54,7 +54,7 @@ function FeaturedCard({ product, price }: { product: Service; price?: string }) 
       <ul className="flex flex-col gap-3">
         {SELLING_POINTS.map((point) => (
           <li key={point} className="flex items-start gap-3 text-base text-muted">
-            <svg className="mt-1.5 shrink-0 text-gold" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <svg className="mt-1.5 shrink-0 text-accent" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M5 12l5 5L20 7" />
             </svg>
             {point}

@@ -58,7 +58,7 @@ export function PhoneVideo() {
         aria-hidden="true"
         className="absolute -left-6 bottom-12 flex items-center gap-2 rounded-md border border-line bg-surface px-4 py-2.5 text-sm font-medium text-ink shadow-lift"
       >
-        <span className="h-2 w-2 rounded-full bg-gold" />
+        <span className="h-2 w-2 rounded-full bg-accent" />
         Novo pedido recebido
       </div>
     </div>

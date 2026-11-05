@@ -5,7 +5,7 @@ import { cn } from './cn'
 export function cardClass({ interactive = false, className }: { interactive?: boolean; className?: string } = {}) {
   return cn(
     'rounded-lg border border-line bg-surface shadow-card',
-    interactive && 'transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-gold/50 hover:shadow-lift focus-visible:border-gold/50',
+    interactive && 'transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-lift focus-visible:border-accent/50',
     className,
   )
 }
