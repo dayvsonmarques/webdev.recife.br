@@ -55,6 +55,8 @@ export interface Plan {
   name: string
   /** null = "A combinar". */
   price: number | null
+  /** With "A combinar": the "a partir de" reference price; absent on older panels. */
+  priceFrom?: number | null
   description: string
   featured: boolean
   features: string[]

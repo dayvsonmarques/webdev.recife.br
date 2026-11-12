@@ -45,6 +45,7 @@ export async function generateMetadata({
     title: `${service.title} — Web Dev Recife`,
     description: service.tagline,
     path: `/servicos/${service.slug}`,
+    image: `/servicos/${service.slug}/opengraph-image`,
   })
 }
 
@@ -198,6 +199,7 @@ export default async function ServicePage({
                   key={plan.slug}
                   name={plan.name}
                   price={plan.price}
+                  priceFrom={plan.priceFrom}
                   description={plan.description}
                   features={plan.features}
                   highlighted={plan.slug === service.recommendedPlan}

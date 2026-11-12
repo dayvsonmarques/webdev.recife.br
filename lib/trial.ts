@@ -9,11 +9,11 @@ export function trialHref(product: string, plan?: string) {
 }
 
 /**
- * Pricing by monthly sales: Básico while the store sells up to `basic`, Avançado above it, Expert by arrangement.
+ * Pricing by monthly sales: Básico up to `basic`, Avançado up to `advanced`, Expert above it.
  * Only products listed here show the plan ladder.
  */
-export const SALES_TIERS: Readonly<Record<string, { basic: number }>> = {
-  'loja-online': { basic: 750 },
+export const SALES_TIERS: Readonly<Record<string, { basic: number; advanced: number }>> = {
+  'loja-online': { basic: 1000, advanced: 3000 },
 }
 
 /** Main call to action in the menu: the store trial is the main offer. */

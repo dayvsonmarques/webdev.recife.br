@@ -13,6 +13,7 @@ export function IconCheck() {
 export function PlanCard({
   name,
   price,
+  priceFrom,
   description,
   features,
   highlighted,
@@ -23,6 +24,8 @@ export function PlanCard({
   name: string
   /** null shows "A combinar". */
   price: number | null
+  /** "a partir de" reference shown under "A combinar". */
+  priceFrom?: number | null
   description: string
   features: string[]
   highlighted: boolean
@@ -44,7 +47,10 @@ export function PlanCard({
       <div className="flex flex-col gap-4">
         <p className={cn('text-eyebrow font-semibold uppercase tracking-[0.18em]', highlighted ? 'text-gold' : 'text-muted')}>{name}</p>
         {price === null ? (
-          <p className="font-heading text-subheading font-extrabold leading-tight tracking-tight text-ink">A combinar</p>
+          <div className="flex flex-col gap-1">
+            <p className="font-heading text-subheading font-extrabold leading-tight tracking-tight text-ink">A combinar</p>
+            {priceFrom ? <p className="text-base text-muted">a partir de R$ {priceFrom.toLocaleString('pt-BR')}/mês</p> : null}
+          </div>
         ) : (
           <p className="flex items-baseline gap-1.5 text-muted">
             <span className="text-base font-medium">R$</span>
