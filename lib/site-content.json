@@ -65,16 +65,17 @@
       "description": "Pra começar a vender gastando pouco.",
       "featured": false,
       "features": [
-        "Cadastre até 35 itens",
-        "Até R$ 750 em vendas por mês",
+        "Cadastre até 50 itens",
+        "Até R$ 1.000 em vendas por mês",
         "Loja no ar em poucos dias",
         "Pedidos chegam no seu WhatsApp",
-        "Entrega, retirada ou os dois",
+        "Entrega / Retirada",
         "Funciona no celular e no computador",
         "Você mesmo troca preços, fotos e estoque",
         "Link pronto pra divulgar no Instagram",
         "Ajuda pelo WhatsApp"
-      ]
+      ],
+      "priceFrom": null
     },
     {
       "slug": "avancado",
@@ -85,31 +86,35 @@
       "features": [
         "Tudo do plano Básico",
         "Cadastre até 250 itens",
-        "Vendas sem limite",
+        "Até R$ 3.000 em vendas por mês",
         "Receba por Pix e cartão",
         "Frete calculado na hora",
         "Cupons de desconto pros seus clientes",
         "Cadastro dos seus clientes",
         "Vendas do dia e do mês num painel",
         "Resposta no mesmo dia pelo WhatsApp"
-      ]
+      ],
+      "priceFrom": null
     },
     {
       "slug": "expert",
       "name": "Expert",
       "price": null,
-      "description": "Pra quem quer tudo do jeito do seu negócio.",
+      "description": "Pra quem vende mais de R$ 3.000 por mês.",
       "featured": false,
       "features": [
         "Tudo do plano Avançado",
         "Itens e vendas sem limite",
-        "Relatórios de vendas e clientes",
+        "Um especialista dedicado à sua loja",
+        "Reunião mensal de resultados",
+        "Domínio próprio (sualoja.com.br)",
         "Sua equipe com acesso ao painel",
-        "Ligada ao seu Instagram e WhatsApp",
-        "Ajuda pra montar o catálogo",
-        "Ajustes feitos sob medida",
-        "Um especialista cuidando da sua loja"
-      ]
+        "Vitrine no Google e no Instagram",
+        "Aviso pra quem abandonou o carrinho",
+        "Nota fiscal e integrações",
+        "Ajustes feitos sob medida"
+      ],
+      "priceFrom": 149
     }
   ],
   "services": [
