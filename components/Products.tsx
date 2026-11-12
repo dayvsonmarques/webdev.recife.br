@@ -9,7 +9,7 @@ import { Section } from '@/components/ui/Section'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import type { Service } from '@/lib/content'
 
-const SELLING_POINTS = ['No ar em poucos dias, com a cara da sua marca', 'Sem fidelidade: cancele quando quiser', 'Preço e estoque atualizados por você, na hora']
+const SELLING_POINTS = ['Teste grátis, sem cartão de crédito', 'Sem fidelidade: cancele quando quiser', 'Hospedagem, segurança e atualizações inclusas']
 
 function FromPrice({ price, large = false }: { price: string; large?: boolean }) {
   return (
@@ -30,7 +30,7 @@ function ProductCard({ slug, title, summary, icon }: { slug: string; title: stri
         <p className="text-base text-muted">{summary}</p>
       </div>
       <div className="mt-auto flex items-center justify-between gap-4 border-t border-line pt-6">
-        <span className="text-sm font-semibold text-ink">Ver detalhes</span>
+        <span className="text-sm font-semibold text-ink">Ver planos</span>
         <span aria-hidden="true" className="text-accent-ink transition-transform duration-200 group-hover:translate-x-1">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
             <path d="M5 12h14M13 6l6 6-6 6" />
@@ -48,7 +48,7 @@ function FeaturedCard({ product, price }: { product: Service; price?: string }) 
       <Eyebrow>Em destaque</Eyebrow>
       <div className="flex flex-col gap-3">
         <h3 className="font-heading text-subheading font-bold text-ink">{product.title}</h3>
-        <p className="text-lead font-semibold text-ink">Comece a vender online rápido e sem burocracia.</p>
+        <p className="text-lead font-semibold text-ink">Sua loja online por assinatura. Sem instalar nada.</p>
       </div>
       {price && <FromPrice price={price} large />}
       <ul className="flex flex-col gap-3">
@@ -62,8 +62,36 @@ function FeaturedCard({ product, price }: { product: Service; price?: string }) 
         ))}
       </ul>
       <ButtonLink href={`/servicos/${product.slug}`} arrow className="self-start">
-        Conheça a {product.title}
+        Ver planos e testar
       </ButtonLink>
+    </div>
+  )
+}
+
+const RENT_STEPS = [
+  { title: 'Escolha o app', text: 'Já vem pronto.' },
+  { title: 'Pague por mês', text: 'Sem fidelidade.' },
+  { title: 'A gente cuida', text: 'Do site no ar ao suporte.' },
+]
+
+/** Plain-language explanation of the subscription model (avoids jargon like "SaaS"). */
+function HowRentWorks() {
+  return (
+    <div className="flex flex-col gap-10 border-y border-line py-14">
+      <div className="flex max-w-3xl flex-col gap-5">
+        <Eyebrow>Como funciona</Eyebrow>
+        <h3 className="font-heading text-heading font-bold text-ink">Você aluga o app, como quem aluga um ponto comercial.</h3>
+        <p className="text-lead text-muted">Sem pagar caro pra construir. Você só paga a mensalidade.</p>
+      </div>
+      <ol className="grid gap-8 md:grid-cols-3">
+        {RENT_STEPS.map((step, i) => (
+          <li key={step.title} className="flex flex-col gap-3">
+            <span className="font-heading text-subheading font-extrabold text-accent-ink">{String(i + 1).padStart(2, '0')}</span>
+            <p className="text-lg font-semibold text-ink">{step.title}</p>
+            <p className="text-base text-muted">{step.text}</p>
+          </li>
+        ))}
+      </ol>
     </div>
   )
 }
@@ -95,6 +123,8 @@ export function Products({ eyebrow, title, intro, services, featured, startingPr
         ) : (
           <SectionHeader eyebrow={eyebrow} title={title} intro={intro} />
         )}
+
+        <HowRentWorks />
 
         <div className="grid gap-6 md:grid-cols-3">
           {services.map((service) => (
