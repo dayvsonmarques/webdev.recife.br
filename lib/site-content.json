@@ -1,8 +1,8 @@
 {
   "updatedAt": "2026-10-17T04:14:50.428Z",
   "config": {
-    "seoTitle": "Web Dev Recife — Seu negócio no digital",
-    "seoDescription": "Lojas online, cardápios digitais e apps de agendamento para negócios locais. Rápido de entregar, fácil de usar.",
+    "seoTitle": "Web Dev Recife — Apps por assinatura para o seu negócio",
+    "seoDescription": "Loja online, cardápio e agendamento por assinatura para pequenos e médios negócios de todo o Brasil. Teste grátis, sem fidelidade.",
     "heroSlides": [
       {
         "title": "Sua loja online",
@@ -16,26 +16,26 @@
       {
         "title": "Venda para",
         "subtitle": "Expanda sua clientela.",
-        "highlight": "toda a cidade."
+        "highlight": "todo o Brasil."
       }
     ],
     "servicesEyebrow": "O que fazemos",
     "servicesTitle": "Serviços",
     "servicesIntro": "Sites, lojas virtuais e aplicações web feitos sob medida para o seu negócio.",
-    "productsEyebrow": "Aplicações por assinatura",
-    "productsTitle": "Seu negócio online, sem complicação",
-    "productsIntro": "Loja, cardápio ou agenda: a ferramenta certa pro seu negócio, com a sua marca e funcionando no celular do seu cliente. Você assina hoje e já começa a atender.",
-    "pricingEyebrow": "Investimento",
+    "productsEyebrow": "Apps por assinatura",
+    "productsTitle": "Escolha seu app",
+    "productsIntro": "Loja, cardápio ou agenda online. Você assina e usa. Hospedagem, segurança e atualizações por nossa conta.",
+    "pricingEyebrow": "Assinatura",
     "pricingTitle": "Planos",
-    "pricingNote": "Sem contrato de fidelidade, cancele quando quiser.",
-    "trialDays": 0,
-    "aboutEyebrow": "O estúdio",
-    "aboutTitle": "Sobre",
-    "aboutText": "Desenvolvimento web com foco no comércio local.\r\n\r\nSeu projeto acompanhado de perto: sem enrolação, com entrega rápida e suporte real.",
+    "pricingNote": "Sem fidelidade. Cancele quando quiser.",
+    "trialDays": 7,
+    "aboutEyebrow": "Quem somos",
+    "aboutTitle": "Feito no Recife, pra todo o Brasil.",
+    "aboutText": "Apps prontos pro seu negócio.\n\nVocê usa. A gente cuida do resto.",
     "aboutIndicators": [],
-    "contactEyebrow": "Vamos conversar",
-    "contactTitle": "Tem um projeto em mente?",
-    "contactText": "Conta o que você precisa.",
+    "contactEyebrow": "Contato",
+    "contactTitle": "Dúvidas sobre os planos?",
+    "contactText": "Chame no WhatsApp. A gente responde rápido.",
     "contactCta": "Falar pelo WhatsApp",
     "whatsappNumber": "5581999623374",
     "footerText": "Web Dev Studio © 2026"
@@ -79,7 +79,7 @@
     {
       "slug": "avancado",
       "name": "Avançado",
-      "price": 75,
+      "price": 79,
       "description": "Pra quem já vende e quer crescer.",
       "featured": true,
       "features": [
@@ -122,12 +122,12 @@
       "description": "Catálogo, carrinho e pagamento num só lugar, com a cara da sua marca.",
       "forWhom": "Roupas, Calçados, Joias, Relógios, Eletrônicos, Móveis, Bicicletas, Comércio em geral",
       "features": [
-        "Catálogo com fotos e detalhes",
-        "Carrinho e pagamento na própria loja",
-        "Pedido avisado no seu WhatsApp",
-        "Preço e estoque mudados na hora",
-        "Feita pra comprar pelo celular",
-        "Cupons de desconto e frete calculado"
+        "Catálogo com fotos",
+        "Pagamento na própria loja",
+        "Pedido no seu WhatsApp",
+        "Preço e estoque na hora",
+        "Feita pro celular",
+        "Cupom e frete calculado"
       ],
       "recommendedPlan": "basico",
       "whatsappMessage": "Oi! Vi a Loja Online no site e quero testar. Pode me contar como começo?"
@@ -138,15 +138,15 @@
       "title": "Cardápio Digital",
       "summary": "Para restaurantes e lanchonetes sem depender de papel.",
       "tagline": "Cardápio sempre atualizado, sem gastar com reimpressão.",
-      "description": "Cardápio Digital é um site de cardápio pra restaurantes, lanchonetes, fruteiras e mercados: o cliente acessa pelo celular — com QR code na mesa ou no balcão — e vê preço e disponibilidade atualizados na hora, sem esperar o cardápio de papel ficar pronto de novo.",
-      "forWhom": "Pra quem vende comida ou tem preço e estoque que mudam com frequência: restaurantes, lanchonetes, fruteiras, mercados, comida congelada e pronta.",
+      "description": "O cliente abre o cardápio pelo celular, com QR code na mesa ou no balcão, e vê preço e disponibilidade atualizados na hora.",
+      "forWhom": "Restaurantes, Lanchonetes, Fruteiras, Mercados, Comida congelada",
       "features": [
-        "QR code pra acesso rápido pelo celular",
-        "Atualização de preço e disponibilidade na hora",
-        "Categorias e fotos dos produtos",
-        "Botão de pedido direto pelo WhatsApp",
-        "Aviso de item em falta sem precisar reimprimir nada",
-        "Funciona bem mesmo com internet fraca"
+        "QR code na mesa",
+        "Preço atualizado na hora",
+        "Fotos por categoria",
+        "Pedido pelo WhatsApp",
+        "Aviso de item em falta",
+        "Leve até com internet fraca"
       ],
       "recommendedPlan": "basico",
       "whatsappMessage": "Oi! Vi o Cardápio Digital no site e quero testar. Pode me contar como começo?"
@@ -154,21 +154,21 @@
     {
       "slug": "agenda-facil",
       "icon": "calendar",
-      "title": "Agenda Fácil",
+      "title": "Agendamentos",
       "summary": "Para salões, clínicas e prestadores de serviço.",
       "tagline": "Menos falta, mais horário ocupado — sem app complicado.",
-      "description": "Agenda Fácil é o sistema de agendamento pra quem vende horário: o cliente escolhe o serviço e o horário disponível sozinho, pelo celular, e você recebe a confirmação — sem trocar mensagem pra fechar cada agendamento.",
-      "forWhom": "Pra barbearia, salão de beleza, clínica odontológica, tatuador ou estúdio de tatuagem e qualquer prestador de serviço que agenda por horário.",
+      "description": "O cliente escolhe o serviço e o horário pelo celular. Você recebe a confirmação, sem trocar mensagem.",
+      "forWhom": "Barbearias, Salões de beleza, Clínicas, Estúdios de tatuagem, Prestadores de serviço",
       "features": [
-        "Cliente marca o próprio horário, sem precisar ligar",
-        "Confirmação automática via WhatsApp",
-        "Agenda organizada por profissional e serviço",
-        "Lembrete pro cliente, reduz falta",
-        "Bloqueio de horário indisponível",
+        "Cliente marca o horário",
+        "Confirmação no WhatsApp",
+        "Agenda por profissional",
+        "Lembrete contra falta",
+        "Bloqueio de horário",
         "Histórico de agendamentos"
       ],
       "recommendedPlan": "basico",
-      "whatsappMessage": "Oi! Vi a Agenda Fácil no site e quero testar. Pode me contar como começo?"
+      "whatsappMessage": "Oi! Vi o Agendamentos no site e quero testar. Pode me contar como começo?"
     }
   ]
 }
