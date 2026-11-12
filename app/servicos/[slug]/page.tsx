@@ -11,11 +11,11 @@ import { PanelVideo } from '@/components/PanelVideo'
 import { ProductGallery } from '@/components/ProductGallery'
 import { SellOnline } from '@/components/SellOnline'
 import { ButtonLink } from '@/components/ui/Button'
-import { cardClass } from '@/components/ui/Card'
+import { Eyebrow } from '@/components/ui/Eyebrow'
 import { Container } from '@/components/ui/Container'
 import { Section } from '@/components/ui/Section'
 import { SectionHeader } from '@/components/ui/SectionHeader'
-import { formatPrice, getSiteContent, offerLine, whatsappLink } from '@/lib/content'
+import { getSiteContent, offerLine, whatsappLink } from '@/lib/content'
 import { PANEL_VIDEOS, PRODUCT_GALLERIES } from '@/lib/product-gallery'
 import { pageMetadata } from '@/lib/seo'
 import { SITE_URL } from '@/lib/site-url'
@@ -62,13 +62,9 @@ export default async function ServicePage({
   const whatsapp = (message: string) => whatsappLink(config.whatsappNumber, message) ?? '/#contato'
   const ctaHref = hasTrial ? trialHref(service.slug) : whatsapp(service.whatsappMessage)
   const tiers = SALES_TIERS[service.slug]
-  const ctaLabel = tiers ? 'Testar grátis' : config.trialDays > 0 ? `Testar grátis por ${config.trialDays} dias` : 'Quero testar'
-  const offer = tiers
-    ? `Grátis até vender ${formatPrice(tiers.free)}/mês · Depois, a partir de ${formatPrice(plans.find((p) => p.price !== null)?.price ?? 0)}/mês · Sem fidelidade`
-    : offerLine(plans, config.trialDays)
-  const pricingIntro = tiers
-    ? `Grátis enquanto sua loja vende até ${formatPrice(tiers.free)} por mês. ${config.pricingNote}`
-    : `${config.trialDays > 0 ? `${config.trialDays} dias grátis para testar. ` : ''}${config.pricingNote}`
+  const ctaLabel = config.trialDays > 0 ? `Testar grátis por ${config.trialDays} dias` : 'Quero testar'
+  const offer = offerLine(plans, config.trialDays)
+  const pricingIntro = `${config.trialDays > 0 ? `${config.trialDays} dias grátis para testar. ` : ''}${config.pricingNote}`
   const planHref = (plan: { slug: string; name: string; price: number | null }) =>
     plan.price === null
       ? whatsapp(`Oi! Vi ${service.title} no site e quero saber mais do plano ${plan.name}.`)
@@ -93,7 +89,7 @@ export default async function ServicePage({
             name: service.title,
             description: service.description,
             url: `${SITE_URL}/servicos/${service.slug}`,
-            areaServed: { '@type': 'City', name: 'Recife' },
+            areaServed: { '@type': 'Country', name: 'Brasil' },
             provider: { '@type': 'ProfessionalService', name: 'Web Dev Recife', url: SITE_URL },
             ...(plans.length > 0 && {
               offers: plans.filter((plan) => plan.price !== null).map((plan) => ({
@@ -117,7 +113,7 @@ export default async function ServicePage({
           />
           <Container className="relative flex flex-col items-start gap-8">
             <Link href="/#produtos" className="-my-3 py-3 text-eyebrow font-semibold uppercase tracking-[0.18em] text-accent-ink hover:underline">
-              ← Produtos
+              ← Apps
             </Link>
             <span className="flex h-20 w-20 items-center justify-center rounded-lg border border-line bg-surface text-accent-ink [&_svg]:h-11 [&_svg]:w-11">
               {SERVICE_ICONS[service.icon]}
@@ -144,33 +140,41 @@ export default async function ServicePage({
         </section>
 
         <Section>
-          <Container className="flex flex-col gap-14">
-            <SectionHeader eyebrow="Vantagens" title="O que você ganha" intro={service.description} />
-            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <Container className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+            <div className="flex flex-col gap-6 lg:sticky lg:top-32 lg:self-start">
+              <Eyebrow>Vantagens</Eyebrow>
+              <h2 className="font-heading text-title font-extrabold tracking-[-0.03em] text-ink">
+                Tudo já vem <span className="text-accent-ink">pronto.</span>
+              </h2>
+            </div>
+            <ul className="flex flex-col border-t border-line">
               {service.features.map((feature) => (
-                <li key={feature} className={cardClass({ className: 'flex items-center gap-4 p-5 md:p-6' })}>
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-surface-2 text-accent-ink">{iconFor(feature)}</span>
-                  <span className="text-base font-semibold text-ink">{feature}</span>
+                <li key={feature} className="group flex items-center gap-5 border-b border-line py-6 md:gap-7 md:py-7">
+                  <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-pill bg-surface-2 text-accent-ink transition-colors duration-200 group-hover:bg-ink group-hover:text-bg [&_svg]:h-6 [&_svg]:w-6">
+                    {iconFor(feature)}
+                  </span>
+                  <span className="font-heading text-2xl font-bold leading-tight tracking-[-0.01em] text-ink md:text-3xl">{feature}</span>
                 </li>
               ))}
             </ul>
           </Container>
         </Section>
 
-        <Section tone="surface" className="!py-20">
-          <Container className="flex flex-col items-center gap-8 text-center">
-            <h2 className="font-heading text-subheading font-bold text-ink">Feita pra quem vende</h2>
-            {audienceAsChips ? (
-              <ul className="flex flex-wrap justify-center gap-3">
+        <Section tone="surface">
+          <Container className="flex flex-col gap-12">
+            <div className="flex flex-col gap-6">
+              <Eyebrow>Pra quem é</Eyebrow>
+              <h2 className="font-heading text-heading font-extrabold tracking-[-0.03em] text-ink">{service.summary}</h2>
+            </div>
+            {audienceAsChips && (
+              <ul className="flex flex-wrap gap-3 md:gap-4">
                 {audience.map((item) => (
-                  <li key={item} className="flex items-center gap-2.5 rounded-pill border border-line bg-bg px-5 py-3 text-base font-medium text-ink [&_svg]:h-5 [&_svg]:w-5 [&_svg]:text-accent-ink">
+                  <li key={item} className="flex items-center gap-3 rounded-pill border border-line bg-bg px-6 py-4 font-heading text-lg font-bold text-ink md:text-xl [&_svg]:h-6 [&_svg]:w-6 [&_svg]:text-accent-ink">
                     {iconFor(item, 'store')}
                     {item}
                   </li>
                 ))}
               </ul>
-            ) : (
-              <p className="max-w-2xl text-lead text-muted">{service.forWhom}</p>
             )}
           </Container>
         </Section>
