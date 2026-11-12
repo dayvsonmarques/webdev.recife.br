@@ -8,7 +8,8 @@ import { pageMetadata } from '@/lib/seo'
 
 export async function generateMetadata(): Promise<Metadata> {
   const { config } = await getSiteContent()
-  return pageMetadata({ title: `${config.aboutTitle} — Web Dev Recife`, description: config.aboutText, path: '/sobre' })
+  // aboutText has paragraph breaks; previews and search snippets need one line.
+  return pageMetadata({ title: 'Sobre — Web Dev Recife', description: `${config.aboutTitle} ${config.aboutText}`.replace(/\s+/g, ' '), path: '/sobre' })
 }
 
 export default async function SobrePage() {

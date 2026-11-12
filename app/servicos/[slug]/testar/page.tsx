@@ -22,6 +22,7 @@ export async function generateMetadata({ params }: PageProps<'/servicos/[slug]/t
     title: `Testar ${service.title} — Web Dev Recife`,
     description: `Conte sobre seu negócio e receba uma loja de teste em seunegocio.${STORE_DOMAIN}.`,
     path: `/servicos/${slug}/testar`,
+    image: `/servicos/${slug}/opengraph-image`,
   })
 }
 
