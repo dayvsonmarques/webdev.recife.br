@@ -4,7 +4,7 @@ import { type ComponentProps, type ReactNode, type Ref, useState } from 'react'
 import { maskBrPhone } from '@/lib/phone-mask'
 import { cn } from './cn'
 
-// Shared building blocks of the public forms (orçamento, fale conosco).
+// Shared building blocks of the public forms (teste, fale conosco).
 
 export const inputClass =
   'w-full rounded-md border border-line bg-bg px-4 py-3.5 text-base text-ink placeholder:text-muted/70 transition-colors hover:border-muted/60 focus:border-accent-ink focus:outline-none aria-[invalid=true]:border-danger'

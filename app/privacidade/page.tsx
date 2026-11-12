@@ -5,7 +5,7 @@ import { Header } from '@/components/Header'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { getSiteContent, whatsappLink } from '@/lib/content'
-import { POLICY_VERSION, RETENTION_MONTHS } from '@/lib/quote-options'
+import { POLICY_VERSION, RETENTION_MONTHS } from '@/lib/form-options'
 import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = pageMetadata({
@@ -40,14 +40,14 @@ export default async function PrivacidadePage() {
 
           <Block title="Quem cuida dos seus dados">
             <p>
-              A Web Dev Studio, estúdio de desenvolvimento web em Recife (PE), é a controladora dos dados enviados por este site,
+              A Web Dev Studio, de Recife (PE), que oferece apps por assinatura, é a controladora dos dados enviados por este site,
               nos termos da Lei Geral de Proteção de Dados (Lei nº 13.709/2018).
             </p>
           </Block>
 
           <Block title="Quais dados coletamos">
             <p>
-              Só os que você informa nos formulários de orçamento e de loja de teste: nome, WhatsApp, e-mail, nome e
+              Só os que você informa nos formulários de loja de teste e de contato: nome, WhatsApp, e-mail, nome e
               localização do negócio, e as respostas sobre o que você precisa. Não pedimos documentos, senhas nem dados de
               pagamento.
             </p>
@@ -55,7 +55,7 @@ export default async function PrivacidadePage() {
 
           <Block title="Para que usamos">
             <p>
-              Para analisar o seu pedido, preparar o orçamento ou criar a sua loja de teste, e falar com você sobre ele. No
+              Para analisar o seu pedido, criar a sua loja de teste e falar com você sobre ele. No
               teste, o nome do negócio, o seu nome e o e-mail são usados para criar a loja e o seu acesso a ela. A base legal é o
               seu consentimento,
               dado ao marcar a caixa no formulário, e os procedimentos preliminares a um contrato que você solicitou.

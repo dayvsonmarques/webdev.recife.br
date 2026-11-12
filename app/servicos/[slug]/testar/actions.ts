@@ -2,7 +2,7 @@
 
 import { headers } from 'next/headers'
 import { allow } from '@/lib/rate-limit'
-import { POLICY_VERSION, QTD_ITENS, VENDE_ONLINE } from '@/lib/quote-options'
+import { POLICY_VERSION, QTD_ITENS, VENDE_ONLINE } from '@/lib/form-options'
 import { TRIAL_PRODUCTS } from '@/lib/trial'
 
 export interface TrialState {

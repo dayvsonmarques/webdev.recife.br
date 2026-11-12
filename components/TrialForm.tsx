@@ -16,7 +16,7 @@ import {
   Select,
   inputClass,
 } from '@/components/ui/form'
-import { QTD_ITENS, RETENTION_MONTHS, VENDE_ONLINE } from '@/lib/quote-options'
+import { QTD_ITENS, RETENTION_MONTHS, VENDE_ONLINE } from '@/lib/form-options'
 import { STORE_DOMAIN } from '@/lib/trial'
 
 const EMPTY: TrialState = {}
@@ -30,7 +30,7 @@ interface PlanOption {
 /** "Quero testar" form: details of the business; the panel approves it and creates the trial store. */
 export function TrialForm({ product, plans, defaultPlan }: { product: string; plans: PlanOption[]; defaultPlan?: string }) {
   const [state, dispatch, pending] = useActionState(submitTrial.bind(null, product), EMPTY)
-  // When the form appeared: very fast submits are treated as bots (see QuoteForm).
+  // When the form appeared: very fast submits are treated as bots (bot check).
   const startedAt = useRef(0)
   const summary = useRef<HTMLDivElement>(null)
   const [sellsOnline, setSellsOnline] = useState('')

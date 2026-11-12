@@ -2,7 +2,7 @@
 
 import { headers } from 'next/headers'
 import { allow } from '@/lib/rate-limit'
-import { POLICY_VERSION } from '@/lib/quote-options'
+import { POLICY_VERSION } from '@/lib/form-options'
 
 export interface ContactState {
   ok?: boolean

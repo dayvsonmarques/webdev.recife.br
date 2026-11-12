@@ -8,6 +8,7 @@ import { ButtonLink } from '@/components/ui/Button'
 import { cn } from '@/components/ui/cn'
 import { NAV_LINKS } from '@/lib/nav-links'
 import { Logo } from '@/components/Logo'
+import { MAIN_TRIAL_HREF } from '@/lib/trial'
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -51,8 +52,8 @@ export function Header() {
             <ThemeToggle />
             {/* Wrapper carries the breakpoint: the button's own inline-flex would override "hidden". */}
             <span className="hidden lg:block">
-              <ButtonLink href="/orcamento" size="md">
-                Solicitar orçamento
+              <ButtonLink href={MAIN_TRIAL_HREF} size="md">
+                Solicitar teste
               </ButtonLink>
             </span>
             {/* Menu de barras — celular e tablet */}

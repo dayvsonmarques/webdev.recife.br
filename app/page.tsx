@@ -59,7 +59,7 @@ export default async function Home() {
           title={c.aboutTitle}
           text={c.aboutText}
           indicators={c.aboutIndicators}
-          cta={{ href: '/sobre', label: 'Conheça o estúdio' }}
+          cta={{ href: '/sobre', label: 'Saiba mais' }}
         />
         <Contact
           eyebrow={c.contactEyebrow}

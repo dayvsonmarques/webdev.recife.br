@@ -9,6 +9,7 @@ import { InstagramLink } from '@/components/InstagramLink'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { buttonClass } from '@/components/ui/Button'
 import { cn } from '@/components/ui/cn'
+import { MAIN_TRIAL_HREF } from '@/lib/trial'
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -149,8 +150,8 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         className="mx-auto flex w-full max-w-container flex-col gap-3 px-6 pt-8 pb-[max(1.5rem,env(safe-area-inset-bottom))] transition-[transform,opacity] duration-300 ease-out sm:flex-row md:px-10"
         style={reveal(NAV_LINKS.length)}
       >
-        <Link href="/orcamento" onClick={onClose} className={buttonClass({ className: 'w-full sm:w-auto sm:flex-1' })}>
-          Solicitar orçamento
+        <Link href={MAIN_TRIAL_HREF} onClick={onClose} className={buttonClass({ className: 'w-full sm:w-auto sm:flex-1' })}>
+          Solicitar teste
         </Link>
         <Link href="/fale-conosco" onClick={onClose} className={buttonClass({ variant: 'secondary', className: 'w-full sm:w-auto sm:flex-1' })}>
           Mandar mensagem

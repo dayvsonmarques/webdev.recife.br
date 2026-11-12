@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
   sassOptions: {
     silenceDeprecations: ['import'],
   },
-  // Baseline hardening for every page (the quote form handles personal data).
+  // Baseline hardening for every page (the trial and contact forms handle personal data).
   async headers() {
     return [
       {
@@ -22,6 +22,10 @@ const nextConfig: NextConfig = {
         ],
       },
     ];
+  },
+  // The quote form is gone: old links land on the trial request.
+  async redirects() {
+    return [{ source: "/orcamento", destination: "/servicos/loja-online/testar", permanent: true }];
   },
   // In production the Coolify proxy routes /paineldosite to the panel before it
   // reaches this app. Locally there is no proxy, so mimic it in dev only.

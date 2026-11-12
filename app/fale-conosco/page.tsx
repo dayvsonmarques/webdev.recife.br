@@ -25,7 +25,7 @@ export default async function FaleConoscoPage() {
             as="h1"
             eyebrow="Contato"
             title="Fale conosco"
-            intro="Tem uma dúvida rápida ou prefere não preencher o formulário completo de orçamento? Manda uma mensagem."
+            intro="Dúvida sobre um app ou um plano? Mande uma mensagem. A gente responde em até 2 dias úteis."
             className="mb-16"
           />
           <ContactForm />

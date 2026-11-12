@@ -1,8 +1,8 @@
-import { InstagramLink } from '@/components/InstagramLink'
 import { ButtonLink } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { Section } from '@/components/ui/Section'
 import { SectionHeader } from '@/components/ui/SectionHeader'
+import { MAIN_TRIAL_HREF } from '@/lib/trial'
 
 interface ContactProps {
   eyebrow: string
@@ -24,8 +24,8 @@ export function Contact({ eyebrow, title, text, cta, whatsappHref }: ContactProp
       <Container className="relative flex flex-col gap-12">
         <SectionHeader eyebrow={eyebrow} title={title} intro={text} size="title" />
         <div className="flex flex-wrap gap-3 sm:gap-4">
-          <ButtonLink href="/orcamento" arrow>
-            Solicitar orçamento
+          <ButtonLink href={MAIN_TRIAL_HREF} arrow>
+            Solicitar teste
           </ButtonLink>
           {whatsappHref && (
             <ButtonLink href={whatsappHref} variant="secondary">
@@ -33,7 +33,6 @@ export function Contact({ eyebrow, title, text, cta, whatsappHref }: ContactProp
             </ButtonLink>
           )}
         </div>
-        <InstagramLink className="-mt-6 w-fit" />
       </Container>
     </Section>
   )

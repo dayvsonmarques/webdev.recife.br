@@ -1,5 +1,6 @@
 import { ButtonLink } from '@/components/ui/Button'
 import { cn } from '@/components/ui/cn'
+import { MAIN_TRIAL_HREF } from '@/lib/trial'
 
 export function IconCheck() {
   return (
@@ -16,8 +17,8 @@ export function PlanCard({
   features,
   highlighted,
   badgeLabel = 'Mais popular',
-  ctaHref = '/orcamento',
-  ctaLabel = 'Começar agora',
+  ctaHref = MAIN_TRIAL_HREF,
+  ctaLabel = 'Quero testar',
 }: {
   name: string
   /** null shows "A combinar". */
