@@ -71,7 +71,7 @@ export default async function RootLayout({
               name: 'Web Dev Recife',
               url: SITE_URL,
               description: config.seoDescription,
-              areaServed: { '@type': 'City', name: 'Recife' },
+              areaServed: { '@type': 'Country', name: 'Brasil' },
               address: {
                 '@type': 'PostalAddress',
                 addressLocality: 'Recife',

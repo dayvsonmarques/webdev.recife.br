@@ -10,7 +10,7 @@ const GROUPS: { title: string; items: [IconId, string][] }[] = [
     title: 'Ainda não vende pela internet?',
     items: [
       ['clock', 'Sua loja aberta 24 horas, até com a porta fechada'],
-      ['pin', 'Clientes de outros bairros e cidades'],
+      ['pin', 'Clientes de outras cidades e estados'],
       ['image', 'O cliente vê foto e preço sozinho, sem perguntar um por um'],
       ['list', 'Pedido chega organizado, com itens e endereço'],
       ['card', 'Receba por Pix e cartão, sem maquininha'],
@@ -22,7 +22,7 @@ const GROUPS: { title: string; items: [IconId, string][] }[] = [
     items: [
       ['tag', 'Preço fixo por mês, sem surpresa'],
       ['unlock', 'Sem fidelidade: cancele quando quiser'],
-      ['chat', 'Atendimento de gente daqui, pelo WhatsApp'],
+      ['chat', 'Atendimento de gente de verdade, pelo WhatsApp'],
       ['phone', 'Painel simples, que funciona no celular'],
       ['store', 'Loja com a cara da sua marca'],
       ['check', 'Teste antes de trocar, sem compromisso'],
